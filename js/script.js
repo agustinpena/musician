@@ -3,42 +3,49 @@ const musicData = [
   {
     title: "Nocturno en Mi Mayor",
     year: "2024",
-    img: "https://images.unsplash.com/photo-1494232410401-ad00d543398f?auto=format&fit=crop&w=600&q=80",
+    img: "/images/music/nocturno.jpg?auto=format&fit=crop&w=600&q=80",
   },
+
   {
     title: "Memorias del Sur",
     year: "2023",
-    img: "https://images.unsplash.com/photo-1552422535-c45813c61732?auto=format&fit=crop&w=600&q=80",
+    img: "/images/music/memorias.jpg?auto=format&fit=crop&w=600&q=80",
   },
+
   {
     title: "Preludio en Azul",
     year: "2022",
-    img: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=600&q=80",
+    img: "/images/music/preludio.jpg?auto=format&fit=crop&w=600&q=80",
   },
+
   {
     title: "Vals para Elena",
     year: "2021",
-    img: "https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=600&q=80",
+    img: "/images/music/vals.jpg?auto=format&fit=crop&w=600&q=80",
   },
+
   {
     title: "Lluvia en la Ventana",
     year: "2020",
-    img: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=600&q=80",
+    img: "/images/music/lluvia.jpg?auto=format&fit=crop&w=600&q=80",
   },
+
   {
     title: "Canción de Cuna",
     year: "2019",
-    img: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80",
+    img: "/images/music/cuna.jpg?auto=format&fit=crop&w=600&q=80",
   },
+
   {
     title: "Reflejos",
     year: "2018",
-    img: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&w=600&q=80",
+    img: "/images/music/reflejos.jpg?auto=format&fit=crop&w=600&q=80",
   },
+
   {
     title: "El Último Adiós",
     year: "2017",
-    img: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=600&q=80",
+    img: "/images/music/adios.jpg?auto=format&fit=crop&w=600&q=80",
   },
 ];
 
@@ -46,43 +53,40 @@ const videoData = [
   {
     title: "Nocturno en Mi Mayor — Sala Nezahualcóyotl",
     type: "Concierto en Vivo 2024",
-    thumb:
-      "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80",
+    thumb: "/images/videos/live-nocturno.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "jFbWGBV8kcI",
   },
+
   {
     title: "Memorias del Sur — Recital Teatro Colón",
     type: "Concierto en Vivo 2024",
-    thumb:
-      "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=800&q=80",
+    thumb: "/images/videos/live-memorias.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "HEFNBpbGg5M",
   },
+
   {
     title: "Preludio en Azul — Sesión de Estudio",
     type: "Estudio 2023",
-    thumb:
-      "https://images.unsplash.com/photo-1552422535-c45813c61732?auto=format&fit=crop&w=800&q=80",
+    thumb: "/images/videos/live-preludio.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "4Tr0otuiQuU",
   },
   {
     title: "Vals para Elena — Festival de Invierno",
     type: "Concierto en Vivo 2023",
-    thumb:
-      "https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=800&q=80",
+    thumb: "/images/videos/live-vals.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "lTRiuFIWV54",
   },
   {
     title: "Lluvia en la Ventana — Casa de la Cultura",
     type: "Concierto en Vivo 2022",
-    thumb:
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=80",
+    thumb: "/images/videos/live-lluvia.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "9B3QQSXbBP0",
   },
+  // /images/videos/live-reflejos.jpg?auto=format&fit=crop&w=800&q=80
   {
     title: "Reflejos — Recital Íntimo",
     type: "Concierto en Vivo 2022",
-    thumb:
-      "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&w=800&q=80",
+    thumb: "/images/videos/live-reflejos.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "MPE5MfLu2AE",
   },
 ];
@@ -115,14 +119,14 @@ const concertData = [
 ];
 
 const galleryImages = [
-  "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1552422535-c45813c61732?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1494232410401-ad00d543398f?auto=format&fit=crop&w=600&q=80",
+  "/images/gallery/gallery-01.jpg?auto=format&fit=crop&w=900&q=80",
+  "/images/gallery/gallery-02.jpg?auto=format&fit=crop&w=600&q=80",
+  "/images/gallery/gallery-03.jpg?auto=format&fit=crop&w=600&q=80",
+  "/images/gallery/gallery-04.jpg?auto=format&fit=crop&w=600&q=80",
+  "/images/gallery/gallery-05.jpg?auto=format&fit=crop&w=600&q=80",
+  "/images/gallery/gallery-06.jpg?auto=format&fit=crop&w=900&q=80",
+  "/images/gallery/gallery-07.jpg?auto=format&fit=crop&w=600&q=80",
+  "/images/gallery/gallery-08.jpg?auto=format&fit=crop&w=600&q=80",
 ];
 
 /* ---------- Render dynamic sections ---------- */

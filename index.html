@@ -3,10 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Roberto Pérez — Pianista & Compositor</title>
+    <title>Alberto Méndez — Pianista & Compositor</title>
     <meta
       name="description"
-      content="Portafolio oficial de Roberto Pérez, pianista y compositor. Escucha composiciones originales, mira presentaciones en vivo y contrata para eventos."
+      content="Portafolio oficial de Alberto Méndez, pianista y compositor. Escucha composiciones originales, mira presentaciones en vivo y contrata para eventos."
+    />
+    <!-- ============== FAVICON ================== -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎹%3C/text%3E%3C/svg%3E"
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,14 +24,16 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- =============== CSS =============== -->
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
     <!-- ============ HEADER ============ -->
     <header class="header" id="header">
       <div class="container header-inner">
         <a href="#home" class="logo" data-link="home"
-          >Roberto <span>Pérez</span></a
+          >Alberto <span>Méndez</span></a
         >
         <nav class="nav" id="nav">
           <ul>
@@ -45,14 +52,15 @@
       </div>
     </header>
 
-    <!-- ============ HOME ============ -->
+    <!-- ============ HERO / HOME ============ -->
+    <!-- ===== hero.webp is in style.css ===== -->
     <main>
       <section class="page active" id="home">
         <div class="hero">
           <div class="hero-bg"></div>
           <div class="hero-content">
             <span class="eyebrow">Bienvenido</span>
-            <h1>Roberto <span class="gold">Pérez</span></h1>
+            <h1>Alberto <span class="gold">Méndez</span></h1>
             <p class="tagline">Pianista &amp; Compositor</p>
             <div class="hero-buttons">
               <a href="#music" data-link="music" class="btn btn-primary">
@@ -77,9 +85,9 @@
               class="fade-in"
               style="color: var(--text-dim); font-size: 1.05rem"
             >
-              Durante más de quince años, Roberto Pérez ha traducido el silencio
-              en sonido — componiendo piezas íntimas que beben de la tradición
-              clásica, el tango y el minimalismo contemporáneo.
+              Durante más de quince años, Alberto Méndez ha traducido el
+              silencio en sonido — componiendo piezas íntimas que beben de la
+              tradición clásica, el tango y el minimalismo contemporáneo.
             </p>
             <div style="margin-top: 2rem" class="fade-in">
               <a
@@ -103,20 +111,20 @@
             <div class="bio-grid">
               <div class="bio-photo fade-in">
                 <img
-                  src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=800&q=80"
-                  alt="Retrato de Roberto Pérez"
+                  src="/images/bio.jpg?auto=format&fit=crop&w=800&q=80"
+                  alt="Retrato de Alberto Méndez"
                 />
               </div>
               <div class="bio-text fade-in">
                 <p>
-                  <strong>Roberto Pérez</strong> nació en Cd de Guatemala, donde
+                  <strong>Alberto Méndez</strong> nació en Buenos Aires, donde
                   el sonido del piano vertical de su abuela se convirtió en el
                   primer paisaje de su memoria. A los siete años comenzó sus
                   estudios formales en el Conservatorio Nacional, y a los quince
                   ya había ofrecido su primer recital como solista.
                 </p>
                 <p>
-                  A lo largo de una <strong>carrera de 15 años</strong>, Roberto
+                  A lo largo de una <strong>carrera de 15 años</strong>, Alberto
                   ha construido una voz singular que une la tradición romántica
                   con el minimalismo contemporáneo. Sus composiciones — a menudo
                   inspiradas en la memoria, el paisaje y el drama silencioso de
@@ -169,7 +177,7 @@
             <p class="section-subtitle fade-in">
               Una selección de obras originales para piano compuestas entre 2014
               y 2025. Cada pieza es un pequeño universo — compuesto,
-              interpretado y grabado por Roberto Pérez.
+              interpretado y grabado por Alberto Méndez.
             </p>
 
             <div class="music-grid" id="musicGrid"></div>
@@ -245,7 +253,7 @@
                     <i class="fas fa-envelope"></i>
                     <div>
                       <strong>Correo Electrónico</strong>
-                      <span>contacto@Robertomendez.com</span>
+                      <span>contacto@albertomendez.com</span>
                     </div>
                   </li>
                   <li>
@@ -259,7 +267,7 @@
                     <i class="fas fa-map-marker-alt"></i>
                     <div>
                       <strong>Ubicación</strong>
-                      <span>Cd de Guatemala, Guatemala</span>
+                      <span>Buenos Aires, Argentina</span>
                     </div>
                   </li>
                 </ul>
@@ -299,12 +307,7 @@
         <button class="modal-close" id="modalClose" aria-label="Cerrar">
           <i class="fas fa-times"></i>
         </button>
-        <iframe
-          id="modalIframe"
-          src=""
-          allow="autoplay; encrypted-media"
-          allowfullscreen
-        ></iframe>
+        <iframe id="modalIframe" src="" allowfullscreen></iframe>
       </div>
     </div>
 
@@ -314,11 +317,11 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <a href="#home" data-link="home" class="logo"
-              >Roberto <span>Pérez</span></a
+              >Alberto <span>Méndez</span></a
             >
             <p>
-              Pianista y compositor de Cd de Guatemala. Traduciendo el silencio
-              en sonido desde 2010.
+              Pianista y compositor de Buenos Aires. Traduciendo el silencio en
+              sonido desde 2010.
             </p>
             <div class="social-icons">
               <a href="#" aria-label="Spotify"
@@ -350,18 +353,18 @@
               <li><a href="#concerts" data-link="concerts">Conciertos</a></li>
               <li><a href="#gallery" data-link="gallery">Galería</a></li>
               <li><a href="#contact" data-link="contact">Contacto</a></li>
-              <li><a href="mailto:contacto@Robertomendez.com">Correo</a></li>
+              <li><a href="mailto:contacto@albertomendez.com">Correo</a></li>
             </ul>
           </div>
         </div>
         <div class="footer-bottom">
-          © 2026 <span class="gold">Roberto Pérez</span> — Todos los derechos
+          © 2026 <span class="gold">Alberto Méndez</span> — Todos los derechos
           reservados. Hecho con pasión.
         </div>
       </div>
     </footer>
 
     <!-- JavaScript -->
-    <script src="js/script.js"></script>
+    <script src="/js/script.js"></script>
   </body>
 </html>
