@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roberto Pérez-Chamalé — Pianista & Compositor</title>
+    <meta
+      name="description"
+      content="Portafolio oficial de Roberto Pérez-Chamalé, pianista y compositor. Escuche composiciones originales, mire presentaciones en vivo y contrate para eventos."
+    />
+    <!-- ============== FAVICON ================== -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎹%3C/text%3E%3C/svg%3E"
+    />
+    <!-- =============== FONTS GOOGLE & AWESOME =============== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- =============== CSS =============== -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <!-- == This project has NO tailwind!! === -->
+  </head>
+  <body>
+    <!-- ============ HEADER ============ -->
+    <header class="header" id="header">
+      <div class="container header-inner">
+        <a href="#home" class="logo" data-link="home"
+          >Roberto <span>Pérez-Chamalé</span></a
+        >
+        <nav class="nav" id="nav">
+          <ul>
+            <li><a href="#home" data-link="home" class="active">Inicio</a></li>
+            <li><a href="#biography" data-link="biography">Biografía</a></li>
+            <li><a href="#music" data-link="music">Música</a></li>
+            <li><a href="#videos" data-link="videos">Videos</a></li>
+            <li><a href="#concerts" data-link="concerts">Conciertos</a></li>
+            <li><a href="#gallery" data-link="gallery">Galería</a></li>
+            <li><a href="#contact" data-link="contact">Contacto</a></li>
+          </ul>
+        </nav>
+        <button class="hamburger" id="hamburger" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ============ HERO / HOME ============ -->
+    <!-- ===== hero.webp is in style.css ===== -->
+    <main>
+      <section class="page active" id="home">
+        <div class="hero">
+          <div class="hero-bg"></div>
+          <div class="hero-content">
+            <span class="eyebrow">Bienvenido</span>
+            <h1>Roberto <span class="gold">Pérez-Chamalé</span></h1>
+            <p class="tagline">Pianista &amp; Compositor</p>
+            <div class="hero-buttons">
+              <a href="#music" data-link="music" class="btn btn-primary">
+                <i class="fas fa-headphones"></i> Escuchar Música
+              </a>
+              <a href="#contact" data-link="contact" class="btn btn-outline">
+                <i class="fas fa-calendar-check"></i> Contratar para Eventos
+              </a>
+            </div>
+          </div>
+          <div class="scroll-indicator">Scroll</div>
+        </div>
+
+        <!-- Quick intro below hero -->
+        <div class="section">
+          <div class="container" style="text-align: center; max-width: 760px">
+            <span class="eyebrow fade-in">Sobre el Artista</span>
+            <h2 class="section-title fade-in">
+              Donde la emoción se encuentra con el teclado.
+            </h2>
+            <p
+              class="fade-in"
+              style="color: var(--text-dim); font-size: 1.05rem"
+            >
+              Durante más de quince años, Roberto Pérez-Chamalé ha traducido el
+              silencio en sonido — componiendo piezas íntimas que beben de la
+              tradición clásica, el tango y el minimalismo contemporáneo.
+            </p>
+            <div style="margin-top: 2rem" class="fade-in">
+              <a
+                href="#biography"
+                data-link="biography"
+                class="btn btn-outline btn-sm"
+                >Leer la Historia</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ BIOGRAPHY ============ -->
+      <section class="page" id="biography">
+        <div class="section">
+          <div class="container">
+            <span class="eyebrow fade-in">Biografía</span>
+            <h2 class="section-title fade-in">Una vida dedicada al piano.</h2>
+
+            <div class="bio-grid">
+              <div class="bio-photo fade-in">
+                <img
+                  src="/images/bio.jpg?auto=format&fit=crop&w=800&q=80"
+                  alt="Retrato de Roberto Pérez-Chamalé"
+                />
+              </div>
+              <div class="bio-text fade-in">
+                <p>
+                  <strong>Roberto Pérez-Chamalé</strong> nació en Guatemala,
+                  donde el sonido del piano vertical de su abuela se convirtió
+                  en el primer paisaje de su memoria. A los siete años comenzó
+                  sus estudios formales en el Conservatorio Nacional, y a los
+                  quince ya había ofrecido su primer recital como solista.
+                </p>
+                <p>
+                  A lo largo de una <strong>carrera de 15 años</strong>, Roberto
+                  ha construido una voz singular que une la tradición romántica
+                  con el minimalismo contemporáneo. Sus composiciones — a menudo
+                  inspiradas en la memoria, el paisaje y el drama silencioso de
+                  la vida cotidiana — han sido interpretadas en salas de
+                  conciertos de América Latina y Europa.
+                </p>
+                <p>
+                  Su obra se encuentra en la encrucijada del lirismo de Chopin,
+                  la imaginación colorística de Debussy, el tango inquieto de
+                  Piazzolla y la claridad cinematográfica de Einaudi. Cada pieza
+                  es una invitación a detenerse, a escuchar y a recordar.
+                </p>
+
+                <div class="influences">
+                  <h4>Influencias Musicales</h4>
+                  <div class="influences-list">
+                    <span>Frédéric Chopin</span>
+                    <span>Claude Debussy</span>
+                    <span>Astor Piazzolla</span>
+                    <span>Ludovico Einaudi</span>
+                  </div>
+                </div>
+
+                <div class="stats">
+                  <div class="stat">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Años de Carrera</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Composiciones Originales</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Conciertos</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ MUSIC ============ -->
+      <section class="page" id="music">
+        <div class="section">
+          <div class="container">
+            <span class="eyebrow fade-in">Composiciones Originales</span>
+            <h2 class="section-title fade-in">La Música.</h2>
+            <p class="section-subtitle fade-in">
+              Una selección de obras originales para piano compuestas entre 2014
+              y 2025. Cada pieza es un pequeño universo — compuesto,
+              interpretado y grabado por Roberto Pérez-Chamalé.
+            </p>
+
+            <div class="music-grid" id="musicGrid"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ VIDEOS ============ -->
+      <section class="page" id="videos">
+        <div class="section">
+          <div class="container">
+            <span class="eyebrow fade-in">Presentaciones en Vivo</span>
+            <h2 class="section-title fade-in">En el Escenario.</h2>
+            <p class="section-subtitle fade-in">
+              Grabaciones de conciertos y recitales — capturadas en la intimidad
+              del momento.
+            </p>
+
+            <div class="video-grid" id="videoGrid"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONCERTS ============ -->
+      <section class="page" id="concerts">
+        <div class="section">
+          <div class="container">
+            <span class="eyebrow fade-in">Próximas Fechas</span>
+            <h2 class="section-title fade-in">Conciertos &amp; Calendario.</h2>
+            <p class="section-subtitle fade-in">
+              Acompáñame en un próximo recital. Las entradas están disponibles
+              en las taquillas oficiales de cada sede.
+            </p>
+
+            <div class="concert-list" id="concertList"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ GALLERY ============ -->
+      <section class="page" id="gallery">
+        <div class="section">
+          <div class="container">
+            <span class="eyebrow fade-in">Galería</span>
+            <h2 class="section-title fade-in">Momentos en Imagen.</h2>
+            <p class="section-subtitle fade-in">
+              Fotografías artísticas de conciertos, ensayos y los espacios
+              silenciosos entre notas.
+            </p>
+
+            <div class="gallery-grid" id="galleryGrid"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACT ============ -->
+      <section class="page" id="contact">
+        <div class="section">
+          <div class="container">
+            <span class="eyebrow fade-in">Contacto</span>
+            <h2 class="section-title fade-in">Creemos algo juntos.</h2>
+
+            <div class="contact-grid">
+              <div class="contact-info fade-in">
+                <h3>Consultas Profesionales</h3>
+                <p>
+                  Para contrataciones, colaboraciones, prensa o simplemente para
+                  saludar — me encantaría saber de ti. Normalmente respondo en
+                  un plazo de 48 horas.
+                </p>
+                <ul class="contact-list">
+                  <li>
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                      <strong>Correo Electrónico</strong>
+                      <span>contacto@Robertomendez.com</span>
+                    </div>
+                  </li>
+                  <li>
+                    <i class="fas fa-phone"></i>
+                    <div>
+                      <strong>Teléfono</strong>
+                      <span>+54 11 4567 8900</span>
+                    </div>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                      <strong>Ubicación</strong>
+                      <span>Guatemala, Argentina</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <form class="contact-form fade-in" id="contactForm" novalidate>
+                <div class="form-group">
+                  <label for="name">Nombre</label>
+                  <input type="text" id="name" name="name" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">Correo Electrónico</label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                  <label for="message">Mensaje</label>
+                  <textarea id="message" name="message" required></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="width: 100%; justify-content: center"
+                >
+                  <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                </button>
+                <div class="form-status" id="formStatus"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ VIDEO MODAL ============ -->
+    <div class="modal" id="videoModal">
+      <div class="modal-content">
+        <button class="modal-close" id="modalClose" aria-label="Cerrar">
+          <i class="fas fa-times"></i>
+        </button>
+        <iframe id="modalIframe" src="" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="#home" data-link="home" class="logo"
+              >Roberto <span>Pérez-Chamalé</span></a
+            >
+            <p>
+              Пианист и композитор из Гватемалы. С 2010 года воплощает тишину в
+              звук.
+            </p>
+            <div class="social-icons">
+              <a href="#" aria-label="Spotify"
+                ><i class="fab fa-spotify"></i
+              ></a>
+              <a href="#" aria-label="Apple Music"
+                ><i class="fab fa-apple"></i
+              ></a>
+              <a href="#" aria-label="YouTube"
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
+          </div>
+          <div>
+            <h4>Explorar</h4>
+            <ul class="footer-links">
+              <li><a href="#home" data-link="home">Inicio</a></li>
+              <li><a href="#biography" data-link="biography">Biografía</a></li>
+              <li><a href="#music" data-link="music">Música</a></li>
+              <li><a href="#videos" data-link="videos">Videos</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Conectar</h4>
+            <ul class="footer-links">
+              <li><a href="#concerts" data-link="concerts">Conciertos</a></li>
+              <li><a href="#gallery" data-link="gallery">Galería</a></li>
+              <li><a href="#contact" data-link="contact">Contacto</a></li>
+              <li><a href="mailto:contacto@Robertomendez.com">Correo</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          © 2026 <span class="gold">Roberto Pérez-Chamalé</span> — Todos los
+          derechos reservados. Hecho con pasión.
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/js/script.js"></script>
+  </body>
+</html>

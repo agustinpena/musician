@@ -1,49 +1,49 @@
 /* ---------- Data ---------- */
 const musicData = [
   {
-    title: "Ноктюрн ми мажор",
+    title: "Nocturno en Mi Mayor",
     year: "2024",
     img: "/images/music/nocturno.jpg?auto=format&fit=crop&w=600&q=80",
   },
 
   {
-    title: "Воспоминания о юге",
+    title: "Memorias del Sur",
     year: "2023",
     img: "/images/music/memorias.jpg?auto=format&fit=crop&w=600&q=80",
   },
 
   {
-    title: "Прелюдия в синем",
+    title: "Preludio en Azul",
     year: "2022",
     img: "/images/music/preludio.jpg?auto=format&fit=crop&w=600&q=80",
   },
 
   {
-    title: "Вальс для Елены",
+    title: "Vals para Elena",
     year: "2021",
     img: "/images/music/vals.jpg?auto=format&fit=crop&w=600&q=80",
   },
 
   {
-    title: "Дождь за окном",
+    title: "Lluvia en la Ventana",
     year: "2020",
     img: "/images/music/lluvia.jpg?auto=format&fit=crop&w=600&q=80",
   },
 
   {
-    title: "Колыбельная",
+    title: "Canción de Cuna",
     year: "2019",
     img: "/images/music/cuna.jpg?auto=format&fit=crop&w=600&q=80",
   },
 
   {
-    title: "Отражения",
+    title: "Reflejos",
     year: "2018",
     img: "/images/music/reflejos.jpg?auto=format&fit=crop&w=600&q=80",
   },
 
   {
-    title: "Последнее прощание",
+    title: "El Último Adiós",
     year: "2017",
     img: "/images/music/adios.jpg?auto=format&fit=crop&w=600&q=80",
   },
@@ -51,40 +51,41 @@ const musicData = [
 
 const videoData = [
   {
-    title: "Ноктюрн ми мажор — Зал Несауалькойотль",
-    type: "Концерт вживую, 2024",
+    title: "Nocturno en Mi Mayor — Sala Nezahualcóyotl",
+    type: "Concierto en Vivo 2024",
     thumb: "/images/videos/live-nocturno.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "jFbWGBV8kcI",
   },
 
   {
-    title: "Воспоминания о юге — Концерт в театре Колон",
-    type: "Концерт вживую, 2024",
+    title: "Memorias del Sur — Recital Teatro Colón",
+    type: "Concierto en Vivo 2024",
     thumb: "/images/videos/live-memorias.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "HEFNBpbGg5M",
   },
 
   {
-    title: "Прелюдия в синем — Студийная сессия",
-    type: "Студия, 2023",
+    title: "Preludio en Azul — Sesión de Estudio",
+    type: "Estudio 2023",
     thumb: "/images/videos/live-preludio.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "4Tr0otuiQuU",
   },
   {
-    title: "Вальс для Елены — Зимний фестиваль",
-    type: "Концерт вживую, 2023",
+    title: "Vals para Elena — Festival de Invierno",
+    type: "Concierto en Vivo 2023",
     thumb: "/images/videos/live-vals.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "lTRiuFIWV54",
   },
   {
-    title: "Дождь за окном — Дом культуры",
-    type: "Концерт вживую, 2022",
+    title: "Lluvia en la Ventana — Casa de la Cultura",
+    type: "Concierto en Vivo 2022",
     thumb: "/images/videos/live-lluvia.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "9B3QQSXbBP0",
   },
+  // /images/videos/live-reflejos.jpg?auto=format&fit=crop&w=800&q=80
   {
-    title: "Отражения — Камерный концерт",
-    type: "Концерт вживую, 2022",
+    title: "Reflejos — Recital Íntimo",
+    type: "Concierto en Vivo 2022",
     thumb: "/images/videos/live-reflejos.jpg?auto=format&fit=crop&w=800&q=80",
     ytId: "MPE5MfLu2AE",
   },
@@ -93,27 +94,27 @@ const videoData = [
 const concertData = [
   {
     day: "28",
-    month: "авг",
-    title: "Ноктюрны — Сольный концерт",
-    venue: "Зал Несауалькойотль",
-    city: "Мехико, MX",
-    time: "20:00",
+    month: "Ago",
+    title: "Nocturnos — Recital en Solitario",
+    venue: "Sala Nezahualcóyotl",
+    city: "Ciudad de México, MX",
+    time: "20:00 h",
   },
   {
     day: "14",
-    month: "сен",
-    title: "Воспоминания о юге — Презентация альбома",
-    venue: "Театр Колон",
-    city: "Буэнос-Айрес, AR",
-    time: "21:00",
+    month: "Sep",
+    title: "Memorias del Sur — Lanzamiento de Álbum",
+    venue: "Teatro Colón",
+    city: "Buenos Aires, AR",
+    time: "21:00 h",
   },
   {
     day: "05",
-    month: "окт",
-    title: "Вечер с Шопеном",
-    venue: "Дворец музыки",
-    city: "Барселона, ES",
-    time: "19:30",
+    month: "Oct",
+    title: "Una Noche con Chopin",
+    venue: "Palau de la Música",
+    city: "Barcelona, ES",
+    time: "19:30 h",
   },
 ];
 
@@ -137,11 +138,11 @@ function renderMusic() {
     <article class="music-card fade-in">
       <div class="music-art">
         <img src="${m.img}" alt="${m.title}" loading="lazy" />
-        <button class="play-btn" aria-label="Воспроизвести ${m.title}"><i class="fas fa-play"></i></button>
+        <button class="play-btn" aria-label="Reproducir ${m.title}"><i class="fas fa-play"></i></button>
       </div>
       <div class="music-info">
         <h3>${m.title}</h3>
-        <span class="year">Сочинено в ${m.year}</span>
+        <span class="year">Compuesta en ${m.year}</span>
       </div>
     </article>
   `,
@@ -189,7 +190,7 @@ function renderConcerts() {
           <span><i class="fas fa-clock"></i>${c.time}</span>
         </div>
       </div>
-      <a href="#" class="btn btn-primary btn-sm">Купить билеты</a>
+      <a href="#" class="btn btn-primary btn-sm">Comprar Entradas</a>
     </div>
   `,
     )
@@ -202,7 +203,7 @@ function renderGallery() {
     .map(
       (src, i) => `
     <div class="gallery-item fade-in">
-      <img src="${src}" alt="Фото галереи ${i + 1}" loading="lazy" />
+      <img src="${src}" alt="Imagen de galería ${i + 1}" loading="lazy" />
     </div>
   `,
     )
@@ -219,8 +220,10 @@ function navigateTo(pageId) {
     a.classList.toggle("active", a.dataset.link === pageId);
   });
   window.scrollTo({ top: 0, behavior: "instant" });
+  // close mobile menu
   document.getElementById("nav").classList.remove("open");
   document.getElementById("hamburger").classList.remove("open");
+  // re-trigger fade-ins
   setTimeout(initFadeObserver, 50);
 }
 
@@ -310,21 +313,21 @@ form.addEventListener("submit", (e) => {
 
   if (!name || !email || !message) {
     formStatus.className = "form-status error";
-    formStatus.textContent = "Пожалуйста, заполните все поля.";
+    formStatus.textContent = "Por favor, completa todos los campos.";
     return;
   }
   if (!emailRe.test(email)) {
     formStatus.className = "form-status error";
-    formStatus.textContent =
-      "Пожалуйста, введите действительный адрес электронной почты.";
+    formStatus.textContent = "Por favor, ingresa un correo electrónico válido.";
     return;
   }
 
+  // Simulate sending
   formStatus.className = "form-status success";
   formStatus.textContent =
-    "✓ Благодарю, " +
+    "✓ Gracias, " +
     name +
-    ". Ваше сообщение отправлено. Я отвечу в течение 48 часов.";
+    ". Tu mensaje ha sido enviado. Responderé en un plazo de 48 horas.";
   form.reset();
   setTimeout(() => {
     formStatus.className = "form-status";
@@ -339,5 +342,6 @@ renderConcerts();
 renderGallery();
 initFadeObserver();
 
+// Handle initial hash
 const initialHash = location.hash.replace("#", "") || "home";
 if (initialHash !== "home") navigateTo(initialHash);
