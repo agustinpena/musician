@@ -2,52 +2,31 @@
 const musicData = [
   {
     title: "Менуэт «Иллюзия»",
-    year: "2024",
+    year: "1986",
     img: "/images/music/nocturno.jpg?auto=format&fit=crop&w=600&q=80",
     audio: "/audio/minueto.mp3",
   },
 
   {
-    title: "Воспоминания о юге",
-    year: "2023",
+    title: "Мерседес Вальс",
+    year: "2018",
     img: "/images/music/memorias.jpg?auto=format&fit=crop&w=600&q=80",
+    audio: "/audio/mercedes.mp3",
   },
 
   {
-    title: "Прелюдия в синем",
-    year: "2022",
+    title: "Прелюдия и фуга Баха",
+    year: "2021",
     img: "/images/music/preludio.jpg?auto=format&fit=crop&w=600&q=80",
+    audio: "/audio/preludio.mp3",
   },
 
   {
-    title: "Вальс для Елены",
+    title: "Ин Парадисум",
     year: "2021",
     img: "/images/music/vals.jpg?auto=format&fit=crop&w=600&q=80",
+    audio: "/audio/paradisum.mp3",
   },
-
-  // {
-  //   title: "Дождь за окном",
-  //   year: "2020",
-  //   img: "/images/music/lluvia.jpg?auto=format&fit=crop&w=600&q=80",
-  // },
-
-  // {
-  //   title: "Колыбельная",
-  //   year: "2019",
-  //   img: "/images/music/cuna.jpg?auto=format&fit=crop&w=600&q=80",
-  // },
-
-  // {
-  //   title: "Отражения",
-  //   year: "2018",
-  //   img: "/images/music/reflejos.jpg?auto=format&fit=crop&w=600&q=80",
-  // },
-
-  // {
-  //   title: "Последнее прощание",
-  //   year: "2017",
-  //   img: "/images/music/adios.jpg?auto=format&fit=crop&w=600&q=80",
-  // },
 ];
 
 const videoData = [
