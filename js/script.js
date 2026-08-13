@@ -1,9 +1,10 @@
 /* ---------- Data ---------- */
 const musicData = [
   {
-    title: "Ноктюрн ми мажор",
+    title: "Менуэт «Иллюзия»",
     year: "2024",
     img: "/images/music/nocturno.jpg?auto=format&fit=crop&w=600&q=80",
+    audio: "/audio/minueto.mp3",
   },
 
   {
@@ -24,29 +25,29 @@ const musicData = [
     img: "/images/music/vals.jpg?auto=format&fit=crop&w=600&q=80",
   },
 
-  {
-    title: "Дождь за окном",
-    year: "2020",
-    img: "/images/music/lluvia.jpg?auto=format&fit=crop&w=600&q=80",
-  },
+  // {
+  //   title: "Дождь за окном",
+  //   year: "2020",
+  //   img: "/images/music/lluvia.jpg?auto=format&fit=crop&w=600&q=80",
+  // },
 
-  {
-    title: "Колыбельная",
-    year: "2019",
-    img: "/images/music/cuna.jpg?auto=format&fit=crop&w=600&q=80",
-  },
+  // {
+  //   title: "Колыбельная",
+  //   year: "2019",
+  //   img: "/images/music/cuna.jpg?auto=format&fit=crop&w=600&q=80",
+  // },
 
-  {
-    title: "Отражения",
-    year: "2018",
-    img: "/images/music/reflejos.jpg?auto=format&fit=crop&w=600&q=80",
-  },
+  // {
+  //   title: "Отражения",
+  //   year: "2018",
+  //   img: "/images/music/reflejos.jpg?auto=format&fit=crop&w=600&q=80",
+  // },
 
-  {
-    title: "Последнее прощание",
-    year: "2017",
-    img: "/images/music/adios.jpg?auto=format&fit=crop&w=600&q=80",
-  },
+  // {
+  //   title: "Последнее прощание",
+  //   year: "2017",
+  //   img: "/images/music/adios.jpg?auto=format&fit=crop&w=600&q=80",
+  // },
 ];
 
 const videoData = [
@@ -129,12 +130,13 @@ const galleryImages = [
 ];
 
 /* ---------- Render dynamic sections ---------- */
+
 function renderMusic() {
   const grid = document.getElementById("musicGrid");
   grid.innerHTML = musicData
     .map(
-      (m) => `
-    <article class="music-card fade-in">
+      (m, index) => `
+    <article class="music-card fade-in" data-index="${index}">
       <div class="music-art">
         <img src="${m.img}" alt="${m.title}" loading="lazy" />
         <button class="play-btn" aria-label="Воспроизвести ${m.title}"><i class="fas fa-play"></i></button>
@@ -147,7 +149,78 @@ function renderMusic() {
   `,
     )
     .join("");
+
+  // --- Audio playback logic ---
+  let currentAudio = null;
+  let currentPlayingIndex = null;
+
+  grid.querySelectorAll(".music-card").forEach((card) => {
+    const index = parseInt(card.dataset.index);
+    const playBtn = card.querySelector(".play-btn");
+    const musicItem = musicData[index];
+
+    // Skip if no audio file is defined
+    if (!musicItem.audio) return;
+
+    playBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+
+      // If same track is clicked, toggle play/pause
+      if (currentPlayingIndex === index && currentAudio) {
+        if (currentAudio.paused) {
+          currentAudio.play();
+          this.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+          currentAudio.pause();
+          this.innerHTML = '<i class="fas fa-play"></i>';
+        }
+        return;
+      }
+
+      // Stop any currently playing audio
+      if (currentAudio) {
+        currentAudio.pause();
+        const prevBtn = document.querySelector(
+          `.music-card[data-index="${currentPlayingIndex}"] .play-btn`,
+        );
+        if (prevBtn) prevBtn.innerHTML = '<i class="fas fa-play"></i>';
+      }
+
+      // Create and play new audio
+      currentAudio = new Audio(musicItem.audio);
+      currentAudio.play();
+      currentPlayingIndex = index;
+      this.innerHTML = '<i class="fas fa-pause"></i>';
+
+      // Reset button when track ends
+      currentAudio.onended = () => {
+        this.innerHTML = '<i class="fas fa-play"></i>';
+        currentPlayingIndex = null;
+        currentAudio = null;
+      };
+    });
+  });
 }
+
+// function renderMusic() {
+//   const grid = document.getElementById("musicGrid");
+//   grid.innerHTML = musicData
+//     .map(
+//       (m) => `
+//     <article class="music-card fade-in">
+//       <div class="music-art">
+//         <img src="${m.img}" alt="${m.title}" loading="lazy" />
+//         <button class="play-btn" aria-label="Воспроизвести ${m.title}"><i class="fas fa-play"></i></button>
+//       </div>
+//       <div class="music-info">
+//         <h3>${m.title}</h3>
+//         <span class="year">Сочинено в ${m.year}</span>
+//       </div>
+//     </article>
+//   `,
+//     )
+//     .join("");
+// }
 
 function renderVideos() {
   const grid = document.getElementById("videoGrid");
