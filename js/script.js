@@ -31,42 +31,24 @@ const musicData = [
 
 const videoData = [
   {
-    title: "Ноктюрн ми мажор — Зал Несауалькойотль",
-    type: "Концерт вживую, 2024",
-    thumb: "/images/videos/live-nocturno.jpg?auto=format&fit=crop&w=800&q=80",
-    ytId: "jFbWGBV8kcI",
+    title: "Реквием по Младенцу Коренных народов.",
+    type: "Концерт вживую, 2022",
+    thumb: "/images/videos/concurso.jpg?auto=format&fit=crop&w=800&q=80",
+    ytId: "c0xHaeUXakc",
   },
 
   {
-    title: "Воспоминания о юге — Концерт в театре Колон",
-    type: "Концерт вживую, 2024",
-    thumb: "/images/videos/live-memorias.jpg?auto=format&fit=crop&w=800&q=80",
-    ytId: "HEFNBpbGg5M",
+    title: "Концерт Звуки двух культур - Часть I",
+    type: "Концерт вживую, 2017",
+    thumb: "/images/videos/culturas.jpg?auto=format&fit=crop&w=800&q=80",
+    ytId: "6pRHu5vnZzU",
   },
 
   {
-    title: "Прелюдия в синем — Студийная сессия",
+    title: "Аве Мария - Ансамбль Гватемальской гармоники",
     type: "Студия, 2023",
-    thumb: "/images/videos/live-preludio.jpg?auto=format&fit=crop&w=800&q=80",
-    ytId: "4Tr0otuiQuU",
-  },
-  {
-    title: "Вальс для Елены — Зимний фестиваль",
-    type: "Концерт вживую, 2023",
-    thumb: "/images/videos/live-vals.jpg?auto=format&fit=crop&w=800&q=80",
-    ytId: "lTRiuFIWV54",
-  },
-  {
-    title: "Дождь за окном — Дом культуры",
-    type: "Концерт вживую, 2022",
-    thumb: "/images/videos/live-lluvia.jpg?auto=format&fit=crop&w=800&q=80",
-    ytId: "9B3QQSXbBP0",
-  },
-  {
-    title: "Отражения — Камерный концерт",
-    type: "Концерт вживую, 2022",
-    thumb: "/images/videos/live-reflejos.jpg?auto=format&fit=crop&w=800&q=80",
-    ytId: "MPE5MfLu2AE",
+    thumb: "/images/videos/ave_maria.jpg?auto=format&fit=crop&w=800&q=80",
+    ytId: "NZ0tpb2Di-E",
   },
 ];
 
