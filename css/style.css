@@ -938,6 +938,244 @@ button {
   transform: translateY(0);
 }
 
+/* ---------- Press ---------- */
+.press-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.press-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.press-item:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Press Image Slider ---------- */
+.press-image-slider {
+  position: relative;
+  aspect-ratio: 16/10;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.press-image-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.press-image-item {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.press-image-item.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.press-image-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.6s ease;
+  background: var(--bg);
+}
+
+.press-image-slider:hover .press-image-item img {
+  transform: scale(1.02);
+}
+
+/* Navigation arrows */
+.press-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(11, 11, 14, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.press-image-slider:hover .press-nav {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.press-nav:hover {
+  background: var(--gold);
+  color: #0b0b0e;
+  border-color: var(--gold);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.press-nav-prev {
+  left: 12px;
+}
+
+.press-nav-next {
+  right: 12px;
+}
+
+/* Page counter */
+.press-page-counter {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 5;
+  background: rgba(11, 11, 14, 0.8);
+  backdrop-filter: blur(8px);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+.press-current-page {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+/* Dots */
+.press-dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  gap: 8px;
+  padding: 0.4rem 0.8rem;
+  background: rgba(11, 11, 14, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+.press-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  cursor: pointer;
+  transition: all var(--transition);
+  border: none;
+  padding: 0;
+}
+
+.press-dot:hover {
+  background: var(--gold-soft);
+  transform: scale(1.2);
+}
+
+.press-dot.active {
+  background: var(--gold);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ---------- Press Info ---------- */
+.press-info {
+  padding: 2rem 2.5rem;
+}
+
+.press-meta {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.press-magazine {
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.press-magazine i {
+  margin-right: 0.5rem;
+}
+
+.press-date {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.press-date i {
+  margin-right: 0.5rem;
+}
+
+.press-info h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.press-text {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+.press-text p {
+  margin-bottom: 1rem;
+}
+
+.press-text p:last-child {
+  margin-bottom: 0;
+}
+
+.press-item.open .press-text {
+  max-height: 2000px;
+  opacity: 1;
+  margin-bottom: 1.5rem;
+}
+
+.press-toggle {
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+.press-toggle i {
+  transition: transform 0.3s ease;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .hamburger {
@@ -1003,6 +1241,56 @@ button {
   .concert-meta {
     justify-content: center;
   }
+  /* Press responsive */
+  .press-info {
+    padding: 1.5rem;
+  }
+
+  .press-meta {
+    gap: 0.8rem;
+    flex-direction: column;
+  }
+
+  .press-image-slider {
+    aspect-ratio: 4/3;
+  }
+
+  .press-nav {
+    width: 38px;
+    height: 38px;
+    opacity: 0.7;
+    pointer-events: auto;
+  }
+
+  .press-nav-prev {
+    left: 10px;
+  }
+
+  .press-nav-next {
+    right: 10px;
+  }
+
+  .press-dots {
+    bottom: 12px;
+    padding: 0.3rem 0.7rem;
+    gap: 7px;
+  }
+
+  .press-dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .press-dot.active {
+    width: 20px;
+  }
+
+  .press-page-counter {
+    bottom: 12px;
+    right: 12px;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
 }
 
 @media (max-width: 560px) {
@@ -1036,5 +1324,39 @@ button {
   .hero-buttons .btn {
     width: 100%;
     justify-content: center;
+  }
+
+  /* Press responsive */
+  .press-image-slider {
+    aspect-ratio: 3/4;
+  }
+
+  .press-nav {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  .press-dots {
+    gap: 5px;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .press-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .press-dot.active {
+    width: 16px;
+  }
+
+  .press-page-counter {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .press-info h3 {
+    font-size: 1.1rem;
   }
 }
