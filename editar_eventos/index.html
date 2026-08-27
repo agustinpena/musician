@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Управление концертами — Роберто Чамале</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      /* ---------- Admin Styles ---------- */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --gold: #c9a84c;
+        --gold-soft: #d9bc6a;
+        --bg: #0b0b0e;
+        --bg-alt: #111116;
+        --bg-card: #16161c;
+        --text: #e8e6df;
+        --text-dim: #a7a59d;
+        --border: rgba(201, 168, 76, 0.18);
+        --serif: "Playfair Display", Georgia, serif;
+        --sans: "Inter", system-ui, -apple-system, sans-serif;
+        --max: 1200px;
+        --transition: 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+
+      body {
+        font-family: var(--sans);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        font-weight: 300;
+        padding: 2rem 1rem;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .gold {
+        color: var(--gold);
+      }
+
+      .eyebrow {
+        font-family: var(--sans);
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        font-size: 0.78rem;
+        color: var(--gold);
+        font-weight: 500;
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      .section-title {
+        font-family: var(--serif);
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        line-height: 1.25;
+        color: #fff;
+        font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+        margin-bottom: 1rem;
+      }
+
+      .section-subtitle {
+        color: var(--text-dim);
+        max-width: 640px;
+        margin-bottom: 2rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.95rem 2rem;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 500;
+        border-radius: 2px;
+        transition: all var(--transition);
+        border: 1px solid transparent;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .btn-primary {
+        background: var(--gold);
+        color: #0b0b0e;
+      }
+
+      .btn-primary:hover {
+        background: transparent;
+        color: var(--gold);
+        border-color: var(--gold);
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--gold);
+        border: 1px solid var(--gold);
+      }
+
+      .btn-outline:hover {
+        background: var(--gold);
+        color: #0b0b0e;
+        transform: translateY(-2px);
+      }
+
+      .btn-sm {
+        padding: 0.65rem 1.4rem;
+        font-size: 0.75rem;
+      }
+
+      .btn-danger {
+        background: #c0392b;
+        color: #fff;
+        border-color: #c0392b;
+      }
+
+      .btn-danger:hover {
+        background: transparent;
+        color: #c0392b;
+        border-color: #c0392b;
+        transform: translateY(-2px);
+      }
+
+      .form-group {
+        margin-bottom: 1.3rem;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.9rem 1rem;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-family: var(--sans);
+        font-size: 0.95rem;
+        transition: border-color var(--transition);
+        border-radius: 2px;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--gold);
+      }
+
+      .form-status {
+        margin-top: 1rem;
+        padding: 0.8rem 1rem;
+        font-size: 0.88rem;
+        border-radius: 2px;
+        display: none;
+      }
+
+      .form-status.success {
+        display: block;
+        background: rgba(201, 168, 76, 0.1);
+        color: var(--gold);
+        border: 1px solid var(--gold);
+      }
+
+      .form-status.error {
+        display: block;
+        background: rgba(200, 60, 60, 0.1);
+        color: #e88;
+        border: 1px solid #e88;
+      }
+
+      .admin-login {
+        max-width: 480px;
+        margin: 3rem auto;
+        text-align: center;
+      }
+
+      .admin-login-form {
+        background: var(--bg-card);
+        padding: 2.5rem;
+        border: 1px solid var(--border);
+        text-align: left;
+        margin-top: 1.5rem;
+      }
+
+      .admin-panel {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .admin-concert-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1.5rem;
+        padding: 1.5rem 2rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--gold);
+        margin-bottom: 1rem;
+        align-items: center;
+      }
+
+      .admin-concert-item .concert-info {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 1.5rem;
+        align-items: center;
+      }
+
+      .admin-concert-item .concert-actions {
+        display: flex;
+        gap: 0.6rem;
+      }
+
+      .admin-concert-item .concert-actions button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+        border: 1px solid var(--border);
+        border-radius: 2px;
+        transition: all var(--transition);
+        background: transparent;
+        color: var(--text-dim);
+        cursor: pointer;
+      }
+
+      .admin-concert-item .concert-actions .btn-edit:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      .admin-concert-item .concert-actions .btn-delete:hover {
+        border-color: #e88;
+        color: #e88;
+      }
+
+      .admin-concert-item .concert-preview {
+        color: var(--text-dim);
+        font-size: 0.85rem;
+      }
+
+      .admin-concert-date {
+        display: flex;
+        gap: 0.5rem;
+        align-items: baseline;
+      }
+
+      .admin-concert-date .day {
+        font-family: var(--serif);
+        font-size: 1.5rem;
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      .admin-concert-date .month {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+      }
+
+      .add-section {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .add-section h3 {
+        font-family: var(--serif);
+        font-weight: 500;
+        color: #fff;
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-dim);
+        margin-top: 2rem;
+        transition: color var(--transition);
+      }
+
+      .back-link:hover {
+        color: var(--gold);
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--text-dim);
+      }
+
+      .empty-state i {
+        font-size: 3rem;
+        color: var(--gold);
+        margin-bottom: 1rem;
+        opacity: 0.5;
+      }
+
+      .password-hint {
+        font-size: 0.8rem;
+        color: var(--text-dim);
+        margin-top: 0.5rem;
+      }
+
+      @media (max-width: 700px) {
+        .admin-concert-item {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+        .admin-concert-item .concert-info {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+          text-align: center;
+        }
+        .admin-concert-item .concert-actions {
+          justify-content: center;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .admin-concert-date {
+          justify-content: center;
+        }
+        .admin-header {
+          flex-direction: column;
+          align-items: stretch;
+          text-align: center;
+        }
+        .admin-header .btn {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Login Section -->
+      <div class="admin-login" id="adminLogin">
+        <span class="eyebrow">🔐 Администратор</span>
+        <h1 class="section-title">Управление концертами</h1>
+        <p class="section-subtitle" style="margin: 0 auto">
+          Введите пароль для доступа к редактированию концертов.
+        </p>
+
+        <form class="admin-login-form" id="adminLoginForm">
+          <div class="form-group">
+            <label for="adminPassword">Пароль</label>
+            <input
+              type="password"
+              id="adminPassword"
+              placeholder="Введите пароль..."
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="width: 100%; justify-content: center"
+          >
+            <i class="fas fa-unlock"></i> Войти
+          </button>
+          <div class="form-status" id="adminLoginStatus"></div>
+          <div class="password-hint">
+            <i class="fas fa-info-circle"></i> Пароль: <strong>chamale2026</strong>
+            <em style="display: block; font-size: 0.7rem; margin-top: 0.3rem; opacity: 0.6;">
+              (Вы можете изменить его в файле admin-password.php)
+            </em>
+          </div>
+        </form>
+      </div>
+
+      <!-- Admin Panel -->
+      <div class="admin-panel" id="adminPanel" style="display: none">
+        <div class="admin-header">
+          <div>
+            <span class="eyebrow">⚙️ Управление</span>
+            <h1 class="section-title">Редактирование концертов</h1>
+          </div>
+          <div style="display: flex; gap: 0.8rem; flex-wrap: wrap">
+            <a href="/" class="btn btn-outline btn-sm" target="_blank">
+              <i class="fas fa-eye"></i> Посмотреть сайт
+            </a>
+            <button class="btn btn-danger btn-sm" id="adminLogout">
+              <i class="fas fa-sign-out-alt"></i> Выйти
+            </button>
+          </div>
+        </div>
+
+        <div id="adminConcertsList">
+          <div class="empty-state">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Загрузка концертов...</p>
+          </div>
+        </div>
+
+        <!-- Add/Edit concert form -->
+        <div class="add-section">
+          <h3 id="formTitle">➕ Добавить новый концерт</h3>
+          <form id="adminConcertForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adminDay">День</label>
+                <input type="text" id="adminDay" placeholder="28" required />
+              </div>
+              <div class="form-group">
+                <label for="adminMonth">Месяц</label>
+                <input type="text" id="adminMonth" placeholder="авг" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="adminTitle">Название концерта</label>
+              <input
+                type="text"
+                id="adminTitle"
+                placeholder="Ноктюрны — Сольный концерт"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="adminVenue">Площадка</label>
+              <input
+                type="text"
+                id="adminVenue"
+                placeholder="Зал Несауалькойотль"
+                required
+              />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adminCity">Город</label>
+                <input
+                  type="text"
+                  id="adminCity"
+                  placeholder="Мехико, MX"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="adminTime">Время</label>
+                <input type="text" id="adminTime" placeholder="20:00" required />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="width: 100%; justify-content: center"
+              id="formSubmitBtn"
+            >
+              <i class="fas fa-plus"></i> Добавить концерт
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline"
+              style="
+                width: 100%;
+                justify-content: center;
+                margin-top: 0.5rem;
+                display: none;
+              "
+              id="formCancelBtn"
+            >
+              <i class="fas fa-times"></i> Отменить редактирование
+            </button>
+            <div class="form-status" id="adminFormStatus"></div>
+          </form>
+        </div>
+
+        <a href="/" class="back-link">
+          <i class="fas fa-arrow-left"></i> Вернуться на сайт
+        </a>
+      </div>
+    </div>
+
+    <script>
+      // ---------- Admin JavaScript ----------
+      const ADMIN_API = '/api/concerts-admin.php';
+      let concertData = [];
+      let editingIndex = null;
+
+      // DOM elements
+      const loginDiv = document.getElementById('adminLogin');
+      const panelDiv = document.getElementById('adminPanel');
+      const loginForm = document.getElementById('adminLoginForm');
+      const loginStatus = document.getElementById('adminLoginStatus');
+      const logoutBtn = document.getElementById('adminLogout');
+      const concertsList = document.getElementById('adminConcertsList');
+      const concertForm = document.getElementById('adminConcertForm');
+      const formStatus = document.getElementById('adminFormStatus');
+      const formTitle = document.getElementById('formTitle');
+      const submitBtn = document.getElementById('formSubmitBtn');
+      const cancelBtn = document.getElementById('formCancelBtn');
+
+      // ---------- API Functions ----------
+
+      // Fetch concerts from server
+      async function fetchConcerts() {
+        try {
+          const response = await fetch(ADMIN_API);
+          if (!response.ok) throw new Error('Failed to fetch concerts');
+          return await response.json();
+        } catch (error) {
+          console.error('Error fetching concerts:', error);
+          return [];
+        }
+      }
+
+      // Save concerts to server (requires password)
+      async function saveConcerts(concerts) {
+        const password = getPassword();
+        try {
+          const response = await fetch(ADMIN_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password, concerts }),
+          });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || 'Failed to save');
+          return data;
+        } catch (error) {
+          console.error('Error saving concerts:', error);
+          throw error;
+        }
+      }
+
+      // Verify password
+      async function verifyPassword(password) {
+        try {
+          const response = await fetch(ADMIN_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password, action: 'verify' }),
+          });
+          const data = await response.json();
+          return data.authenticated || false;
+        } catch (error) {
+          console.error('Verification error:', error);
+          return false;
+        }
+      }
+
+      // ---------- Helper Functions ----------
+
+      function getPassword() {
+        return sessionStorage.getItem('adminPassword') || '';
+      }
+
+      function showStatus(element, type, message) {
+        element.className = `form-status ${type}`;
+        element.textContent = message;
+        setTimeout(() => {
+          element.className = 'form-status';
+          element.textContent = '';
+        }, 4000);
+      }
+
+      // ---------- Render Functions ----------
+
+      function renderAdminConcerts() {
+        if (!concertsList) return;
+
+        if (!concertData || concertData.length === 0) {
+          concertsList.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-calendar-plus"></i>
+              <p>Нет добавленных концертов.</p>
+              <p style="font-size: 0.85rem; margin-top: 0.5rem;">
+                Используйте форму ниже, чтобы добавить первый концерт.
+              </p>
+            </div>
+          `;
+          return;
+        }
+
+        concertsList.innerHTML = concertData
+          .map(
+            (c, index) => `
+            <div class="admin-concert-item" data-index="${index}">
+              <div class="concert-info">
+                <div class="admin-concert-date">
+                  <span class="day">${c.day}</span>
+                  <span class="month">${c.month}</span>
+                </div>
+                <div>
+                  <h4 style="font-size: 1rem; color: #fff;">${c.title}</h4>
+                  <div class="concert-preview">${c.venue}, ${c.city} • ${c.time}</div>
+                </div>
+              </div>
+              <div class="concert-actions">
+                <button class="btn-edit" data-index="${index}" title="Редактировать">
+                  <i class="fas fa-pen"></i>
+                </button>
+                <button class="btn-delete" data-index="${index}" title="Удалить">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          `
+          )
+          .join('');
+
+        // Add event listeners
+        concertsList.querySelectorAll('.btn-delete').forEach((btn) => {
+          btn.addEventListener('click', async function () {
+            const index = parseInt(this.dataset.index);
+            const concert = concertData[index];
+            if (
+              confirm(
+                `Удалить концерт "${concert.title}" (${concert.day} ${concert.month})?`
+              )
+            ) {
+              concertData.splice(index, 1);
+              try {
+                await saveConcerts(concertData);
+                await loadAndRenderConcerts();
+                showStatus(formStatus, 'success', '✓ Концерт удален!');
+              } catch (error) {
+                showStatus(
+                  formStatus,
+                  'error',
+                  '❌ Ошибка при удалении: ' + error.message
+                );
+              }
+            }
+          });
+        });
+
+        concertsList.querySelectorAll('.btn-edit').forEach((btn) => {
+          btn.addEventListener('click', function () {
+            const index = parseInt(this.dataset.index);
+            startEditing(index);
+          });
+        });
+      }
+
+      function startEditing(index) {
+        const concert = concertData[index];
+        document.getElementById('adminDay').value = concert.day;
+        document.getElementById('adminMonth').value = concert.month;
+        document.getElementById('adminTitle').value = concert.title;
+        document.getElementById('adminVenue').value = concert.venue;
+        document.getElementById('adminCity').value = concert.city;
+        document.getElementById('adminTime').value = concert.time;
+
+        editingIndex = index;
+        formTitle.textContent = '✏️ Редактировать концерт';
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Обновить концерт';
+        cancelBtn.style.display = 'flex';
+
+        document
+          .querySelector('.add-section')
+          .scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      function cancelEditing() {
+        editingIndex = null;
+        concertForm.reset();
+        formTitle.textContent = '➕ Добавить новый концерт';
+        submitBtn.innerHTML = '<i class="fas fa-plus"></i> Добавить концерт';
+        cancelBtn.style.display = 'none';
+        document.getElementById('adminFormStatus').className = 'form-status';
+        document.getElementById('adminFormStatus').textContent = '';
+      }
+
+      async function loadAndRenderConcerts() {
+        concertData = await fetchConcerts();
+        renderAdminConcerts();
+      }
+
+      // ---------- Event Listeners ----------
+
+      // Login
+      loginForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const password = document.getElementById('adminPassword').value;
+
+        const authenticated = await verifyPassword(password);
+        if (authenticated) {
+          sessionStorage.setItem('adminAuthenticated', 'true');
+          sessionStorage.setItem('adminPassword', password);
+          loginDiv.style.display = 'none';
+          panelDiv.style.display = 'block';
+          loginStatus.className = 'form-status';
+          loginStatus.textContent = '';
+          await loadAndRenderConcerts();
+        } else {
+          loginStatus.className = 'form-status error';
+          loginStatus.textContent = '❌ Неверный пароль. Попробуйте снова.';
+          document.getElementById('adminPassword').value = '';
+          document.getElementById('adminPassword').focus();
+        }
+      });
+
+      // Logout
+      logoutBtn.addEventListener('click', function () {
+        if (confirm('Выйти из панели управления?')) {
+          sessionStorage.removeItem('adminAuthenticated');
+          sessionStorage.removeItem('adminPassword');
+          loginDiv.style.display = 'block';
+          panelDiv.style.display = 'none';
+          document.getElementById('adminPassword').value = '';
+          cancelEditing();
+        }
+      });
+
+      // Cancel edit
+      cancelBtn.addEventListener('click', cancelEditing);
+
+      // Submit form (add or update)
+      concertForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const day = document.getElementById('adminDay').value.trim();
+        const month = document.getElementById('adminMonth').value.trim();
+        const title = document.getElementById('adminTitle').value.trim();
+        const venue = document.getElementById('adminVenue').value.trim();
+        const city = document.getElementById('adminCity').value.trim();
+        const time = document.getElementById('adminTime').value.trim();
+
+        if (!day || !month || !title || !venue || !city || !time) {
+          showStatus(formStatus, 'error', '❌ Пожалуйста, заполните все поля.');
+          return;
+        }
+
+        const newConcert = { day, month, title, venue, city, time };
+
+        try {
+          if (editingIndex !== null) {
+            // Update existing
+            concertData[editingIndex] = newConcert;
+            await saveConcerts(concertData);
+            showStatus(formStatus, 'success', '✓ Концерт обновлен!');
+            cancelEditing();
+          } else {
+            // Add new
+            concertData.push(newConcert);
+            await saveConcerts(concertData);
+            showStatus(formStatus, 'success', '✓ Концерт добавлен!');
+            concertForm.reset();
+          }
+
+          await loadAndRenderConcerts();
+        } catch (error) {
+          showStatus(formStatus, 'error', '❌ Ошибка: ' + error.message);
+        }
+      });
+
+      // ---------- Init ----------
+
+      // Check if already authenticated
+      if (sessionStorage.getItem('adminAuthenticated') === 'true') {
+        loginDiv.style.display = 'none';
+        panelDiv.style.display = 'block';
+        loadAndRenderConcerts();
+      }
+
+      // Refresh concerts list every 30 seconds (in case of multiple admins)
+      setInterval(() => {
+        if (panelDiv.style.display !== 'none') {
+          loadAndRenderConcerts();
+        }
+      }, 30000);
+    </script>
+  </body>
+</html>
