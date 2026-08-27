@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Управление концертами — Роберто Чамале</title>
+    <title>Gestión de Eventos — Roberto Chamale</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -383,19 +383,19 @@
     <div class="container">
       <!-- Login Section -->
       <div class="admin-login" id="adminLogin">
-        <span class="eyebrow">🔐 Администратор</span>
-        <h1 class="section-title">Управление концертами</h1>
+        <span class="eyebrow">🔐 Administrador</span>
+        <h1 class="section-title">Gestión de Eventos</h1>
         <p class="section-subtitle" style="margin: 0 auto">
-          Введите пароль для доступа к редактированию концертов.
+          Ingrese la contraseña para acceder a la edición de eventos.
         </p>
 
         <form class="admin-login-form" id="adminLoginForm">
           <div class="form-group">
-            <label for="adminPassword">Пароль</label>
+            <label for="adminPassword">Contraseña</label>
             <input
               type="password"
               id="adminPassword"
-              placeholder="Введите пароль..."
+              placeholder="Ingrese la contraseña..."
               required
             />
           </div>
@@ -404,13 +404,21 @@
             class="btn btn-primary"
             style="width: 100%; justify-content: center"
           >
-            <i class="fas fa-unlock"></i> Войти
+            <i class="fas fa-unlock"></i> Iniciar sesión
           </button>
           <div class="form-status" id="adminLoginStatus"></div>
           <div class="password-hint">
-            <i class="fas fa-info-circle"></i> Пароль: <strong>chamale2026</strong>
-            <em style="display: block; font-size: 0.7rem; margin-top: 0.3rem; opacity: 0.6;">
-              (Вы можете изменить его в файле admin-password.php)
+            <i class="fas fa-info-circle"></i> Contraseña:
+            <strong>chamale2026</strong>
+            <em
+              style="
+                display: block;
+                font-size: 0.7rem;
+                margin-top: 0.3rem;
+                opacity: 0.6;
+              "
+            >
+              (Puede cambiarla en el archivo admin-password.php)
             </em>
           </div>
         </form>
@@ -420,15 +428,15 @@
       <div class="admin-panel" id="adminPanel" style="display: none">
         <div class="admin-header">
           <div>
-            <span class="eyebrow">⚙️ Управление</span>
-            <h1 class="section-title">Редактирование концертов</h1>
+            <span class="eyebrow">⚙️ Gestión</span>
+            <h1 class="section-title">Editar Conciertos</h1>
           </div>
           <div style="display: flex; gap: 0.8rem; flex-wrap: wrap">
             <a href="/" class="btn btn-outline btn-sm" target="_blank">
-              <i class="fas fa-eye"></i> Посмотреть сайт
+              <i class="fas fa-eye"></i> Ver sitio web
             </a>
             <button class="btn btn-danger btn-sm" id="adminLogout">
-              <i class="fas fa-sign-out-alt"></i> Выйти
+              <i class="fas fa-sign-out-alt"></i> Cerrar sesión
             </button>
           </div>
         </div>
@@ -436,55 +444,144 @@
         <div id="adminConcertsList">
           <div class="empty-state">
             <i class="fas fa-spinner fa-spin"></i>
-            <p>Загрузка концертов...</p>
+            <p>Cargando conciertos...</p>
           </div>
         </div>
 
         <!-- Add/Edit concert form -->
         <div class="add-section">
-          <h3 id="formTitle">➕ Добавить новый концерт</h3>
+          <h3 id="formTitle">➕ Agregar nuevo concierto</h3>
+
+          <!-- <form id="adminConcertForm"> -->
+          <!-- <div class="form-row"> -->
+          <!-- <div class="form-group"> -->
+          <!-- <label for="adminDay">Día</label> -->
+          <!-- <input type="text" id="adminDay" placeholder="28" required /> -->
+          <!-- </div> -->
+          <!-- <div class="form-group"> -->
+          <!-- <label for="adminMonth">Mes</label> -->
+          <!-- <input type="text" id="adminMonth" placeholder="ago" required /> -->
+          <!-- </div> -->
+          <!-- </div> -->
+          <!-- <div class="form-group"> -->
+          <!-- <label for="adminTitle">Título del concierto</label> -->
+          <!-- <input -->
+          <!-- type="text" -->
+          <!-- id="adminTitle" -->
+          <!-- placeholder="Nocturnos — Concierto solista" -->
+          <!-- required -->
+          <!-- /> -->
+          <!-- </div> -->
+          <!-- <div class="form-group"> -->
+          <!-- <label for="adminVenue">Lugar</label> -->
+          <!-- <input -->
+          <!-- type="text" -->
+          <!-- id="adminVenue" -->
+          <!-- placeholder="Sala Nezahualcóyotl" -->
+          <!-- required -->
+          <!-- /> -->
+          <!-- </div> -->
+          <!-- <div class="form-row"> -->
+          <!-- <div class="form-group"> -->
+          <!-- <label for="adminCity">Ciudad</label> -->
+          <!-- <input -->
+          <!-- type="text" -->
+          <!-- id="adminCity" -->
+          <!-- placeholder="Ciudad de México, MX" -->
+          <!-- required -->
+          <!-- /> -->
+          <!-- </div> -->
+          <!-- <div class="form-group"> -->
+          <!-- <label for="adminTime">Hora</label> -->
+          <!-- <input -->
+          <!-- type="text" -->
+          <!-- id="adminTime" -->
+          <!-- placeholder="20:00" -->
+          <!-- required -->
+          <!-- /> -->
+          <!-- </div> -->
+          <!-- </div> -->
+          <!-- <button -->
+          <!-- type="submit" -->
+          <!-- class="btn btn-primary" -->
+          <!-- style="width: 100%; justify-content: center" -->
+          <!-- id="formSubmitBtn" -->
+          <!-- > -->
+          <!-- <i class="fas fa-plus"></i> Agregar concierto -->
+          <!-- </button> -->
+          <!-- <button -->
+          <!-- type="button" -->
+          <!-- class="btn btn-outline" -->
+          <!-- style=" -->
+          <!-- width: 100%; -->
+          <!-- justify-content: center; -->
+          <!-- margin-top: 0.5rem; -->
+          <!-- display: none; -->
+          <!-- " -->
+          <!-- id="formCancelBtn" -->
+          <!-- > -->
+          <!-- <i class="fas fa-times"></i> Cancelar edición -->
+          <!-- </button> -->
+          <!-- <div class="form-status" id="adminFormStatus"></div> -->
+          <!-- </form> -->
+
           <form id="adminConcertForm">
             <div class="form-row">
               <div class="form-group">
-                <label for="adminDay">День</label>
-                <input type="text" id="adminDay" placeholder="28" required />
-              </div>
-              <div class="form-group">
-                <label for="adminMonth">Месяц</label>
-                <input type="text" id="adminMonth" placeholder="авг" required />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="adminTitle">Название концерта</label>
-              <input
-                type="text"
-                id="adminTitle"
-                placeholder="Ноктюрны — Сольный концерт"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="adminVenue">Площадка</label>
-              <input
-                type="text"
-                id="adminVenue"
-                placeholder="Зал Несауалькойотль"
-                required
-              />
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="adminCity">Город</label>
+                <label for="adminDay">Día</label>
                 <input
                   type="text"
-                  id="adminCity"
-                  placeholder="Мехико, MX"
+                  id="adminDay"
+                  placeholder="Ingrese el día (ej. 28)"
                   required
                 />
               </div>
               <div class="form-group">
-                <label for="adminTime">Время</label>
-                <input type="text" id="adminTime" placeholder="20:00" required />
+                <label for="adminMonth">Mes</label>
+                <input
+                  type="text"
+                  id="adminMonth"
+                  placeholder='Ingrese sólo 3 o 4 letras (ej. "ene", "feb", "mar")'
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="adminTitle">Título del concierto</label>
+              <input
+                type="text"
+                id="adminTitle"
+                placeholder="Ingrese el título del concierto"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="adminVenue">Lugar</label>
+              <input
+                type="text"
+                id="adminVenue"
+                placeholder="Ingrese el nombre del lugar"
+                required
+              />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adminCity">Ciudad</label>
+                <input
+                  type="text"
+                  id="adminCity"
+                  placeholder="Ingrese la ciudad y país (ej. Buenos Aires, AR)"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="adminTime">Hora</label>
+                <input
+                  type="text"
+                  id="adminTime"
+                  placeholder="Ingrese la hora (ej. 20:00)"
+                  required
+                />
               </div>
             </div>
             <button
@@ -493,7 +590,7 @@
               style="width: 100%; justify-content: center"
               id="formSubmitBtn"
             >
-              <i class="fas fa-plus"></i> Добавить концерт
+              <i class="fas fa-plus"></i> Agregar concierto
             </button>
             <button
               type="button"
@@ -506,36 +603,36 @@
               "
               id="formCancelBtn"
             >
-              <i class="fas fa-times"></i> Отменить редактирование
+              <i class="fas fa-times"></i> Cancelar edición
             </button>
             <div class="form-status" id="adminFormStatus"></div>
           </form>
         </div>
 
         <a href="/" class="back-link">
-          <i class="fas fa-arrow-left"></i> Вернуться на сайт
+          <i class="fas fa-arrow-left"></i> Volver al sitio web
         </a>
       </div>
     </div>
 
     <script>
       // ---------- Admin JavaScript ----------
-      const ADMIN_API = '/api/concerts-admin.php';
+      const ADMIN_API = "/api/concerts-admin.php";
       let concertData = [];
       let editingIndex = null;
 
       // DOM elements
-      const loginDiv = document.getElementById('adminLogin');
-      const panelDiv = document.getElementById('adminPanel');
-      const loginForm = document.getElementById('adminLoginForm');
-      const loginStatus = document.getElementById('adminLoginStatus');
-      const logoutBtn = document.getElementById('adminLogout');
-      const concertsList = document.getElementById('adminConcertsList');
-      const concertForm = document.getElementById('adminConcertForm');
-      const formStatus = document.getElementById('adminFormStatus');
-      const formTitle = document.getElementById('formTitle');
-      const submitBtn = document.getElementById('formSubmitBtn');
-      const cancelBtn = document.getElementById('formCancelBtn');
+      const loginDiv = document.getElementById("adminLogin");
+      const panelDiv = document.getElementById("adminPanel");
+      const loginForm = document.getElementById("adminLoginForm");
+      const loginStatus = document.getElementById("adminLoginStatus");
+      const logoutBtn = document.getElementById("adminLogout");
+      const concertsList = document.getElementById("adminConcertsList");
+      const concertForm = document.getElementById("adminConcertForm");
+      const formStatus = document.getElementById("adminFormStatus");
+      const formTitle = document.getElementById("formTitle");
+      const submitBtn = document.getElementById("formSubmitBtn");
+      const cancelBtn = document.getElementById("formCancelBtn");
 
       // ---------- API Functions ----------
 
@@ -543,10 +640,10 @@
       async function fetchConcerts() {
         try {
           const response = await fetch(ADMIN_API);
-          if (!response.ok) throw new Error('Failed to fetch concerts');
+          if (!response.ok) throw new Error("Error al cargar los conciertos");
           return await response.json();
         } catch (error) {
-          console.error('Error fetching concerts:', error);
+          console.error("Error fetching concerts:", error);
           return [];
         }
       }
@@ -556,15 +653,15 @@
         const password = getPassword();
         try {
           const response = await fetch(ADMIN_API, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ password, concerts }),
           });
           const data = await response.json();
-          if (!response.ok) throw new Error(data.error || 'Failed to save');
+          if (!response.ok) throw new Error(data.error || "Error al guardar");
           return data;
         } catch (error) {
-          console.error('Error saving concerts:', error);
+          console.error("Error saving concerts:", error);
           throw error;
         }
       }
@@ -573,14 +670,14 @@
       async function verifyPassword(password) {
         try {
           const response = await fetch(ADMIN_API, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password, action: 'verify' }),
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password, action: "verify" }),
           });
           const data = await response.json();
           return data.authenticated || false;
         } catch (error) {
-          console.error('Verification error:', error);
+          console.error("Verification error:", error);
           return false;
         }
       }
@@ -588,15 +685,15 @@
       // ---------- Helper Functions ----------
 
       function getPassword() {
-        return sessionStorage.getItem('adminPassword') || '';
+        return sessionStorage.getItem("adminPassword") || "";
       }
 
       function showStatus(element, type, message) {
         element.className = `form-status ${type}`;
         element.textContent = message;
         setTimeout(() => {
-          element.className = 'form-status';
-          element.textContent = '';
+          element.className = "form-status";
+          element.textContent = "";
         }, 4000);
       }
 
@@ -609,9 +706,9 @@
           concertsList.innerHTML = `
             <div class="empty-state">
               <i class="fas fa-calendar-plus"></i>
-              <p>Нет добавленных концертов.</p>
+              <p>No hay conciertos agregados.</p>
               <p style="font-size: 0.85rem; margin-top: 0.5rem;">
-                Используйте форму ниже, чтобы добавить первый концерт.
+                Use el formulario a continuación para agregar su primer concierto.
               </p>
             </div>
           `;
@@ -633,46 +730,46 @@
                 </div>
               </div>
               <div class="concert-actions">
-                <button class="btn-edit" data-index="${index}" title="Редактировать">
+                <button class="btn-edit" data-index="${index}" title="Editar">
                   <i class="fas fa-pen"></i>
                 </button>
-                <button class="btn-delete" data-index="${index}" title="Удалить">
+                <button class="btn-delete" data-index="${index}" title="Eliminar">
                   <i class="fas fa-trash"></i>
                 </button>
               </div>
             </div>
-          `
+          `,
           )
-          .join('');
+          .join("");
 
         // Add event listeners
-        concertsList.querySelectorAll('.btn-delete').forEach((btn) => {
-          btn.addEventListener('click', async function () {
+        concertsList.querySelectorAll(".btn-delete").forEach((btn) => {
+          btn.addEventListener("click", async function () {
             const index = parseInt(this.dataset.index);
             const concert = concertData[index];
             if (
               confirm(
-                `Удалить концерт "${concert.title}" (${concert.day} ${concert.month})?`
+                `¿Eliminar el concierto "${concert.title}" (${concert.day} ${concert.month})?`,
               )
             ) {
               concertData.splice(index, 1);
               try {
                 await saveConcerts(concertData);
                 await loadAndRenderConcerts();
-                showStatus(formStatus, 'success', '✓ Концерт удален!');
+                showStatus(formStatus, "success", "✓ ¡Concierto eliminado!");
               } catch (error) {
                 showStatus(
                   formStatus,
-                  'error',
-                  '❌ Ошибка при удалении: ' + error.message
+                  "error",
+                  "❌ Error al eliminar: " + error.message,
                 );
               }
             }
           });
         });
 
-        concertsList.querySelectorAll('.btn-edit').forEach((btn) => {
-          btn.addEventListener('click', function () {
+        concertsList.querySelectorAll(".btn-edit").forEach((btn) => {
+          btn.addEventListener("click", function () {
             const index = parseInt(this.dataset.index);
             startEditing(index);
           });
@@ -681,31 +778,32 @@
 
       function startEditing(index) {
         const concert = concertData[index];
-        document.getElementById('adminDay').value = concert.day;
-        document.getElementById('adminMonth').value = concert.month;
-        document.getElementById('adminTitle').value = concert.title;
-        document.getElementById('adminVenue').value = concert.venue;
-        document.getElementById('adminCity').value = concert.city;
-        document.getElementById('adminTime').value = concert.time;
+        document.getElementById("adminDay").value = concert.day;
+        document.getElementById("adminMonth").value = concert.month;
+        document.getElementById("adminTitle").value = concert.title;
+        document.getElementById("adminVenue").value = concert.venue;
+        document.getElementById("adminCity").value = concert.city;
+        document.getElementById("adminTime").value = concert.time;
 
         editingIndex = index;
-        formTitle.textContent = '✏️ Редактировать концерт';
-        submitBtn.innerHTML = '<i class="fas fa-save"></i> Обновить концерт';
-        cancelBtn.style.display = 'flex';
+        formTitle.textContent = "✏️ Editar concierto";
+        submitBtn.innerHTML =
+          '<i class="fas fa-save"></i> Actualizar concierto';
+        cancelBtn.style.display = "flex";
 
         document
-          .querySelector('.add-section')
-          .scrollIntoView({ behavior: 'smooth', block: 'center' });
+          .querySelector(".add-section")
+          .scrollIntoView({ behavior: "smooth", block: "center" });
       }
 
       function cancelEditing() {
         editingIndex = null;
         concertForm.reset();
-        formTitle.textContent = '➕ Добавить новый концерт';
-        submitBtn.innerHTML = '<i class="fas fa-plus"></i> Добавить концерт';
-        cancelBtn.style.display = 'none';
-        document.getElementById('adminFormStatus').className = 'form-status';
-        document.getElementById('adminFormStatus').textContent = '';
+        formTitle.textContent = "➕ Agregar nuevo concierto";
+        submitBtn.innerHTML = '<i class="fas fa-plus"></i> Agregar concierto';
+        cancelBtn.style.display = "none";
+        document.getElementById("adminFormStatus").className = "form-status";
+        document.getElementById("adminFormStatus").textContent = "";
       }
 
       async function loadAndRenderConcerts() {
@@ -716,55 +814,60 @@
       // ---------- Event Listeners ----------
 
       // Login
-      loginForm.addEventListener('submit', async function (e) {
+      loginForm.addEventListener("submit", async function (e) {
         e.preventDefault();
-        const password = document.getElementById('adminPassword').value;
+        const password = document.getElementById("adminPassword").value;
 
         const authenticated = await verifyPassword(password);
         if (authenticated) {
-          sessionStorage.setItem('adminAuthenticated', 'true');
-          sessionStorage.setItem('adminPassword', password);
-          loginDiv.style.display = 'none';
-          panelDiv.style.display = 'block';
-          loginStatus.className = 'form-status';
-          loginStatus.textContent = '';
+          sessionStorage.setItem("adminAuthenticated", "true");
+          sessionStorage.setItem("adminPassword", password);
+          loginDiv.style.display = "none";
+          panelDiv.style.display = "block";
+          loginStatus.className = "form-status";
+          loginStatus.textContent = "";
           await loadAndRenderConcerts();
         } else {
-          loginStatus.className = 'form-status error';
-          loginStatus.textContent = '❌ Неверный пароль. Попробуйте снова.';
-          document.getElementById('adminPassword').value = '';
-          document.getElementById('adminPassword').focus();
+          loginStatus.className = "form-status error";
+          loginStatus.textContent =
+            "❌ Contraseña incorrecta. Intente de nuevo.";
+          document.getElementById("adminPassword").value = "";
+          document.getElementById("adminPassword").focus();
         }
       });
 
       // Logout
-      logoutBtn.addEventListener('click', function () {
-        if (confirm('Выйти из панели управления?')) {
-          sessionStorage.removeItem('adminAuthenticated');
-          sessionStorage.removeItem('adminPassword');
-          loginDiv.style.display = 'block';
-          panelDiv.style.display = 'none';
-          document.getElementById('adminPassword').value = '';
+      logoutBtn.addEventListener("click", function () {
+        if (confirm("¿Cerrar sesión en el panel de administración?")) {
+          sessionStorage.removeItem("adminAuthenticated");
+          sessionStorage.removeItem("adminPassword");
+          loginDiv.style.display = "block";
+          panelDiv.style.display = "none";
+          document.getElementById("adminPassword").value = "";
           cancelEditing();
         }
       });
 
       // Cancel edit
-      cancelBtn.addEventListener('click', cancelEditing);
+      cancelBtn.addEventListener("click", cancelEditing);
 
       // Submit form (add or update)
-      concertForm.addEventListener('submit', async function (e) {
+      concertForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
-        const day = document.getElementById('adminDay').value.trim();
-        const month = document.getElementById('adminMonth').value.trim();
-        const title = document.getElementById('adminTitle').value.trim();
-        const venue = document.getElementById('adminVenue').value.trim();
-        const city = document.getElementById('adminCity').value.trim();
-        const time = document.getElementById('adminTime').value.trim();
+        const day = document.getElementById("adminDay").value.trim();
+        const month = document.getElementById("adminMonth").value.trim();
+        const title = document.getElementById("adminTitle").value.trim();
+        const venue = document.getElementById("adminVenue").value.trim();
+        const city = document.getElementById("adminCity").value.trim();
+        const time = document.getElementById("adminTime").value.trim();
 
         if (!day || !month || !title || !venue || !city || !time) {
-          showStatus(formStatus, 'error', '❌ Пожалуйста, заполните все поля.');
+          showStatus(
+            formStatus,
+            "error",
+            "❌ Por favor, complete todos los campos.",
+          );
           return;
         }
 
@@ -775,34 +878,34 @@
             // Update existing
             concertData[editingIndex] = newConcert;
             await saveConcerts(concertData);
-            showStatus(formStatus, 'success', '✓ Концерт обновлен!');
+            showStatus(formStatus, "success", "✓ ¡Concierto actualizado!");
             cancelEditing();
           } else {
             // Add new
             concertData.push(newConcert);
             await saveConcerts(concertData);
-            showStatus(formStatus, 'success', '✓ Концерт добавлен!');
+            showStatus(formStatus, "success", "✓ ¡Concierto agregado!");
             concertForm.reset();
           }
 
           await loadAndRenderConcerts();
         } catch (error) {
-          showStatus(formStatus, 'error', '❌ Ошибка: ' + error.message);
+          showStatus(formStatus, "error", "❌ Error: " + error.message);
         }
       });
 
       // ---------- Init ----------
 
       // Check if already authenticated
-      if (sessionStorage.getItem('adminAuthenticated') === 'true') {
-        loginDiv.style.display = 'none';
-        panelDiv.style.display = 'block';
+      if (sessionStorage.getItem("adminAuthenticated") === "true") {
+        loginDiv.style.display = "none";
+        panelDiv.style.display = "block";
         loadAndRenderConcerts();
       }
 
       // Refresh concerts list every 30 seconds (in case of multiple admins)
       setInterval(() => {
-        if (panelDiv.style.display !== 'none') {
+        if (panelDiv.style.display !== "none") {
           loadAndRenderConcerts();
         }
       }, 30000);

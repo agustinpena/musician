@@ -643,14 +643,18 @@ button {
 }
 
 /* ---------- Concerts ---------- */
+
 .concert-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-width: 85%; /* Reduce width by % */
+  margin: 0 auto; /* Center the list */
 }
+
 .concert-item {
   display: grid;
-  grid-template-columns: 120px 1fr auto;
+  grid-template-columns: 120px 1fr;
   align-items: center;
   gap: 2rem;
   padding: 1.8rem 2rem;
@@ -659,6 +663,7 @@ button {
   border-left: 3px solid var(--gold);
   transition: all var(--transition);
 }
+
 .concert-item:hover {
   transform: translateX(6px);
   border-color: var(--gold);
