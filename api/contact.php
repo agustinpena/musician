@@ -52,8 +52,8 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 // ---------- Send email using PHP's mail() function ----------
 
-$to = 'robertoperezchamale@gmail.com';  // Client's email
-$subject = 'Новое сообщение с сайта — Роберто Чамале';
+$to = 'j.agustin.pena.a@gmail.com';  // Client's email
+$subject = 'Nuevo mensaje desde su sitio web | Roberto Chamalé';
 
 // Build the email body
 $body = "Новое сообщение с контактной формы сайта:\n\n";

@@ -52,32 +52,22 @@ const videoData = [
   },
 ];
 
-const concertData = [
-  {
-    day: "28",
-    month: "авг",
-    title: "Ноктюрны — Сольный концерт",
-    venue: "Зал Несауалькойотль",
-    city: "Мехико, MX",
-    time: "20:00",
-  },
-  {
-    day: "14",
-    month: "сен",
-    title: "Воспоминания о юге — Презентация альбома",
-    venue: "Театр Колон",
-    city: "Буэнос-Айрес, AR",
-    time: "21:00",
-  },
-  {
-    day: "05",
-    month: "окт",
-    title: "Вечер с Шопеном",
-    venue: "Дворец музыки",
-    city: "Барселона, ES",
-    time: "19:30",
-  },
-];
+// ---------- Concerts (loaded from server) ----------
+let concertData = [];
+
+// Fetch concerts from server
+async function loadConcerts() {
+  try {
+    const response = await fetch("/api/concerts-admin.php");
+    if (!response.ok) throw new Error("Failed to load concerts");
+    concertData = await response.json();
+    return concertData;
+  } catch (error) {
+    console.error("Error loading concerts:", error);
+    concertData = [];
+    return concertData;
+  }
+}
 
 const galleryImages = [
   "/images/gallery/gallery-01.jpg?auto=format&fit=crop&w=900&q=80",
@@ -287,26 +277,6 @@ function renderMusic() {
   });
 }
 
-// function renderMusic() {
-//   const grid = document.getElementById("musicGrid");
-//   grid.innerHTML = musicData
-//     .map(
-//       (m) => `
-//     <article class="music-card fade-in">
-//       <div class="music-art">
-//         <img src="${m.img}" alt="${m.title}" loading="lazy" />
-//         <button class="play-btn" aria-label="Воспроизвести ${m.title}"><i class="fas fa-play"></i></button>
-//       </div>
-//       <div class="music-info">
-//         <h3>${m.title}</h3>
-//         <span class="year">Сочинено в ${m.year}</span>
-//       </div>
-//     </article>
-//   `,
-//     )
-//     .join("");
-// }
-
 function renderVideos() {
   const grid = document.getElementById("videoGrid");
   grid.innerHTML = videoData
@@ -330,8 +300,21 @@ function renderVideos() {
   });
 }
 
-function renderConcerts() {
+async function renderConcerts() {
   const list = document.getElementById("concertList");
+  if (!list) return;
+
+  await loadConcerts();
+
+  if (concertData.length === 0) {
+    list.innerHTML = `
+      <div style="text-align: center; padding: 3rem; color: var(--text-dim);">
+        <p>На данный момент концертов нет. Загляните позже!</p>
+      </div>
+    `;
+    return;
+  }
+
   list.innerHTML = concertData
     .map(
       (c) => `
@@ -347,11 +330,12 @@ function renderConcerts() {
           <span><i class="fas fa-clock"></i>${c.time}</span>
         </div>
       </div>
-      <a href="#" class="btn btn-primary btn-sm">Купить билеты</a>
     </div>
   `,
     )
     .join("");
+
+  setTimeout(initFadeObserver, 100);
 }
 
 function renderGallery() {
@@ -680,13 +664,15 @@ document.addEventListener("keydown", (e) => {
 /* ---------- Contact form ---------- */
 const form = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
+
   const name = form.name.value.trim();
   const email = form.email.value.trim();
   const message = form.message.value.trim();
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  // Validate fields
   if (!name || !email || !message) {
     formStatus.className = "form-status error";
     formStatus.textContent = "Пожалуйста, заполните все поля.";
@@ -699,25 +685,62 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  formStatus.className = "form-status success";
-  formStatus.textContent =
-    "✓ Благодарю, " +
-    name +
-    ". Ваше сообщение отправлено. Я отвечу в течение 48 часов.";
-  form.reset();
-  setTimeout(() => {
-    formStatus.className = "form-status";
-    formStatus.textContent = "";
-  }, 6000);
+  // Show loading state
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalBtnText = submitBtn.innerHTML;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+  submitBtn.disabled = true;
+
+  try {
+    // Send data to PHP endpoint
+    const response = await fetch("/api/contact.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, message }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      formStatus.className = "form-status success";
+      formStatus.textContent = data.message;
+      form.reset();
+    } else {
+      formStatus.className = "form-status error";
+      formStatus.textContent =
+        data.message || "Произошла ошибка. Попробуйте позже.";
+    }
+  } catch (error) {
+    console.error("Error sending message:", error);
+    formStatus.className = "form-status error";
+    formStatus.textContent =
+      "Извините, произошла ошибка при отправке. Пожалуйста, попробуйте позже.";
+  } finally {
+    // Restore button
+    submitBtn.innerHTML = originalBtnText;
+    submitBtn.disabled = false;
+
+    // Clear status after 6 seconds
+    setTimeout(() => {
+      formStatus.className = "form-status";
+      formStatus.textContent = "";
+    }, 6000);
+  }
 });
 
 /* ---------- Initialization / Init ---------- */
 renderMusic();
 renderVideos();
-renderConcerts();
 renderGallery();
 renderPress();
 initFadeObserver();
+
+// Load concerts asynchronously
+(async function init() {
+  await renderConcerts();
+})();
 
 const initialHash = location.hash.replace("#", "") || "home";
 if (initialHash !== "home") navigateTo(initialHash);
