@@ -3,8 +3,8 @@
         "day": "15",
         "month": "Oct",
         "title": "AC\/DC Sinf\u00f3nico",
-        "venue": "Houston Conservatory",
-        "city": "Houston, US",
+        "venue": "Houston Astrodome",
+        "city": "Texas, US",
         "time": "22:00"
     },
     {
@@ -14,5 +14,13 @@
         "venue": "Conservatorio Nacional de Guatemala",
         "city": "Guatemala, GU",
         "time": "17:30"
+    },
+    {
+        "day": "10",
+        "month": "Nov",
+        "title": "Las Ma\u00f1anitas. Concierto de Cumplea\u00f1os.",
+        "venue": "Sala Nezahualc\u00f3yotl",
+        "city": "CDMX, M\u00e9xico",
+        "time": "8:00"
     }
 ]
