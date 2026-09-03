@@ -1,34 +1,11 @@
 [
     {
-        "day": "15",
-        "month": "Oct",
-        "title": "AC\/DC Sinf\u00f3nico",
-        "venue": "Houston Astrodome",
-        "city": "Texas, US",
-        "time": "22:00"
-    },
-    {
-        "day": "1",
-        "month": "Nov",
-        "title": "Selecci\u00f3n de M\u00fasica de C\u00e1mara Guatemalteca",
-        "venue": "Conservatorio Nacional de Guatemala",
-        "city": "Guatemala, GU",
-        "time": "17:30"
-    },
-    {
-        "day": "5",
+        "day": "8",
         "month": "nov",
-        "title": "El Chavo Sinf\u00f3nico",
-        "venue": "La Vencindad del Chavo",
-        "city": "CDMX, MX",
-        "time": "15:00"
-    },
-    {
-        "day": "12",
-        "month": "nov",
-        "title": "Recordando a Chava Flores",
-        "venue": "Casa Museo Chava Flores",
-        "city": "CDMX, MX",
-        "time": "18:00"
+        "title": "Las Ma\u00f1anitas de Cumplea\u00f1os",
+        "venue": "Metro Ladoshzkaya",
+        "city": "San Petersburgo, RU",
+        "time": "18:00",
+        "image": "\/images\/concerts\/concerts_20260903_145050_6a99894aa708a.jpg"
     }
 ]

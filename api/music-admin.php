@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Concerts CRUD API
+ * Music CRUD API
  */
 
 header('Content-Type: application/json');
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
 
-$dataFile = __DIR__ . '/../data/concerts.json';
+$dataFile = __DIR__ . '/../data/music.json';
 $password = 'chamale2026';
 
 $dataDir = dirname($dataFile);
@@ -21,32 +21,22 @@ if (!is_dir($dataDir)) {
     mkdir($dataDir, 0755, true);
 }
 
-$defaultData = [];
-
 if (!file_exists($dataFile)) {
-    file_put_contents($dataFile, json_encode($defaultData, JSON_PRETTY_PRINT));
+    file_put_contents($dataFile, json_encode([], JSON_PRETTY_PRINT));
 }
 
-// GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $data = file_get_contents($dataFile);
     echo json_encode(json_decode($data, true) ?: []);
     exit;
 }
 
-// POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
 
     if (!$input) {
         http_response_code(400);
         echo json_encode(['error' => 'Invalid input']);
-        exit;
-    }
-
-    if (isset($input['action']) && $input['action'] === 'verify') {
-        $auth = isset($input['password']) && $input['password'] === $password;
-        echo json_encode(['authenticated' => $auth]);
         exit;
     }
 

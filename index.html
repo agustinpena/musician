@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- major_admin version -->
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
@@ -185,9 +186,7 @@
             <span class="eyebrow fade-in">Оригинальные сочинения</span>
             <h2 class="section-title fade-in">Музыка.</h2>
             <p class="section-subtitle fade-in">
-              Избранные оригинальные произведения для фортепиано, написанные в
-              период с 2014 по 2025 год. Каждая пьеса — это маленькая вселенная,
-              сочинённая, исполненная и записанная Роберто Чамале.
+              Избранные оригинальные произведения для фортепиано.
             </p>
 
             <div class="music-grid" id="musicGrid"></div>
@@ -202,8 +201,7 @@
             <span class="eyebrow fade-in">Живые выступления</span>
             <h2 class="section-title fade-in">На сцене.</h2>
             <p class="section-subtitle fade-in">
-              Записи концертов и сольных вечеров — запечатлённые в интимной
-              атмосфере момента.
+              Записи концертов и сольных вечеров.
             </p>
 
             <div class="video-grid" id="videoGrid"></div>
@@ -215,15 +213,16 @@
       <section class="page" id="concerts">
         <div class="section">
           <div class="container">
-          <div style="max-width: 85%; margin: 0 auto; text-align: left;">
-            <span class="eyebrow fade-in">Ближайшие даты</span>
-            <h2 class="section-title fade-in">Концерты и календарь.</h2>
-            <p class="section-subtitle fade-in">
-              Приглашаю вас на предстоящий сольный вечер. Билеты можно
-              приобрести в официальных кассах каждой площадки.
-            </p>
+            <div style="max-width: 85%; margin: 0 auto; text-align: left">
+              <span class="eyebrow fade-in">Ближайшие даты</span>
+              <h2 class="section-title fade-in">Концерты и календарь.</h2>
+              <p class="section-subtitle fade-in">
+                Приглашаю вас на предстоящие концерты. Билеты можно приобрести в
+                официальных кассах каждой площадки.
+              </p>
 
-            <div class="concert-list" id="concertList"></div>
+              <div class="concert-list" id="concertList"></div>
+            </div>
           </div>
         </div>
       </section>
@@ -251,14 +250,14 @@
             <span class="eyebrow fade-in">Публикации в СМИ</span>
             <h2 class="section-title fade-in">Пресса.</h2>
             <p class="section-subtitle fade-in">
-              Статьи о Роберто Чамале в ведущих музыкальных изданиях. Нажмите на
-              обложку, чтобы прочитать полный текст статьи.
+              Статьи о Роберто Чамале в ведущих музыкальных изданиях.
             </p>
 
             <div class="press-grid" id="pressGrid"></div>
           </div>
         </div>
       </section>
+
       <!-- ============ CONTACT SECTION============ -->
       <section class="page" id="contact">
         <div class="section">
@@ -341,6 +340,16 @@
       </div>
     </div>
 
+    <!-- ============ IMAGE MODAL SECTION ============ -->
+    <div class="modal" id="imageModal">
+      <div class="modal-content-image">
+        <button class="modal-close" id="imageModalClose" aria-label="Закрыть">
+          <i class="fas fa-times"></i>
+        </button>
+        <img id="modalImage" src="" alt="" />
+      </div>
+    </div>
+
     <!-- ============ FOOTER SECTION ============ -->
     <footer class="footer">
       <div class="container">
@@ -413,7 +422,7 @@
               <li><a href="#concerts" data-link="concerts">Концерты</a></li>
               <li><a href="#gallery" data-link="gallery">Галерея</a></li>
               <li><a href="#contact" data-link="contact">Контакты</a></li>
-              <li><a href="mailto:robertoperezchamale@yandex.ru">Почта</a></li>
+              <li><a href="mailto:robertoperezchamale@gmail.com">Почта</a></li>
             </ul>
           </div>
         </div>

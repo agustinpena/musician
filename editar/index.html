@@ -159,7 +159,8 @@
       }
 
       .form-group input,
-      .form-group textarea {
+      .form-group textarea,
+      .form-group select {
         width: 100%;
         padding: 0.9rem 1rem;
         background: var(--bg);
@@ -172,9 +173,109 @@
       }
 
       .form-group input:focus,
-      .form-group textarea:focus {
+      .form-group textarea:focus,
+      .form-group select:focus {
         outline: none;
         border-color: var(--gold);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .file-input-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        align-items: center;
+      }
+
+      .file-input-wrapper input[type="file"] {
+        flex: 1;
+        min-width: 200px;
+        padding: 0.7rem;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-family: var(--sans);
+        font-size: 0.9rem;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+
+      .file-input-wrapper input[type="file"]::file-selector-button {
+        padding: 0.5rem 1rem;
+        background: var(--gold);
+        color: #0b0b0e;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+        font-weight: 500;
+        font-family: var(--sans);
+        margin-right: 0.8rem;
+        transition: background var(--transition);
+      }
+
+      .file-input-wrapper input[type="file"]::file-selector-button:hover {
+        background: var(--gold-soft);
+      }
+
+      .image-preview {
+        margin-top: 0.8rem;
+        display: none;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        flex-wrap: wrap;
+      }
+
+      .image-preview.show {
+        display: flex;
+      }
+
+      .image-preview img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+      }
+
+      .image-preview .preview-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        flex: 1;
+      }
+
+      .image-preview .preview-info .filename {
+        font-size: 0.85rem;
+        color: var(--text);
+      }
+
+      .image-preview .preview-info .filesize {
+        font-size: 0.75rem;
+        color: var(--text-dim);
+      }
+
+      .image-preview .remove-image {
+        color: #e88;
+        cursor: pointer;
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+        border: 1px solid #e88;
+        border-radius: 2px;
+        background: transparent;
+        transition: all var(--transition);
+      }
+
+      .image-preview .remove-image:hover {
+        background: #e88;
+        color: #0b0b0e;
       }
 
       .form-status {
@@ -199,6 +300,13 @@
         border: 1px solid #e88;
       }
 
+      .form-status.uploading {
+        display: block;
+        background: rgba(201, 168, 76, 0.1);
+        color: var(--gold-soft);
+        border: 1px solid var(--border);
+      }
+
       .admin-login {
         max-width: 480px;
         margin: 3rem auto;
@@ -214,7 +322,7 @@
       }
 
       .admin-panel {
-        max-width: 900px;
+        max-width: 1100px;
         margin: 0 auto;
       }
 
@@ -227,7 +335,50 @@
         gap: 1rem;
       }
 
-      .admin-concert-item {
+      /* ---------- Tabs ---------- */
+      .admin-tabs {
+        display: flex;
+        gap: 0.3rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 0.5rem;
+      }
+
+      .admin-tab {
+        padding: 0.8rem 1.5rem;
+        color: var(--text-dim);
+        cursor: pointer;
+        border-radius: 4px 4px 0 0;
+        transition: all var(--transition);
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-bottom: 2px solid transparent;
+      }
+
+      .admin-tab:hover {
+        color: var(--text);
+        background: var(--bg-card);
+      }
+
+      .admin-tab.active {
+        color: var(--gold);
+        border-bottom-color: var(--gold);
+        background: var(--bg-card);
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* ---------- Admin List Items ---------- */
+      .admin-item {
         display: grid;
         grid-template-columns: 1fr auto;
         gap: 1.5rem;
@@ -239,19 +390,20 @@
         align-items: center;
       }
 
-      .admin-concert-item .concert-info {
+      .admin-item .item-info {
         display: grid;
         grid-template-columns: 80px 1fr;
         gap: 1.5rem;
         align-items: center;
       }
 
-      .admin-concert-item .concert-actions {
+      .admin-item .item-actions {
         display: flex;
         gap: 0.6rem;
+        flex-wrap: wrap;
       }
 
-      .admin-concert-item .concert-actions button {
+      .admin-item .item-actions button {
         padding: 0.4rem 0.8rem;
         font-size: 0.75rem;
         border: 1px solid var(--border);
@@ -262,35 +414,43 @@
         cursor: pointer;
       }
 
-      .admin-concert-item .concert-actions .btn-edit:hover {
+      .admin-item .item-actions .btn-edit:hover {
         border-color: var(--gold);
         color: var(--gold);
       }
 
-      .admin-concert-item .concert-actions .btn-delete:hover {
+      .admin-item .item-actions .btn-delete:hover {
         border-color: #e88;
         color: #e88;
       }
 
-      .admin-concert-item .concert-preview {
+      .admin-item .item-preview {
         color: var(--text-dim);
         font-size: 0.85rem;
       }
 
-      .admin-concert-date {
+      .admin-item .item-thumb {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+      }
+
+      .admin-date {
         display: flex;
         gap: 0.5rem;
         align-items: baseline;
       }
 
-      .admin-concert-date .day {
+      .admin-date .day {
         font-family: var(--serif);
         font-size: 1.5rem;
         color: var(--gold);
         font-weight: 600;
       }
 
-      .admin-concert-date .month {
+      .admin-date .month {
         font-size: 0.75rem;
         letter-spacing: 2px;
         text-transform: uppercase;
@@ -349,23 +509,84 @@
         margin-top: 0.5rem;
       }
 
+      /* ---------- Gallery Grid in Admin ---------- */
+      .gallery-admin-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .gallery-admin-item {
+        position: relative;
+        aspect-ratio: 1;
+        overflow: hidden;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+        transition: all var(--transition);
+      }
+
+      .gallery-admin-item:hover {
+        border-color: var(--gold);
+      }
+
+      .gallery-admin-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .gallery-admin-item .gallery-delete {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(200, 60, 60, 0.9);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        transition: all var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+      }
+
+      .gallery-admin-item .gallery-delete:hover {
+        background: #c0392b;
+        transform: scale(1.1);
+      }
+
+      .gallery-admin-item .gallery-index {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        background: rgba(0, 0, 0, 0.7);
+        color: var(--text-dim);
+        padding: 0.2rem 0.5rem;
+        border-radius: 2px;
+        font-size: 0.7rem;
+      }
+
       @media (max-width: 700px) {
-        .admin-concert-item {
+        .admin-item {
           grid-template-columns: 1fr;
           gap: 1rem;
         }
-        .admin-concert-item .concert-info {
+        .admin-item .item-info {
           grid-template-columns: 1fr;
           gap: 0.5rem;
           text-align: center;
         }
-        .admin-concert-item .concert-actions {
+        .admin-item .item-actions {
           justify-content: center;
         }
         .form-row {
           grid-template-columns: 1fr;
         }
-        .admin-concert-date {
+        .admin-date {
           justify-content: center;
         }
         .admin-header {
@@ -376,6 +597,27 @@
         .admin-header .btn {
           justify-content: center;
         }
+        .admin-tabs {
+          justify-content: center;
+        }
+        .admin-tab {
+          padding: 0.6rem 1rem;
+          font-size: 0.75rem;
+        }
+        .file-input-wrapper {
+          flex-direction: column;
+        }
+        .file-input-wrapper input[type="file"] {
+          width: 100%;
+        }
+        .image-preview {
+          flex-wrap: wrap;
+          justify-content: center;
+          text-align: center;
+        }
+        .gallery-admin-grid {
+          grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        }
       }
     </style>
   </head>
@@ -384,9 +626,9 @@
       <!-- Login Section -->
       <div class="admin-login" id="adminLogin">
         <span class="eyebrow">🔐 Administrador</span>
-        <h1 class="section-title">Gestión de Eventos</h1>
+        <h1 class="section-title">Gestión de Contenido</h1>
         <p class="section-subtitle" style="margin: 0 auto">
-          Ingrese la contraseña para acceder a la edición de eventos.
+          Ingrese la contraseña para acceder al panel de administración.
         </p>
 
         <form class="admin-login-form" id="adminLoginForm">
@@ -410,16 +652,6 @@
           <div class="password-hint">
             <i class="fas fa-info-circle"></i> Contraseña:
             <strong>chamale2026</strong>
-            <em
-              style="
-                display: block;
-                font-size: 0.7rem;
-                margin-top: 0.3rem;
-                opacity: 0.6;
-              "
-            >
-              (Puede cambiarla en el archivo admin-password.php)
-            </em>
           </div>
         </form>
       </div>
@@ -429,7 +661,7 @@
         <div class="admin-header">
           <div>
             <span class="eyebrow">⚙️ Gestión</span>
-            <h1 class="section-title">Editar Conciertos</h1>
+            <h1 class="section-title">Panel de Administración</h1>
           </div>
           <div style="display: flex; gap: 0.8rem; flex-wrap: wrap">
             <a href="/" class="btn btn-outline btn-sm" target="_blank">
@@ -441,204 +673,475 @@
           </div>
         </div>
 
-        <div id="adminConcertsList">
-          <div class="empty-state">
-            <i class="fas fa-spinner fa-spin"></i>
-            <p>Cargando conciertos...</p>
+        <!-- Tabs -->
+        <div class="admin-tabs">
+          <span class="admin-tab active" data-tab="concerts"
+            ><i class="fas fa-music"></i> Conciertos</span
+          >
+          <span class="admin-tab" data-tab="gallery"
+            ><i class="fas fa-images"></i> Galería</span
+          >
+          <span class="admin-tab" data-tab="press"
+            ><i class="fas fa-newspaper"></i> Prensa</span
+          >
+          <span class="admin-tab" data-tab="music"
+            ><i class="fas fa-headphones"></i> Música</span
+          >
+          <span class="admin-tab" data-tab="videos"
+            ><i class="fas fa-video"></i> Videos</span
+          >
+        </div>
+
+        <!-- Tab: Concerts -->
+        <div class="tab-content active" id="tab-concerts">
+          <div id="adminConcertsList">
+            <div class="empty-state">
+              <i class="fas fa-spinner fa-spin"></i>
+              <p>Cargando conciertos...</p>
+            </div>
+          </div>
+
+          <div class="add-section">
+            <h3 id="concertFormTitle">➕ Agregar nuevo concierto</h3>
+            <form id="adminConcertForm" enctype="multipart/form-data">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="concertDay">Día</label>
+                  <input
+                    type="text"
+                    id="concertDay"
+                    placeholder="ej. 28"
+                    maxlength="2"
+                    pattern="[0-9]{1,2}"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="concertMonth">Mes</label>
+                  <input
+                    type="text"
+                    id="concertMonth"
+                    placeholder='ej. "ene", "feb"'
+                    maxlength="4"
+                    pattern="[a-zA-Zа-яА-Я]{1,4}"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="concertTitle">Título</label>
+                <input
+                  type="text"
+                  id="concertTitle"
+                  placeholder="Ingrese el título del concierto"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="concertVenue">Lugar</label>
+                <input
+                  type="text"
+                  id="concertVenue"
+                  placeholder="Ingrese el nombre del lugar"
+                  required
+                />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="concertCity">Ciudad</label>
+                  <input
+                    type="text"
+                    id="concertCity"
+                    placeholder="Ciudad, País"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="concertTime">Hora</label>
+                  <input
+                    type="text"
+                    id="concertTime"
+                    placeholder="20:00"
+                    pattern="[0-9]{1,2}:[0-9]{2}"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="concertImageFile">Imagen (opcional)</label>
+                <div class="file-input-wrapper">
+                  <input
+                    type="file"
+                    id="concertImageFile"
+                    accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml"
+                  />
+                  <span style="color: var(--text-dim); font-size: 0.8rem"
+                    >o</span
+                  >
+                  <input
+                    type="url"
+                    id="concertImageUrl"
+                    placeholder="Ingrese URL de imagen"
+                    style="flex: 1; min-width: 150px"
+                  />
+                </div>
+                <div class="image-preview" id="concertImagePreview">
+                  <img id="concertPreviewImg" src="" alt="Vista previa" />
+                  <div class="preview-info">
+                    <span class="filename" id="concertPreviewFilename"
+                      >imagen.jpg</span
+                    >
+                    <span class="filesize" id="concertPreviewFilesize"
+                      >0 KB</span
+                    >
+                  </div>
+                  <button
+                    type="button"
+                    class="remove-image"
+                    id="concertRemoveImage"
+                  >
+                    <i class="fas fa-times"></i> Eliminar
+                  </button>
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="width: 100%; justify-content: center"
+                id="concertSubmitBtn"
+              >
+                <i class="fas fa-plus"></i> Agregar concierto
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline"
+                style="
+                  width: 100%;
+                  justify-content: center;
+                  margin-top: 0.5rem;
+                  display: none;
+                "
+                id="concertCancelBtn"
+              >
+                <i class="fas fa-times"></i> Cancelar edición
+              </button>
+              <div class="form-status" id="concertFormStatus"></div>
+            </form>
           </div>
         </div>
 
-        <!-- Add/Edit concert form -->
-        <div class="add-section">
-          <h3 id="formTitle">➕ Agregar nuevo concierto</h3>
+        <!-- Tab: Gallery -->
+        <div class="tab-content" id="tab-gallery">
+          <div id="adminGalleryList">
+            <div class="empty-state">
+              <i class="fas fa-spinner fa-spin"></i>
+              <p>Cargando galería...</p>
+            </div>
+          </div>
 
-          <!-- <form id="adminConcertForm"> -->
-          <!-- <div class="form-row"> -->
-          <!-- <div class="form-group"> -->
-          <!-- <label for="adminDay">Día</label> -->
-          <!-- <input type="text" id="adminDay" placeholder="28" required /> -->
-          <!-- </div> -->
-          <!-- <div class="form-group"> -->
-          <!-- <label for="adminMonth">Mes</label> -->
-          <!-- <input type="text" id="adminMonth" placeholder="ago" required /> -->
-          <!-- </div> -->
-          <!-- </div> -->
-          <!-- <div class="form-group"> -->
-          <!-- <label for="adminTitle">Título del concierto</label> -->
-          <!-- <input -->
-          <!-- type="text" -->
-          <!-- id="adminTitle" -->
-          <!-- placeholder="Nocturnos — Concierto solista" -->
-          <!-- required -->
-          <!-- /> -->
-          <!-- </div> -->
-          <!-- <div class="form-group"> -->
-          <!-- <label for="adminVenue">Lugar</label> -->
-          <!-- <input -->
-          <!-- type="text" -->
-          <!-- id="adminVenue" -->
-          <!-- placeholder="Sala Nezahualcóyotl" -->
-          <!-- required -->
-          <!-- /> -->
-          <!-- </div> -->
-          <!-- <div class="form-row"> -->
-          <!-- <div class="form-group"> -->
-          <!-- <label for="adminCity">Ciudad</label> -->
-          <!-- <input -->
-          <!-- type="text" -->
-          <!-- id="adminCity" -->
-          <!-- placeholder="Ciudad de México, MX" -->
-          <!-- required -->
-          <!-- /> -->
-          <!-- </div> -->
-          <!-- <div class="form-group"> -->
-          <!-- <label for="adminTime">Hora</label> -->
-          <!-- <input -->
-          <!-- type="text" -->
-          <!-- id="adminTime" -->
-          <!-- placeholder="20:00" -->
-          <!-- required -->
-          <!-- /> -->
-          <!-- </div> -->
-          <!-- </div> -->
-          <!-- <button -->
-          <!-- type="submit" -->
-          <!-- class="btn btn-primary" -->
-          <!-- style="width: 100%; justify-content: center" -->
-          <!-- id="formSubmitBtn" -->
-          <!-- > -->
-          <!-- <i class="fas fa-plus"></i> Agregar concierto -->
-          <!-- </button> -->
-          <!-- <button -->
-          <!-- type="button" -->
-          <!-- class="btn btn-outline" -->
-          <!-- style=" -->
-          <!-- width: 100%; -->
-          <!-- justify-content: center; -->
-          <!-- margin-top: 0.5rem; -->
-          <!-- display: none; -->
-          <!-- " -->
-          <!-- id="formCancelBtn" -->
-          <!-- > -->
-          <!-- <i class="fas fa-times"></i> Cancelar edición -->
-          <!-- </button> -->
-          <!-- <div class="form-status" id="adminFormStatus"></div> -->
-          <!-- </form> -->
-
-          <form id="adminConcertForm">
-            <!-- <div class="form-row"> -->
-            <!-- <div class="form-group"> -->
-            <!-- <label for="adminDay">Día</label> -->
-            <!-- <input -->
-            <!-- type="text" -->
-            <!-- id="adminDay" -->
-            <!-- placeholder="Ingrese el día (ej. 28)" -->
-            <!-- required -->
-            <!-- /> -->
-            <!-- </div> -->
-            <!-- <div class="form-group"> -->
-            <!-- <label for="adminMonth">Mes</label> -->
-            <!-- <input -->
-            <!-- type="text" -->
-            <!-- id="adminMonth" -->
-            <!-- placeholder='Ingrese sólo 3 o 4 letras (ej. "ene", "feb", "mar")' -->
-            <!-- required -->
-            <!-- /> -->
-            <!-- </div> -->
-            <!-- </div> -->
-
-            <div class="form-row">
+          <div class="add-section">
+            <h3>➕ Agregar imágenes a la galería</h3>
+            <form id="adminGalleryForm" enctype="multipart/form-data">
               <div class="form-group">
-                <label for="adminDay">Día</label>
+                <label for="galleryFiles">Seleccionar imágenes</label>
+                <input
+                  type="file"
+                  id="galleryFiles"
+                  accept="image/*"
+                  multiple
+                />
+                <div
+                  style="
+                    font-size: 0.8rem;
+                    color: var(--text-dim);
+                    margin-top: 0.3rem;
+                  "
+                >
+                  <i class="fas fa-info-circle"></i> Puede seleccionar múltiples
+                  imágenes a la vez
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="width: 100%; justify-content: center"
+              >
+                <i class="fas fa-upload"></i> Subir imágenes
+              </button>
+              <div class="form-status" id="galleryFormStatus"></div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Tab: Press -->
+        <div class="tab-content" id="tab-press">
+          <div id="adminPressList">
+            <div class="empty-state">
+              <i class="fas fa-spinner fa-spin"></i>
+              <p>Cargando artículos...</p>
+            </div>
+          </div>
+
+          <div class="add-section">
+            <h3 id="pressFormTitle">➕ Agregar nuevo artículo</h3>
+            <form id="adminPressForm" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="pressTitle">Título</label>
                 <input
                   type="text"
-                  id="adminDay"
-                  placeholder="Ingrese el día (ej. 28)"
-                  maxlength="2"
-                  pattern="[0-9]{1,2}"
-                  title="Ingrese un número de 1 o 2 dígitos (1-31)"
+                  id="pressTitle"
+                  placeholder="Ingrese el título del artículo"
+                  required
+                />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="pressMagazine">Publicación</label>
+                  <input
+                    type="text"
+                    id="pressMagazine"
+                    placeholder="Nombre de la revista"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pressDate">Fecha</label>
+                  <input
+                    type="text"
+                    id="pressDate"
+                    placeholder="Mes Año (ej. Mayo 2026)"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="pressText">Texto del artículo</label>
+                <textarea
+                  id="pressText"
+                  placeholder="Ingrese el contenido del artículo..."
+                  required
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="pressImages"
+                  >Imágenes del artículo (puede seleccionar varias)</label
+                >
+                <input type="file" id="pressImages" accept="image/*" multiple />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="width: 100%; justify-content: center"
+                id="pressSubmitBtn"
+              >
+                <i class="fas fa-plus"></i> Agregar artículo
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline"
+                style="
+                  width: 100%;
+                  justify-content: center;
+                  margin-top: 0.5rem;
+                  display: none;
+                "
+                id="pressCancelBtn"
+              >
+                <i class="fas fa-times"></i> Cancelar edición
+              </button>
+              <div class="form-status" id="pressFormStatus"></div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Tab: Music -->
+        <div class="tab-content" id="tab-music">
+          <div id="adminMusicList">
+            <div class="empty-state">
+              <i class="fas fa-spinner fa-spin"></i>
+              <p>Cargando música...</p>
+            </div>
+          </div>
+
+          <div class="add-section">
+            <h3 id="musicFormTitle">➕ Agregar nueva canción</h3>
+            <form id="adminMusicForm" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="musicTitle">Título</label>
+                <input
+                  type="text"
+                  id="musicTitle"
+                  placeholder="Ingrese el título de la canción"
                   required
                 />
               </div>
               <div class="form-group">
-                <label for="adminMonth">Mes</label>
-                <input
-                  type="text"
-                  id="adminMonth"
-                  placeholder='Ingrese 3 o 4 letras (ej. "ene", "feb", "mar")'
-                  maxlength="4"
-                  pattern="[a-zA-Zа-яА-Я]{1,4}"
-                  title="Ingrese 3 o 4 letras (ej. ene, feb, mar)"
-                  required
-                />
+                <label for="musicYear">Año</label>
+                <input type="text" id="musicYear" placeholder="ej. 2024" />
               </div>
-            </div>
-
-            <div class="form-group">
-              <label for="adminTitle">Título del concierto</label>
-              <input
-                type="text"
-                id="adminTitle"
-                placeholder="Ingrese el título del concierto"
-                required
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="adminVenue">Lugar</label>
-              <input
-                type="text"
-                id="adminVenue"
-                placeholder="Ingrese el nombre del lugar"
-                required
-              />
-            </div>
-            <div class="form-row">
               <div class="form-group">
-                <label for="adminCity">Ciudad</label>
+                <label for="musicImageFile">Imagen de portada (opcional)</label>
                 <input
-                  type="text"
-                  id="adminCity"
-                  placeholder="Ingrese la ciudad y país (ej. Buenos Aires, AR)"
-                  required
+                  type="file"
+                  id="musicImageFile"
+                  accept="image/jpeg,image/png,image/gif,image/webp"
                 />
+                <div class="image-preview" id="musicImagePreview">
+                  <img id="musicPreviewImg" src="" alt="Vista previa" />
+                  <div class="preview-info">
+                    <span class="filename" id="musicPreviewFilename"
+                      >imagen.jpg</span
+                    >
+                    <span class="filesize" id="musicPreviewFilesize">0 KB</span>
+                  </div>
+                  <button
+                    type="button"
+                    class="remove-image"
+                    id="musicRemoveImage"
+                  >
+                    <i class="fas fa-times"></i> Eliminar
+                  </button>
+                </div>
               </div>
-
               <div class="form-group">
-                <label for="adminTime">Hora</label>
+                <label for="musicAudioFile">Archivo MP3</label>
+                <input
+                  type="file"
+                  id="musicAudioFile"
+                  accept="audio/mpeg,audio/mp3"
+                />
+                <div
+                  style="
+                    font-size: 0.8rem;
+                    color: var(--text-dim);
+                    margin-top: 0.3rem;
+                  "
+                >
+                  <i class="fas fa-info-circle"></i> Solo archivos MP3
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="width: 100%; justify-content: center"
+                id="musicSubmitBtn"
+              >
+                <i class="fas fa-plus"></i> Agregar canción
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline"
+                style="
+                  width: 100%;
+                  justify-content: center;
+                  margin-top: 0.5rem;
+                  display: none;
+                "
+                id="musicCancelBtn"
+              >
+                <i class="fas fa-times"></i> Cancelar edición
+              </button>
+              <div class="form-status" id="musicFormStatus"></div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Tab: Videos -->
+        <div class="tab-content" id="tab-videos">
+          <div id="adminVideosList">
+            <div class="empty-state">
+              <i class="fas fa-spinner fa-spin"></i>
+              <p>Cargando videos...</p>
+            </div>
+          </div>
+
+          <div class="add-section">
+            <h3 id="videoFormTitle">➕ Agregar nuevo video</h3>
+            <form id="adminVideosForm" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="videoTitle">Título</label>
                 <input
                   type="text"
-                  id="adminTime"
-                  placeholder="Ingrese la hora (ej. 20:00)"
-                  pattern="[0-9]{1,2}:[0-9]{2}"
-                  title="Ingrese la hora en formato HH:MM (ej. 20:00)"
+                  id="videoTitle"
+                  placeholder="Ingrese el título del video"
                   required
                 />
               </div>
-            </div>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              style="width: 100%; justify-content: center"
-              id="formSubmitBtn"
-            >
-              <i class="fas fa-plus"></i> Agregar concierto
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline"
-              style="
-                width: 100%;
-                justify-content: center;
-                margin-top: 0.5rem;
-                display: none;
-              "
-              id="formCancelBtn"
-            >
-              <i class="fas fa-times"></i> Cancelar edición
-            </button>
-            <div class="form-status" id="adminFormStatus"></div>
-          </form>
+              <div class="form-group">
+                <label for="videoType">Tipo de evento</label>
+                <input
+                  type="text"
+                  id="videoType"
+                  placeholder="ej. Concierto en vivo, 2024"
+                />
+              </div>
+              <div class="form-group">
+                <label for="videoYtId">ID de YouTube</label>
+                <input
+                  type="text"
+                  id="videoYtId"
+                  placeholder="ej. c0xHaeUXakc (el código después de v= en el URL)"
+                  required
+                />
+                <div
+                  style="
+                    font-size: 0.8rem;
+                    color: var(--text-dim);
+                    margin-top: 0.3rem;
+                  "
+                >
+                  <i class="fas fa-info-circle"></i> Ejemplo:
+                  https://www.youtube.com/watch?v=<strong>c0xHaeUXakc</strong>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="videoThumbFile">Miniatura (opcional)</label>
+                <input
+                  type="file"
+                  id="videoThumbFile"
+                  accept="image/jpeg,image/png,image/gif,image/webp"
+                />
+                <div class="image-preview" id="videoThumbPreview">
+                  <img id="videoPreviewImg" src="" alt="Vista previa" />
+                  <div class="preview-info">
+                    <span class="filename" id="videoPreviewFilename"
+                      >imagen.jpg</span
+                    >
+                    <span class="filesize" id="videoPreviewFilesize">0 KB</span>
+                  </div>
+                  <button
+                    type="button"
+                    class="remove-image"
+                    id="videoRemoveImage"
+                  >
+                    <i class="fas fa-times"></i> Eliminar
+                  </button>
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="width: 100%; justify-content: center"
+                id="videoSubmitBtn"
+              >
+                <i class="fas fa-plus"></i> Agregar video
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline"
+                style="
+                  width: 100%;
+                  justify-content: center;
+                  margin-top: 0.5rem;
+                  display: none;
+                "
+                id="videoCancelBtn"
+              >
+                <i class="fas fa-times"></i> Cancelar edición
+              </button>
+              <div class="form-status" id="videoFormStatus"></div>
+            </form>
+          </div>
         </div>
 
         <a href="/" class="back-link">
@@ -649,9 +1152,34 @@
 
     <script>
       // ---------- Admin JavaScript ----------
-      const ADMIN_API = "/api/concerts-admin.php";
-      let concertData = [];
-      let editingIndex = null;
+      const ADMIN_PASSWORD = "chamale2026";
+      const UPLOAD_API = "/api/upload-image.php";
+      const UPLOAD_AUDIO_API = "/api/upload-audio.php";
+
+      // API endpoints
+      const APIs = {
+        concerts: "/api/concerts-admin.php",
+        gallery: "/api/gallery-admin.php",
+        press: "/api/press-admin.php",
+        music: "/api/music-admin.php",
+        videos: "/api/videos-admin.php",
+      };
+
+      // Data storage
+      let data = {
+        concerts: [],
+        gallery: [],
+        press: [],
+        music: [],
+        videos: [],
+      };
+
+      let editing = {
+        concerts: null,
+        press: null,
+        music: null,
+        videos: null,
+      };
 
       // DOM elements
       const loginDiv = document.getElementById("adminLogin");
@@ -659,206 +1187,163 @@
       const loginForm = document.getElementById("adminLoginForm");
       const loginStatus = document.getElementById("adminLoginStatus");
       const logoutBtn = document.getElementById("adminLogout");
-      const concertsList = document.getElementById("adminConcertsList");
-      const concertForm = document.getElementById("adminConcertForm");
-      const formStatus = document.getElementById("adminFormStatus");
-      const formTitle = document.getElementById("formTitle");
-      const submitBtn = document.getElementById("formSubmitBtn");
-      const cancelBtn = document.getElementById("formCancelBtn");
 
-      // ---------- API Functions ----------
-
-      // Fetch concerts from server
-      async function fetchConcerts() {
-        try {
-          const response = await fetch(ADMIN_API);
-          if (!response.ok) throw new Error("Error al cargar los conciertos");
-          return await response.json();
-        } catch (error) {
-          console.error("Error fetching concerts:", error);
-          return [];
-        }
-      }
-
-      // Save concerts to server (requires password)
-      async function saveConcerts(concerts) {
-        const password = getPassword();
-        try {
-          const response = await fetch(ADMIN_API, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ password, concerts }),
-          });
-          const data = await response.json();
-          if (!response.ok) throw new Error(data.error || "Error al guardar");
-          return data;
-        } catch (error) {
-          console.error("Error saving concerts:", error);
-          throw error;
-        }
-      }
-
-      // Verify password
-      async function verifyPassword(password) {
-        try {
-          const response = await fetch(ADMIN_API, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ password, action: "verify" }),
-          });
-          const data = await response.json();
-          return data.authenticated || false;
-        } catch (error) {
-          console.error("Verification error:", error);
-          return false;
-        }
-      }
-
-      // ---------- Helper Functions ----------
-
+      // ---------- Helpers ----------
       function getPassword() {
         return sessionStorage.getItem("adminPassword") || "";
       }
 
       function showStatus(element, type, message) {
-        element.className = `form-status ${type}`;
+        element.className = "form-status " + type;
         element.textContent = message;
         setTimeout(() => {
-          element.className = "form-status";
-          element.textContent = "";
-        }, 4000);
+          if (element.className !== "form-status error") {
+            element.className = "form-status";
+            element.textContent = "";
+          }
+        }, 5000);
       }
 
-      // ---------- Render Functions ----------
+      function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + " B";
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
+        return (bytes / 1048576).toFixed(1) + " MB";
+      }
 
-      function renderAdminConcerts() {
-        if (!concertsList) return;
+      // ---------- Image Preview Helpers ----------
+      function setupImagePreview(
+        fileInput,
+        urlInput,
+        previewContainer,
+        previewImg,
+        previewFilename,
+        previewFilesize,
+        removeBtn,
+      ) {
+        fileInput.addEventListener("change", function () {
+          if (this.files && this.files[0]) {
+            const file = this.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              previewImg.src = e.target.result;
+              previewFilename.textContent = file.name;
+              previewFilesize.textContent = formatFileSize(file.size);
+              previewContainer.classList.add("show");
+            };
+            reader.readAsDataURL(file);
+          } else {
+            previewContainer.classList.remove("show");
+          }
+        });
 
-        if (!concertData || concertData.length === 0) {
-          concertsList.innerHTML = `
-            <div class="empty-state">
-              <i class="fas fa-calendar-plus"></i>
-              <p>No hay conciertos agregados.</p>
-              <p style="font-size: 0.85rem; margin-top: 0.5rem;">
-                Use el formulario a continuación para agregar su primer concierto.
-              </p>
-            </div>
-          `;
-          return;
+        urlInput.addEventListener("input", function () {
+          const url = this.value.trim();
+          if (url) {
+            previewImg.src = url;
+            previewFilename.textContent =
+              url.split("/").pop() || "URL de imagen";
+            previewFilesize.textContent = "Desde URL";
+            previewContainer.classList.add("show");
+          } else {
+            previewContainer.classList.remove("show");
+          }
+        });
+
+        if (removeBtn) {
+          removeBtn.addEventListener("click", function () {
+            previewContainer.classList.remove("show");
+            fileInput.value = "";
+            urlInput.value = "";
+            previewImg.src = "";
+          });
         }
+      }
 
-        concertsList.innerHTML = concertData
-          .map(
-            (c, index) => `
-            <div class="admin-concert-item" data-index="${index}">
-              <div class="concert-info">
-                <div class="admin-concert-date">
-                  <span class="day">${c.day}</span>
-                  <span class="month">${c.month}</span>
-                </div>
-                <div>
-                  <h4 style="font-size: 1rem; color: #fff;">${c.title}</h4>
-                  <div class="concert-preview">${c.venue}, ${c.city} • ${c.time}</div>
-                </div>
-              </div>
-              <div class="concert-actions">
-                <button class="btn-edit" data-index="${index}" title="Editar">
-                  <i class="fas fa-pen"></i>
-                </button>
-                <button class="btn-delete" data-index="${index}" title="Eliminar">
-                  <i class="fas fa-trash"></i>
-                </button>
-              </div>
-            </div>
-          `,
-          )
-          .join("");
-
-        // Add event listeners
-        concertsList.querySelectorAll(".btn-delete").forEach((btn) => {
-          btn.addEventListener("click", async function () {
-            const index = parseInt(this.dataset.index);
-            const concert = concertData[index];
-            if (
-              confirm(
-                `¿Eliminar el concierto "${concert.title}" (${concert.day} ${concert.month})?`,
-              )
-            ) {
-              concertData.splice(index, 1);
-              try {
-                await saveConcerts(concertData);
-                await loadAndRenderConcerts();
-                showStatus(formStatus, "success", "✓ ¡Concierto eliminado!");
-              } catch (error) {
-                showStatus(
-                  formStatus,
-                  "error",
-                  "❌ Error al eliminar: " + error.message,
-                );
-              }
-            }
-          });
+      // ---------- Tab switching ----------
+      document.querySelectorAll(".admin-tab").forEach((tab) => {
+        tab.addEventListener("click", function () {
+          document
+            .querySelectorAll(".admin-tab")
+            .forEach((t) => t.classList.remove("active"));
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((t) => t.classList.remove("active"));
+          this.classList.add("active");
+          document
+            .getElementById("tab-" + this.dataset.tab)
+            .classList.add("active");
+          // Refresh the list when switching tabs
+          const tabName = this.dataset.tab;
+          if (tabName === "concerts") renderAdminConcerts();
+          else if (tabName === "gallery") renderAdminGallery();
+          else if (tabName === "press") renderAdminPress();
+          else if (tabName === "music") renderAdminMusic();
+          else if (tabName === "videos") renderAdminVideos();
         });
+      });
 
-        concertsList.querySelectorAll(".btn-edit").forEach((btn) => {
-          btn.addEventListener("click", function () {
-            const index = parseInt(this.dataset.index);
-            startEditing(index);
+      // ---------- Fetch/Store functions ----------
+      async function fetchData(type) {
+        try {
+          const response = await fetch(APIs[type]);
+          if (!response.ok) throw new Error("Error loading " + type);
+          return await response.json();
+        } catch (error) {
+          console.error("Error fetching " + type + ":", error);
+          return [];
+        }
+      }
+
+      async function saveData(type, items) {
+        const password = getPassword();
+        try {
+          const response = await fetch(APIs[type], {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password, items }),
           });
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.error || "Error saving");
+          return result;
+        } catch (error) {
+          console.error("Error saving " + type + ":", error);
+          throw error;
+        }
+      }
+
+      // ---------- Upload functions ----------
+      async function uploadImage(file) {
+        const formData = new FormData();
+        formData.append("image", file);
+        const response = await fetch(UPLOAD_API, {
+          method: "POST",
+          body: formData,
         });
+        return await response.json();
       }
 
-      function startEditing(index) {
-        const concert = concertData[index];
-        document.getElementById("adminDay").value = concert.day;
-        document.getElementById("adminMonth").value = concert.month;
-        document.getElementById("adminTitle").value = concert.title;
-        document.getElementById("adminVenue").value = concert.venue;
-        document.getElementById("adminCity").value = concert.city;
-        document.getElementById("adminTime").value = concert.time;
-
-        editingIndex = index;
-        formTitle.textContent = "✏️ Editar concierto";
-        submitBtn.innerHTML =
-          '<i class="fas fa-save"></i> Actualizar concierto';
-        cancelBtn.style.display = "flex";
-
-        document
-          .querySelector(".add-section")
-          .scrollIntoView({ behavior: "smooth", block: "center" });
+      async function uploadAudio(file) {
+        const formData = new FormData();
+        formData.append("audio", file);
+        const response = await fetch(UPLOAD_AUDIO_API, {
+          method: "POST",
+          body: formData,
+        });
+        return await response.json();
       }
 
-      function cancelEditing() {
-        editingIndex = null;
-        concertForm.reset();
-        formTitle.textContent = "➕ Agregar nuevo concierto";
-        submitBtn.innerHTML = '<i class="fas fa-plus"></i> Agregar concierto';
-        cancelBtn.style.display = "none";
-        document.getElementById("adminFormStatus").className = "form-status";
-        document.getElementById("adminFormStatus").textContent = "";
-      }
-
-      async function loadAndRenderConcerts() {
-        concertData = await fetchConcerts();
-        renderAdminConcerts();
-      }
-
-      // ---------- Event Listeners ----------
-
-      // Login
-      loginForm.addEventListener("submit", async function (e) {
+      // ---------- Login ----------
+      loginForm.addEventListener("submit", function (e) {
         e.preventDefault();
         const password = document.getElementById("adminPassword").value;
-
-        const authenticated = await verifyPassword(password);
-        if (authenticated) {
+        if (password === ADMIN_PASSWORD) {
           sessionStorage.setItem("adminAuthenticated", "true");
           sessionStorage.setItem("adminPassword", password);
           loginDiv.style.display = "none";
           panelDiv.style.display = "block";
           loginStatus.className = "form-status";
           loginStatus.textContent = "";
-          await loadAndRenderConcerts();
+          loadAllAdminData();
         } else {
           loginStatus.className = "form-status error";
           loginStatus.textContent =
@@ -868,133 +1353,736 @@
         }
       });
 
-      // Logout
       logoutBtn.addEventListener("click", function () {
-        if (confirm("¿Cerrar sesión en el panel de administración?")) {
+        if (confirm("¿Cerrar sesión?")) {
           sessionStorage.removeItem("adminAuthenticated");
           sessionStorage.removeItem("adminPassword");
           loginDiv.style.display = "block";
           panelDiv.style.display = "none";
           document.getElementById("adminPassword").value = "";
-          cancelEditing();
         }
       });
 
-      // Cancel edit
-      cancelBtn.addEventListener("click", cancelEditing);
+      // ---------- Load all data ----------
+      async function loadAllAdminData() {
+        const [concerts, gallery, press, music, videos] = await Promise.all([
+          fetchData("concerts"),
+          fetchData("gallery"),
+          fetchData("press"),
+          fetchData("music"),
+          fetchData("videos"),
+        ]);
+        data.concerts = concerts;
+        data.gallery = gallery;
+        data.press = press;
+        data.music = music;
+        data.videos = videos;
+        renderAdminConcerts();
+        renderAdminGallery();
+        renderAdminPress();
+        renderAdminMusic();
+        renderAdminVideos();
+      }
 
-      // Submit form (add or update)
-
-      concertForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-
-        const day = document.getElementById("adminDay").value.trim();
-        const month = document.getElementById("adminMonth").value.trim();
-        const title = document.getElementById("adminTitle").value.trim();
-        const venue = document.getElementById("adminVenue").value.trim();
-        const city = document.getElementById("adminCity").value.trim();
-        const time = document.getElementById("adminTime").value.trim();
-
-        // Validate all fields are filled
-        if (!day || !month || !title || !venue || !city || !time) {
-          showStatus(
-            formStatus,
-            "error",
-            "❌ Por favor, complete todos los campos.",
-          );
+      // ---------- RENDER: Concerts ----------
+      function renderAdminConcerts() {
+        const container = document.getElementById("adminConcertsList");
+        if (data.concerts.length === 0) {
+          container.innerHTML =
+            '<div class="empty-state"><i class="fas fa-calendar-plus"></i><p>No hay conciertos agregados.</p></div>';
           return;
         }
+        container.innerHTML = data.concerts
+          .map(
+            (c, i) => `
+          <div class="admin-item">
+            <div class="item-info">
+              <div class="admin-date"><span class="day">${c.day}</span><span class="month">${c.month}</span></div>
+              <div>
+                <h4 style="font-size:1rem;color:#fff;">${c.title}</h4>
+                <div class="item-preview">${c.venue}, ${c.city} • ${c.time}</div>
+                ${c.image ? `<div class="item-preview" style="color:var(--gold);font-size:0.7rem;"><i class="fas fa-image"></i> Con imagen</div>` : ""}
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="btn-edit" data-index="${i}" data-type="concerts"><i class="fas fa-pen"></i></button>
+              <button class="btn-delete" data-index="${i}" data-type="concerts"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+        `,
+          )
+          .join("");
 
-        // ----- VALIDATE DAY (1-2 digits, 1-31) -----
-        if (!/^\d{1,2}$/.test(day)) {
-          showStatus(
-            formStatus,
-            "error",
-            "❌ El día debe ser un número de 1 o 2 dígitos (ej. 5, 28)",
-          );
-          return;
-        }
-        const dayNum = parseInt(day);
-        if (dayNum < 1 || dayNum > 31) {
-          showStatus(formStatus, "error", "❌ El día debe estar entre 1 y 31");
-          return;
-        }
+        container.querySelectorAll(".btn-edit").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const index = parseInt(this.dataset.index);
+            editConcert(index);
+          });
+        });
 
-        // ----- VALIDATE MONTH (1-4 characters, letters only) -----
-        if (month.length < 1 || month.length > 4) {
-          showStatus(
-            formStatus,
-            "error",
-            '❌ El mes debe tener entre 1 y 4 caracteres (ej. "ene", "feb", "mar")',
-          );
-          return;
-        }
-        if (!/^[a-zA-Zа-яА-Я]{1,4}$/u.test(month)) {
-          showStatus(
-            formStatus,
-            "error",
-            '❌ El mes debe contener solo letras (ej. "ene", "feb", "mar")',
-          );
-          return;
-        }
+        container.querySelectorAll(".btn-delete").forEach((btn) => {
+          btn.addEventListener("click", async function () {
+            const index = parseInt(this.dataset.index);
+            const item = data.concerts[index];
+            if (confirm(`¿Eliminar "${item.title}"?`)) {
+              data.concerts.splice(index, 1);
+              await saveData("concerts", data.concerts);
+              renderAdminConcerts();
+            }
+          });
+        });
+      }
 
-        // ----- VALIDATE TIME (format HH:MM) -----
-        if (!/^\d{1,2}:\d{2}$/.test(time)) {
-          showStatus(
-            formStatus,
-            "error",
-            "❌ La hora debe tener formato HH:MM (ej. 20:00)",
-          );
-          return;
+      function editConcert(index) {
+        const c = data.concerts[index];
+        document.getElementById("concertDay").value = c.day;
+        document.getElementById("concertMonth").value = c.month;
+        document.getElementById("concertTitle").value = c.title;
+        document.getElementById("concertVenue").value = c.venue;
+        document.getElementById("concertCity").value = c.city;
+        document.getElementById("concertTime").value = c.time;
+        if (c.image) {
+          document.getElementById("concertImageUrl").value = c.image;
+          // Trigger preview
+          const evt = new Event("input");
+          document.getElementById("concertImageUrl").dispatchEvent(evt);
         }
-        const [hours, minutes] = time.split(":").map(Number);
-        if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
-          showStatus(
-            formStatus,
-            "error",
-            "❌ La hora debe ser válida (00:00 - 23:59)",
-          );
-          return;
-        }
+        editing.concerts = index;
+        document.getElementById("concertFormTitle").textContent =
+          "✏️ Editar concierto";
+        document.getElementById("concertSubmitBtn").innerHTML =
+          '<i class="fas fa-save"></i> Actualizar concierto';
+        document.getElementById("concertCancelBtn").style.display = "flex";
+        document
+          .getElementById("tab-concerts")
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      }
 
-        const newConcert = { day, month, title, venue, city, time };
+      // Concert form submit
+      document
+        .getElementById("adminConcertForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const formStatus = document.getElementById("concertFormStatus");
+          const day = document.getElementById("concertDay").value.trim();
+          const month = document.getElementById("concertMonth").value.trim();
+          const title = document.getElementById("concertTitle").value.trim();
+          const venue = document.getElementById("concertVenue").value.trim();
+          const city = document.getElementById("concertCity").value.trim();
+          const time = document.getElementById("concertTime").value.trim();
+          const imageUrl = document
+            .getElementById("concertImageUrl")
+            .value.trim();
 
-        try {
-          if (editingIndex !== null) {
-            // Update existing
-            concertData[editingIndex] = newConcert;
-            await saveConcerts(concertData);
-            showStatus(formStatus, "success", "✓ ¡Concierto actualizado!");
-            cancelEditing();
-          } else {
-            // Add new
-            concertData.push(newConcert);
-            await saveConcerts(concertData);
-            showStatus(formStatus, "success", "✓ ¡Concierto agregado!");
-            concertForm.reset();
+          if (!day || !month || !title || !venue || !city || !time) {
+            showStatus(formStatus, "error", "❌ Complete todos los campos.");
+            return;
+          }
+          if (
+            !/^\d{1,2}$/.test(day) ||
+            parseInt(day) < 1 ||
+            parseInt(day) > 31
+          ) {
+            showStatus(formStatus, "error", "❌ Día inválido (1-31)");
+            return;
+          }
+          if (!/^[a-zA-Zа-яА-Я]{1,4}$/u.test(month)) {
+            showStatus(formStatus, "error", "❌ Mes inválido (3-4 letras)");
+            return;
+          }
+          if (!/^\d{1,2}:\d{2}$/.test(time)) {
+            showStatus(formStatus, "error", "❌ Hora inválida (HH:MM)");
+            return;
           }
 
-          await loadAndRenderConcerts();
-        } catch (error) {
-          showStatus(formStatus, "error", "❌ Error: " + error.message);
+          // Handle image upload if file selected
+          let finalImage = imageUrl || "";
+          const fileInput = document.getElementById("concertImageFile");
+          if (fileInput.files && fileInput.files[0]) {
+            showStatus(formStatus, "uploading", "⏳ Subiendo imagen...");
+            const result = await uploadImage(fileInput.files[0]);
+            if (result.success) {
+              finalImage = result.url;
+            } else {
+              showStatus(formStatus, "error", "❌ " + result.message);
+              return;
+            }
+          }
+
+          const newItem = {
+            day,
+            month,
+            title,
+            venue,
+            city,
+            time,
+            image: finalImage,
+          };
+
+          if (editing.concerts !== null) {
+            data.concerts[editing.concerts] = newItem;
+            await saveData("concerts", data.concerts);
+            showStatus(formStatus, "success", "✓ Concierto actualizado!");
+            document.getElementById("concertCancelBtn").click();
+          } else {
+            data.concerts.push(newItem);
+            await saveData("concerts", data.concerts);
+            showStatus(formStatus, "success", "✓ Concierto agregado!");
+            this.reset();
+            document
+              .getElementById("concertImagePreview")
+              .classList.remove("show");
+          }
+          renderAdminConcerts();
+          setTimeout(() => {
+            formStatus.className = "form-status";
+            formStatus.textContent = "";
+          }, 3000);
+        });
+
+      document
+        .getElementById("concertCancelBtn")
+        .addEventListener("click", function () {
+          editing.concerts = null;
+          document.getElementById("adminConcertForm").reset();
+          document
+            .getElementById("concertImagePreview")
+            .classList.remove("show");
+          document.getElementById("concertFormTitle").textContent =
+            "➕ Agregar nuevo concierto";
+          document.getElementById("concertSubmitBtn").innerHTML =
+            '<i class="fas fa-plus"></i> Agregar concierto';
+          this.style.display = "none";
+          document.getElementById("concertFormStatus").className =
+            "form-status";
+          document.getElementById("concertFormStatus").textContent = "";
+        });
+
+      // Setup image preview for concerts
+      setupImagePreview(
+        document.getElementById("concertImageFile"),
+        document.getElementById("concertImageUrl"),
+        document.getElementById("concertImagePreview"),
+        document.getElementById("concertPreviewImg"),
+        document.getElementById("concertPreviewFilename"),
+        document.getElementById("concertPreviewFilesize"),
+        document.getElementById("concertRemoveImage"),
+      );
+
+      // ---------- RENDER: Gallery ----------
+      function renderAdminGallery() {
+        const container = document.getElementById("adminGalleryList");
+        if (data.gallery.length === 0) {
+          container.innerHTML =
+            '<div class="empty-state"><i class="fas fa-images"></i><p>No hay imágenes en la galería.</p></div>';
+          return;
         }
-      });
+        container.innerHTML = `
+          <div class="gallery-admin-grid">
+            ${data.gallery
+              .map(
+                (img, i) => `
+              <div class="gallery-admin-item">
+                <img src="${img}" alt="Imagen ${i + 1}" />
+                <button class="gallery-delete" data-index="${i}" title="Eliminar"><i class="fas fa-times"></i></button>
+                <span class="gallery-index">#${i + 1}</span>
+              </div>
+            `,
+              )
+              .join("")}
+          </div>
+        `;
+        container.querySelectorAll(".gallery-delete").forEach((btn) => {
+          btn.addEventListener("click", async function () {
+            const index = parseInt(this.dataset.index);
+            if (confirm("¿Eliminar esta imagen?")) {
+              data.gallery.splice(index, 1);
+              await saveData("gallery", data.gallery);
+              renderAdminGallery();
+            }
+          });
+        });
+      }
 
-      // ---------- Init ----------
+      document
+        .getElementById("adminGalleryForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const formStatus = document.getElementById("galleryFormStatus");
+          const files = document.getElementById("galleryFiles").files;
+          if (!files || files.length === 0) {
+            showStatus(
+              formStatus,
+              "error",
+              "❌ Seleccione al menos una imagen.",
+            );
+            return;
+          }
+          let uploaded = 0;
+          for (const file of files) {
+            showStatus(
+              formStatus,
+              "uploading",
+              `⏳ Subiendo ${uploaded + 1}/${files.length}...`,
+            );
+            const result = await uploadImage(file);
+            if (result.success) {
+              data.gallery.push(result.url);
+              uploaded++;
+            }
+          }
+          await saveData("gallery", data.gallery);
+          showStatus(formStatus, "success", `✓ ${uploaded} imágenes subidas!`);
+          this.reset();
+          renderAdminGallery();
+          setTimeout(() => {
+            formStatus.className = "form-status";
+            formStatus.textContent = "";
+          }, 3000);
+        });
 
-      // Check if already authenticated
+      // ---------- RENDER: Press ----------
+      function renderAdminPress() {
+        const container = document.getElementById("adminPressList");
+        if (data.press.length === 0) {
+          container.innerHTML =
+            '<div class="empty-state"><i class="fas fa-newspaper"></i><p>No hay artículos de prensa.</p></div>';
+          return;
+        }
+        container.innerHTML = data.press
+          .map(
+            (p, i) => `
+          <div class="admin-item">
+            <div class="item-info">
+              <div><h4 style="font-size:1rem;color:#fff;">${p.title}</h4><div class="item-preview">${p.magazine} • ${p.date}</div></div>
+            </div>
+            <div class="item-actions">
+              <button class="btn-edit" data-index="${i}" data-type="press"><i class="fas fa-pen"></i></button>
+              <button class="btn-delete" data-index="${i}" data-type="press"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+        `,
+          )
+          .join("");
+
+        container.querySelectorAll(".btn-edit").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const index = parseInt(this.dataset.index);
+            editPress(index);
+          });
+        });
+
+        container.querySelectorAll(".btn-delete").forEach((btn) => {
+          btn.addEventListener("click", async function () {
+            const index = parseInt(this.dataset.index);
+            const item = data.press[index];
+            if (confirm(`¿Eliminar "${item.title}"?`)) {
+              data.press.splice(index, 1);
+              await saveData("press", data.press);
+              renderAdminPress();
+            }
+          });
+        });
+      }
+
+      function editPress(index) {
+        const p = data.press[index];
+        document.getElementById("pressTitle").value = p.title;
+        document.getElementById("pressMagazine").value = p.magazine;
+        document.getElementById("pressDate").value = p.date;
+        document.getElementById("pressText").value = p.text || "";
+        editing.press = index;
+        document.getElementById("pressFormTitle").textContent =
+          "✏️ Editar artículo";
+        document.getElementById("pressSubmitBtn").innerHTML =
+          '<i class="fas fa-save"></i> Actualizar artículo';
+        document.getElementById("pressCancelBtn").style.display = "flex";
+        document
+          .getElementById("tab-press")
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      document
+        .getElementById("adminPressForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const formStatus = document.getElementById("pressFormStatus");
+          const title = document.getElementById("pressTitle").value.trim();
+          const magazine = document
+            .getElementById("pressMagazine")
+            .value.trim();
+          const date = document.getElementById("pressDate").value.trim();
+          const text = document.getElementById("pressText").value.trim();
+
+          if (!title || !magazine || !date || !text) {
+            showStatus(formStatus, "error", "❌ Complete todos los campos.");
+            return;
+          }
+
+          let images = [];
+          const fileInput = document.getElementById("pressImages");
+          if (fileInput.files && fileInput.files.length > 0) {
+            showStatus(formStatus, "uploading", "⏳ Subiendo imágenes...");
+            for (const file of fileInput.files) {
+              const result = await uploadImage(file);
+              if (result.success) images.push(result.url);
+            }
+          }
+
+          const newItem = { title, magazine, date, text, images };
+
+          if (editing.press !== null) {
+            // Keep existing images if no new ones uploaded
+            if (images.length === 0) {
+              newItem.images = data.press[editing.press].images || [];
+            }
+            data.press[editing.press] = newItem;
+            await saveData("press", data.press);
+            showStatus(formStatus, "success", "✓ Artículo actualizado!");
+            document.getElementById("pressCancelBtn").click();
+          } else {
+            data.press.push(newItem);
+            await saveData("press", data.press);
+            showStatus(formStatus, "success", "✓ Artículo agregado!");
+            this.reset();
+          }
+          renderAdminPress();
+          setTimeout(() => {
+            formStatus.className = "form-status";
+            formStatus.textContent = "";
+          }, 3000);
+        });
+
+      document
+        .getElementById("pressCancelBtn")
+        .addEventListener("click", function () {
+          editing.press = null;
+          document.getElementById("adminPressForm").reset();
+          document.getElementById("pressFormTitle").textContent =
+            "➕ Agregar nuevo artículo";
+          document.getElementById("pressSubmitBtn").innerHTML =
+            '<i class="fas fa-plus"></i> Agregar artículo';
+          this.style.display = "none";
+          document.getElementById("pressFormStatus").className = "form-status";
+          document.getElementById("pressFormStatus").textContent = "";
+        });
+
+      // ---------- RENDER: Music ----------
+      function renderAdminMusic() {
+        const container = document.getElementById("adminMusicList");
+        if (data.music.length === 0) {
+          container.innerHTML =
+            '<div class="empty-state"><i class="fas fa-headphones"></i><p>No hay canciones agregadas.</p></div>';
+          return;
+        }
+        container.innerHTML = data.music
+          .map(
+            (m, i) => `
+          <div class="admin-item">
+            <div class="item-info">
+              <div>
+                ${m.img ? `<img src="${m.img}" alt="" class="item-thumb" style="width:50px;height:50px;object-fit:cover;border-radius:4px;float:left;margin-right:1rem;" />` : ""}
+                <h4 style="font-size:1rem;color:#fff;">${m.title}</h4>
+                <div class="item-preview">${m.year || ""} ${m.audio ? "🎵 Con audio" : ""}</div>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="btn-edit" data-index="${i}" data-type="music"><i class="fas fa-pen"></i></button>
+              <button class="btn-delete" data-index="${i}" data-type="music"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+        `,
+          )
+          .join("");
+
+        container.querySelectorAll(".btn-edit").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const index = parseInt(this.dataset.index);
+            editMusic(index);
+          });
+        });
+
+        container.querySelectorAll(".btn-delete").forEach((btn) => {
+          btn.addEventListener("click", async function () {
+            const index = parseInt(this.dataset.index);
+            const item = data.music[index];
+            if (confirm(`¿Eliminar "${item.title}"?`)) {
+              data.music.splice(index, 1);
+              await saveData("music", data.music);
+              renderAdminMusic();
+            }
+          });
+        });
+      }
+
+      function editMusic(index) {
+        const m = data.music[index];
+        document.getElementById("musicTitle").value = m.title;
+        document.getElementById("musicYear").value = m.year || "";
+        if (m.img) {
+          document.getElementById("musicImageUrl").value = m.img;
+          // Trigger preview
+          const evt = new Event("input");
+          document.getElementById("musicImageUrl").dispatchEvent(evt);
+        }
+        editing.music = index;
+        document.getElementById("musicFormTitle").textContent =
+          "✏️ Editar canción";
+        document.getElementById("musicSubmitBtn").innerHTML =
+          '<i class="fas fa-save"></i> Actualizar canción';
+        document.getElementById("musicCancelBtn").style.display = "flex";
+        document
+          .getElementById("tab-music")
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      // Music form submit
+      document
+        .getElementById("adminMusicForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const formStatus = document.getElementById("musicFormStatus");
+          const title = document.getElementById("musicTitle").value.trim();
+          const year = document.getElementById("musicYear").value.trim();
+
+          if (!title) {
+            showStatus(formStatus, "error", "❌ Ingrese el título.");
+            return;
+          }
+
+          let img = "";
+          let audio = "";
+
+          const imgFile = document.getElementById("musicImageFile").files[0];
+          if (imgFile) {
+            showStatus(formStatus, "uploading", "⏳ Subiendo imagen...");
+            const result = await uploadImage(imgFile);
+            if (result.success) img = result.url;
+            else {
+              showStatus(formStatus, "error", "❌ " + result.message);
+              return;
+            }
+          }
+
+          const audioFile = document.getElementById("musicAudioFile").files[0];
+          if (audioFile) {
+            showStatus(formStatus, "uploading", "⏳ Subiendo audio...");
+            const result = await uploadAudio(audioFile);
+            if (result.success) audio = result.url;
+            else {
+              showStatus(formStatus, "error", "❌ " + result.message);
+              return;
+            }
+          }
+
+          const newItem = { title, year, img, audio };
+
+          if (editing.music !== null) {
+            // Preserve existing img/audio if not replaced
+            if (!img) newItem.img = data.music[editing.music].img || "";
+            if (!audio) newItem.audio = data.music[editing.music].audio || "";
+            data.music[editing.music] = newItem;
+            await saveData("music", data.music);
+            showStatus(formStatus, "success", "✓ Canción actualizada!");
+            document.getElementById("musicCancelBtn").click();
+          } else {
+            data.music.push(newItem);
+            await saveData("music", data.music);
+            showStatus(formStatus, "success", "✓ Canción agregada!");
+            this.reset();
+            document
+              .getElementById("musicImagePreview")
+              .classList.remove("show");
+          }
+          renderAdminMusic();
+          setTimeout(() => {
+            formStatus.className = "form-status";
+            formStatus.textContent = "";
+          }, 3000);
+        });
+
+      document
+        .getElementById("musicCancelBtn")
+        .addEventListener("click", function () {
+          editing.music = null;
+          document.getElementById("adminMusicForm").reset();
+          document.getElementById("musicImagePreview").classList.remove("show");
+          document.getElementById("musicFormTitle").textContent =
+            "➕ Agregar nueva canción";
+          document.getElementById("musicSubmitBtn").innerHTML =
+            '<i class="fas fa-plus"></i> Agregar canción';
+          this.style.display = "none";
+          document.getElementById("musicFormStatus").className = "form-status";
+          document.getElementById("musicFormStatus").textContent = "";
+        });
+
+      // Setup image preview for music
+      setupImagePreview(
+        document.getElementById("musicImageFile"),
+        document.getElementById("musicImageUrl"),
+        document.getElementById("musicImagePreview"),
+        document.getElementById("musicPreviewImg"),
+        document.getElementById("musicPreviewFilename"),
+        document.getElementById("musicPreviewFilesize"),
+        document.getElementById("musicRemoveImage"),
+      );
+
+      // ---------- RENDER: Videos ----------
+      function renderAdminVideos() {
+        const container = document.getElementById("adminVideosList");
+        if (data.videos.length === 0) {
+          container.innerHTML =
+            '<div class="empty-state"><i class="fas fa-video"></i><p>No hay videos agregados.</p></div>';
+          return;
+        }
+        container.innerHTML = data.videos
+          .map(
+            (v, i) => `
+          <div class="admin-item">
+            <div class="item-info">
+              <div>
+                <h4 style="font-size:1rem;color:#fff;">${v.title}</h4>
+                <div class="item-preview">${v.type || ""} ${v.ytId ? "🔗 YouTube" : ""}</div>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="btn-edit" data-index="${i}" data-type="videos"><i class="fas fa-pen"></i></button>
+              <button class="btn-delete" data-index="${i}" data-type="videos"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+        `,
+          )
+          .join("");
+
+        container.querySelectorAll(".btn-edit").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const index = parseInt(this.dataset.index);
+            editVideo(index);
+          });
+        });
+
+        container.querySelectorAll(".btn-delete").forEach((btn) => {
+          btn.addEventListener("click", async function () {
+            const index = parseInt(this.dataset.index);
+            const item = data.videos[index];
+            if (confirm(`¿Eliminar "${item.title}"?`)) {
+              data.videos.splice(index, 1);
+              await saveData("videos", data.videos);
+              renderAdminVideos();
+            }
+          });
+        });
+      }
+
+      function editVideo(index) {
+        const v = data.videos[index];
+        document.getElementById("videoTitle").value = v.title;
+        document.getElementById("videoType").value = v.type || "";
+        document.getElementById("videoYtId").value = v.ytId || "";
+        if (v.thumb) {
+          document.getElementById("videoThumbUrl").value = v.thumb;
+          const evt = new Event("input");
+          document.getElementById("videoThumbUrl").dispatchEvent(evt);
+        }
+        editing.videos = index;
+        document.getElementById("videoFormTitle").textContent =
+          "✏️ Editar video";
+        document.getElementById("videoSubmitBtn").innerHTML =
+          '<i class="fas fa-save"></i> Actualizar video';
+        document.getElementById("videoCancelBtn").style.display = "flex";
+        document
+          .getElementById("tab-videos")
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      // Videos form submit
+      document
+        .getElementById("adminVideosForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const formStatus = document.getElementById("videoFormStatus");
+          const title = document.getElementById("videoTitle").value.trim();
+          const type = document.getElementById("videoType").value.trim();
+          const ytId = document.getElementById("videoYtId").value.trim();
+
+          if (!title || !ytId) {
+            showStatus(
+              formStatus,
+              "error",
+              "❌ Complete título e ID de YouTube.",
+            );
+            return;
+          }
+
+          let thumb = "";
+
+          const thumbFile = document.getElementById("videoThumbFile").files[0];
+          if (thumbFile) {
+            showStatus(formStatus, "uploading", "⏳ Subiendo miniatura...");
+            const result = await uploadImage(thumbFile);
+            if (result.success) thumb = result.url;
+            else {
+              showStatus(formStatus, "error", "❌ " + result.message);
+              return;
+            }
+          }
+
+          const newItem = { title, type, ytId, thumb };
+
+          if (editing.videos !== null) {
+            if (!thumb) newItem.thumb = data.videos[editing.videos].thumb || "";
+            data.videos[editing.videos] = newItem;
+            await saveData("videos", data.videos);
+            showStatus(formStatus, "success", "✓ Video actualizado!");
+            document.getElementById("videoCancelBtn").click();
+          } else {
+            data.videos.push(newItem);
+            await saveData("videos", data.videos);
+            showStatus(formStatus, "success", "✓ Video agregado!");
+            this.reset();
+            document
+              .getElementById("videoThumbPreview")
+              .classList.remove("show");
+          }
+          renderAdminVideos();
+          setTimeout(() => {
+            formStatus.className = "form-status";
+            formStatus.textContent = "";
+          }, 3000);
+        });
+
+      document
+        .getElementById("videoCancelBtn")
+        .addEventListener("click", function () {
+          editing.videos = null;
+          document.getElementById("adminVideosForm").reset();
+          document.getElementById("videoThumbPreview").classList.remove("show");
+          document.getElementById("videoFormTitle").textContent =
+            "➕ Agregar nuevo video";
+          document.getElementById("videoSubmitBtn").innerHTML =
+            '<i class="fas fa-plus"></i> Agregar video';
+          this.style.display = "none";
+          document.getElementById("videoFormStatus").className = "form-status";
+          document.getElementById("videoFormStatus").textContent = "";
+        });
+
+      // Setup image preview for videos
+      setupImagePreview(
+        document.getElementById("videoThumbFile"),
+        document.getElementById("videoThumbUrl"),
+        document.getElementById("videoThumbPreview"),
+        document.getElementById("videoPreviewImg"),
+        document.getElementById("videoPreviewFilename"),
+        document.getElementById("videoPreviewFilesize"),
+        document.getElementById("videoRemoveImage"),
+      );
+
+      // ---------- Auto-login check ----------
       if (sessionStorage.getItem("adminAuthenticated") === "true") {
         loginDiv.style.display = "none";
         panelDiv.style.display = "block";
-        loadAndRenderConcerts();
+        loadAllAdminData();
       }
-
-      // Refresh concerts list every 30 seconds (in case of multiple admins)
-      setInterval(() => {
-        if (panelDiv.style.display !== "none") {
-          loadAndRenderConcerts();
-        }
-      }, 30000);
     </script>
   </body>
 </html>

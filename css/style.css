@@ -1365,3 +1365,264 @@ button {
     font-size: 1.1rem;
   }
 }
+
+/* ---------- Concert Images ---------- */
+.concert-item {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.8rem 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  transition: all var(--transition);
+}
+
+.concert-image-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+}
+
+.concert-image-container:hover {
+  border-color: var(--gold);
+  transform: scale(1.05);
+}
+
+.concert-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.concert-image-container:hover img {
+  transform: scale(1.1);
+}
+
+.concert-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.concert-image-container:hover .concert-image-overlay {
+  opacity: 1;
+}
+
+.concert-image-overlay i {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+/* Image Modal */
+.modal-content-image {
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content-image img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+#imageModal .modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: var(--gold);
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  z-index: 10;
+}
+
+/* ---------- Music Cards with Images ---------- */
+.music-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.music-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.music-art {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1a22 0%, #0b0b0e 100%);
+}
+
+.music-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+  opacity: 0.9;
+}
+
+.music-art .play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #0b0b0e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  opacity: 0;
+  transition: all var(--transition);
+  box-shadow: 0 10px 30px rgba(201, 168, 76, 0.4);
+  border: none;
+  cursor: pointer;
+}
+
+.music-card:hover .play-btn {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.music-art .play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1) !important;
+}
+
+/* ---------- Video Cards with Custom Thumbnails ---------- */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+}
+
+.video-card {
+  background: var(--bg-card);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+}
+
+.video-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+
+.video-thumb {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.video-card:hover .video-thumb img {
+  transform: scale(1.05);
+}
+
+.video-thumb .play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.9);
+  color: #0b0b0e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  padding-left: 4px;
+  transition: all var(--transition);
+}
+
+.video-card:hover .play-overlay {
+  background: var(--gold);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-info {
+  padding: 1.3rem 1.4rem;
+}
+
+.video-info h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.video-info .event-type {
+  color: var(--gold);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .concert-item {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .concert-image-container {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  .concert-date {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+
+  .concert-meta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .concert-image-container {
+    width: 100px;
+    height: 100px;
+  }
+}
