@@ -16,11 +16,19 @@
         "time": "17:30"
     },
     {
-        "day": "10",
-        "month": "Nov",
-        "title": "Las Ma\u00f1anitas. Concierto de Cumplea\u00f1os.",
-        "venue": "Sala Nezahualc\u00f3yotl",
-        "city": "CDMX, M\u00e9xico",
-        "time": "8:00"
+        "day": "5",
+        "month": "nov",
+        "title": "El Chavo Sinf\u00f3nico",
+        "venue": "La Vencindad del Chavo",
+        "city": "CDMX, MX",
+        "time": "15:00"
+    },
+    {
+        "day": "12",
+        "month": "nov",
+        "title": "Recordando a Chava Flores",
+        "venue": "Casa Museo Chava Flores",
+        "city": "CDMX, MX",
+        "time": "18:00"
     }
 ]
