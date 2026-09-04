@@ -327,7 +327,7 @@ function renderPress() {
             </div>
             <h3>${p.title}</h3>
             <div class="press-text">
-              ${p.text || ""}
+              ${p.text ? p.text.replace(/\n/g, "<br>") : ""}
             </div>
             <button class="press-toggle btn btn-outline btn-sm" data-index="${index}">
               <i class="fas fa-chevron-down"></i> <span>Читать полностью</span>
