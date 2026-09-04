@@ -1,4 +1,8 @@
 <?php
+// Debug logging - REMOVE AFTER TESTING
+error_log('POST request received');
+error_log('Input: ' . file_get_contents('php://input'));
+// REMOVE LINES ABOVE AFTER TESTING
 
 /**
  * Videos CRUD API

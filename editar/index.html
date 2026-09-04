@@ -1974,16 +1974,46 @@
         });
       }
 
+      <!-- function editVideo(index) { -->
+      <!-- const v = data.videos[index]; -->
+      <!-- document.getElementById("videoTitle").value = v.title; -->
+      <!-- document.getElementById("videoType").value = v.type || ""; -->
+      <!-- document.getElementById("videoYtId").value = v.ytId || ""; -->
+      <!-- if (v.thumb) { -->
+      <!-- document.getElementById("videoThumbUrl").value = v.thumb; -->
+      <!-- const evt = new Event("input"); -->
+      <!-- document.getElementById("videoThumbUrl").dispatchEvent(evt); -->
+      <!-- } -->
+      <!-- editing.videos = index; -->
+      <!-- document.getElementById("videoFormTitle").textContent = -->
+      <!-- "✏️ Editar video"; -->
+      <!-- document.getElementById("videoSubmitBtn").innerHTML = -->
+      <!-- '<i class="fas fa-save"></i> Actualizar video'; -->
+      <!-- document.getElementById("videoCancelBtn").style.display = "flex"; -->
+      <!-- document -->
+      <!-- .getElementById("tab-videos") -->
+      <!-- .scrollIntoView({ behavior: "smooth", block: "start" }); -->
+      <!-- } -->
+
       function editVideo(index) {
         const v = data.videos[index];
-        document.getElementById("videoTitle").value = v.title;
+        document.getElementById("videoTitle").value = v.title || "";
         document.getElementById("videoType").value = v.type || "";
         document.getElementById("videoYtId").value = v.ytId || "";
+
+        // Handle thumbnail preview
         if (v.thumb) {
           document.getElementById("videoThumbUrl").value = v.thumb;
-          const evt = new Event("input");
-          document.getElementById("videoThumbUrl").dispatchEvent(evt);
+          const preview = document.getElementById("videoThumbPreview");
+          const img = document.getElementById("videoPreviewImg");
+          const filename = document.getElementById("videoPreviewFilename");
+          img.src = v.thumb;
+          filename.textContent = v.thumb.split("/").pop();
+          preview.classList.add("show");
+        } else {
+          document.getElementById("videoThumbPreview").classList.remove("show");
         }
+
         editing.videos = index;
         document.getElementById("videoFormTitle").textContent =
           "✏️ Editar video";
@@ -1996,11 +2026,85 @@
       }
 
       // Videos form submit
+      <!-- document -->
+      <!-- .getElementById("adminVideosForm") -->
+      <!-- .addEventListener("submit", async function (e) { -->
+      <!-- e.preventDefault(); -->
+      <!-- const formStatus = document.getElementById("videoFormStatus"); -->
+      <!-- const title = document.getElementById("videoTitle").value.trim(); -->
+      <!-- const type = document.getElementById("videoType").value.trim(); -->
+      <!-- const ytId = document.getElementById("videoYtId").value.trim(); -->
+
+      <!-- if (!title || !ytId) { -->
+      <!-- showStatus( -->
+      <!-- formStatus, -->
+      <!-- "error", -->
+      <!-- "❌ Complete título e ID de YouTube.", -->
+      <!-- ); -->
+      <!-- return; -->
+      <!-- } -->
+
+      <!-- let thumb = ""; -->
+
+      <!-- const thumbFile = document.getElementById("videoThumbFile").files[0]; -->
+      <!-- if (thumbFile) { -->
+      <!-- showStatus(formStatus, "uploading", "⏳ Subiendo miniatura..."); -->
+      <!-- const result = await uploadImage(thumbFile); -->
+      <!-- if (result.success) thumb = result.url; -->
+      <!-- else { -->
+      <!-- showStatus(formStatus, "error", "❌ " + result.message); -->
+      <!-- return; -->
+      <!-- } -->
+      <!-- } -->
+
+      <!-- const newItem = { title, type, ytId, thumb }; -->
+
+      <!-- if (editing.videos !== null) { -->
+      <!-- if (!thumb) newItem.thumb = data.videos[editing.videos].thumb || ""; -->
+      <!-- data.videos[editing.videos] = newItem; -->
+      <!-- await saveData("videos", data.videos); -->
+      <!-- showStatus(formStatus, "success", "✓ Video actualizado!"); -->
+      <!-- document.getElementById("videoCancelBtn").click(); -->
+      <!-- } else { -->
+      <!-- data.videos.push(newItem); -->
+      <!-- await saveData("videos", data.videos); -->
+      <!-- showStatus(formStatus, "success", "✓ Video agregado!"); -->
+      <!-- this.reset(); -->
+      <!-- document -->
+      <!-- .getElementById("videoThumbPreview") -->
+      <!-- .classList.remove("show"); -->
+      <!-- } -->
+      <!-- renderAdminVideos(); -->
+      <!-- setTimeout(() => { -->
+      <!-- formStatus.className = "form-status"; -->
+      <!-- formStatus.textContent = ""; -->
+      <!-- }, 3000); -->
+      <!-- }); -->
+
+      <!-- document -->
+      <!-- .getElementById("videoCancelBtn") -->
+      <!-- .addEventListener("click", function () { -->
+      <!-- editing.videos = null; -->
+      <!-- document.getElementById("adminVideosForm").reset(); -->
+      <!-- document.getElementById("videoThumbPreview").classList.remove("show"); -->
+      <!-- document.getElementById("videoFormTitle").textContent = -->
+      <!-- "➕ Agregar nuevo video"; -->
+      <!-- document.getElementById("videoSubmitBtn").innerHTML = -->
+      <!-- '<i class="fas fa-plus"></i> Agregar video'; -->
+      <!-- this.style.display = "none"; -->
+      <!-- document.getElementById("videoFormStatus").className = "form-status"; -->
+      <!-- document.getElementById("videoFormStatus").textContent = ""; -->
+      <!-- }); -->
+
+      // Videos form submit - FIXED VERSION
       document
         .getElementById("adminVideosForm")
         .addEventListener("submit", async function (e) {
           e.preventDefault();
           const formStatus = document.getElementById("videoFormStatus");
+          const submitBtn = document.getElementById("videoSubmitBtn");
+          const originalBtnText = submitBtn.innerHTML;
+
           const title = document.getElementById("videoTitle").value.trim();
           const type = document.getElementById("videoType").value.trim();
           const ytId = document.getElementById("videoYtId").value.trim();
@@ -2014,56 +2118,75 @@
             return;
           }
 
-          let thumb = "";
+          // Show loading
+          submitBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+          submitBtn.disabled = true;
 
+          let thumb = "";
           const thumbFile = document.getElementById("videoThumbFile").files[0];
+
           if (thumbFile) {
             showStatus(formStatus, "uploading", "⏳ Subiendo miniatura...");
-            const result = await uploadImage(thumbFile);
-            if (result.success) thumb = result.url;
-            else {
-              showStatus(formStatus, "error", "❌ " + result.message);
+            try {
+              const formData = new FormData();
+              formData.append("image", thumbFile);
+              formData.append("type", "videos");
+              const response = await fetch("/api/upload-image.php", {
+                method: "POST",
+                body: formData,
+              });
+              const result = await response.json();
+              if (result.success) {
+                thumb = result.url;
+              } else {
+                showStatus(formStatus, "error", "❌ " + result.message);
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+                return;
+              }
+            } catch (error) {
+              showStatus(formStatus, "error", "❌ Error al subir la imagen");
+              submitBtn.innerHTML = originalBtnText;
+              submitBtn.disabled = false;
               return;
             }
           }
 
           const newItem = { title, type, ytId, thumb };
 
-          if (editing.videos !== null) {
-            if (!thumb) newItem.thumb = data.videos[editing.videos].thumb || "";
-            data.videos[editing.videos] = newItem;
-            await saveData("videos", data.videos);
-            showStatus(formStatus, "success", "✓ Video actualizado!");
-            document.getElementById("videoCancelBtn").click();
-          } else {
-            data.videos.push(newItem);
-            await saveData("videos", data.videos);
-            showStatus(formStatus, "success", "✓ Video agregado!");
-            this.reset();
-            document
-              .getElementById("videoThumbPreview")
-              .classList.remove("show");
+          try {
+            if (editing.videos !== null) {
+              if (!thumb)
+                newItem.thumb = data.videos[editing.videos].thumb || "";
+              data.videos[editing.videos] = newItem;
+              await saveData("videos", data.videos);
+              showStatus(formStatus, "success", "✓ Video actualizado!");
+              document.getElementById("videoCancelBtn").click();
+            } else {
+              data.videos.push(newItem);
+              await saveData("videos", data.videos);
+              showStatus(formStatus, "success", "✓ Video agregado!");
+              this.reset();
+              document
+                .getElementById("videoThumbPreview")
+                .classList.remove("show");
+            }
+            renderAdminVideos();
+          } catch (error) {
+            showStatus(
+              formStatus,
+              "error",
+              "❌ Error al guardar: " + error.message,
+            );
+          } finally {
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+            setTimeout(() => {
+              formStatus.className = "form-status";
+              formStatus.textContent = "";
+            }, 3000);
           }
-          renderAdminVideos();
-          setTimeout(() => {
-            formStatus.className = "form-status";
-            formStatus.textContent = "";
-          }, 3000);
-        });
-
-      document
-        .getElementById("videoCancelBtn")
-        .addEventListener("click", function () {
-          editing.videos = null;
-          document.getElementById("adminVideosForm").reset();
-          document.getElementById("videoThumbPreview").classList.remove("show");
-          document.getElementById("videoFormTitle").textContent =
-            "➕ Agregar nuevo video";
-          document.getElementById("videoSubmitBtn").innerHTML =
-            '<i class="fas fa-plus"></i> Agregar video';
-          this.style.display = "none";
-          document.getElementById("videoFormStatus").className = "form-status";
-          document.getElementById("videoFormStatus").textContent = "";
         });
 
       // Setup image preview for videos
