@@ -979,13 +979,50 @@
                 <label for="musicYear">Año</label>
                 <input type="text" id="musicYear" placeholder="ej. 2024" />
               </div>
+
+              <!-- <div class="form-group"> -->
+              <!-- <label for="musicImageFile">Imagen de portada (opcional)</label> -->
+              <!-- <input -->
+              <!-- type="file" -->
+              <!-- id="musicImageFile" -->
+              <!-- accept="image/jpeg,image/png,image/gif,image/webp" -->
+              <!-- /> -->
+              <!-- <div class="image-preview" id="musicImagePreview"> -->
+              <!-- <img id="musicPreviewImg" src="" alt="Vista previa" /> -->
+              <!-- <div class="preview-info"> -->
+              <!-- <span class="filename" id="musicPreviewFilename" -->
+              <!-- >imagen.jpg</span -->
+              <!-- > -->
+              <!-- <span class="filesize" id="musicPreviewFilesize">0 KB</span> -->
+              <!-- </div> -->
+              <!-- <button -->
+              <!-- type="button" -->
+              <!-- class="remove-image" -->
+              <!-- id="musicRemoveImage" -->
+              <!-- > -->
+              <!-- <i class="fas fa-times"></i> Eliminar -->
+              <!-- </button> -->
+              <!-- </div> -->
+              <!-- </div> -->
+
               <div class="form-group">
                 <label for="musicImageFile">Imagen de portada (opcional)</label>
-                <input
-                  type="file"
-                  id="musicImageFile"
-                  accept="image/jpeg,image/png,image/gif,image/webp"
-                />
+                <div class="file-input-wrapper">
+                  <input
+                    type="file"
+                    id="musicImageFile"
+                    accept="image/jpeg,image/png,image/gif,image/webp"
+                  />
+                  <span style="color: var(--text-dim); font-size: 0.8rem"
+                    >o</span
+                  >
+                  <input
+                    type="url"
+                    id="musicImageUrl"
+                    placeholder="Ingrese URL de imagen"
+                    style="flex: 1; min-width: 150px"
+                  />
+                </div>
                 <div class="image-preview" id="musicImagePreview">
                   <img id="musicPreviewImg" src="" alt="Vista previa" />
                   <div class="preview-info">
@@ -1003,6 +1040,7 @@
                   </button>
                 </div>
               </div>
+
               <div class="form-group">
                 <label for="musicAudioFile">Archivo MP3</label>
                 <input
@@ -1094,13 +1132,25 @@
                   https://www.youtube.com/watch?v=<strong>c0xHaeUXakc</strong>
                 </div>
               </div>
+
               <div class="form-group">
                 <label for="videoThumbFile">Miniatura (opcional)</label>
-                <input
-                  type="file"
-                  id="videoThumbFile"
-                  accept="image/jpeg,image/png,image/gif,image/webp"
-                />
+                <div class="file-input-wrapper">
+                  <input
+                    type="file"
+                    id="videoThumbFile"
+                    accept="image/jpeg,image/png,image/gif,image/webp"
+                  />
+                  <span style="color: var(--text-dim); font-size: 0.8rem"
+                    >o</span
+                  >
+                  <input
+                    type="url"
+                    id="videoThumbUrl"
+                    placeholder="Ingrese URL de imagen"
+                    style="flex: 1; min-width: 150px"
+                  />
+                </div>
                 <div class="image-preview" id="videoThumbPreview">
                   <img id="videoPreviewImg" src="" alt="Vista previa" />
                   <div class="preview-info">
@@ -1118,6 +1168,7 @@
                   </button>
                 </div>
               </div>
+
               <button
                 type="submit"
                 class="btn btn-primary"
@@ -1917,15 +1968,46 @@
         });
 
       // Setup image preview for music
-      setupImagePreview(
-        document.getElementById("musicImageFile"),
-        document.getElementById("musicImageUrl"),
-        document.getElementById("musicImagePreview"),
-        document.getElementById("musicPreviewImg"),
-        document.getElementById("musicPreviewFilename"),
-        document.getElementById("musicPreviewFilesize"),
-        document.getElementById("musicRemoveImage"),
-      );
+      <!-- setupImagePreview( -->
+      <!-- document.getElementById("musicImageFile"), -->
+      <!-- document.getElementById("musicImageUrl"), -->
+      <!-- document.getElementById("musicImagePreview"), -->
+      <!-- document.getElementById("musicPreviewImg"), -->
+      <!-- document.getElementById("musicPreviewFilename"), -->
+      <!-- document.getElementById("musicPreviewFilesize"), -->
+      <!-- document.getElementById("musicRemoveImage"), -->
+      <!-- ); -->
+
+      // Setup image preview for music (with null checks)
+      const musicFile = document.getElementById("musicImageFile");
+      const musicUrl = document.getElementById("musicImageUrl");
+      const musicPreview = document.getElementById("musicImagePreview");
+      const musicImg = document.getElementById("musicPreviewImg");
+      const musicFilename = document.getElementById("musicPreviewFilename");
+      const musicFilesize = document.getElementById("musicPreviewFilesize");
+      const musicRemove = document.getElementById("musicRemoveImage");
+
+      if (
+        musicFile &&
+        musicUrl &&
+        musicPreview &&
+        musicImg &&
+        musicFilename &&
+        musicFilesize &&
+        musicRemove
+      ) {
+        setupImagePreview(
+          musicFile,
+          musicUrl,
+          musicPreview,
+          musicImg,
+          musicFilename,
+          musicFilesize,
+          musicRemove,
+        );
+      } else {
+        console.warn("Music preview elements not found, skipping setup");
+      }
 
       // ---------- RENDER: Videos ----------
       function renderAdminVideos() {
@@ -2189,16 +2271,36 @@
           }
         });
 
-      // Setup image preview for videos
-      setupImagePreview(
-        document.getElementById("videoThumbFile"),
-        document.getElementById("videoThumbUrl"),
-        document.getElementById("videoThumbPreview"),
-        document.getElementById("videoPreviewImg"),
-        document.getElementById("videoPreviewFilename"),
-        document.getElementById("videoPreviewFilesize"),
-        document.getElementById("videoRemoveImage"),
-      );
+      // Setup image preview for videos (with null checks)
+      const videoFile = document.getElementById("videoThumbFile");
+      const videoUrl = document.getElementById("videoThumbUrl");
+      const videoPreview = document.getElementById("videoThumbPreview");
+      const videoImg = document.getElementById("videoPreviewImg");
+      const videoFilename = document.getElementById("videoPreviewFilename");
+      const videoFilesize = document.getElementById("videoPreviewFilesize");
+      const videoRemove = document.getElementById("videoRemoveImage");
+
+      if (
+        videoFile &&
+        videoUrl &&
+        videoPreview &&
+        videoImg &&
+        videoFilename &&
+        videoFilesize &&
+        videoRemove
+      ) {
+        setupImagePreview(
+          videoFile,
+          videoUrl,
+          videoPreview,
+          videoImg,
+          videoFilename,
+          videoFilesize,
+          videoRemove,
+        );
+      } else {
+        console.warn("Video preview elements not found, skipping setup");
+      }
 
       // ---------- Auto-login check ----------
       if (sessionStorage.getItem("adminAuthenticated") === "true") {
