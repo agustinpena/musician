@@ -335,7 +335,6 @@
         gap: 1rem;
       }
 
-      /* ---------- Tabs ---------- */
       .admin-tabs {
         display: flex;
         gap: 0.3rem;
@@ -377,7 +376,6 @@
         display: block;
       }
 
-      /* ---------- Admin List Items ---------- */
       .admin-item {
         display: grid;
         grid-template-columns: 1fr auto;
@@ -509,7 +507,6 @@
         margin-top: 0.5rem;
       }
 
-      /* ---------- Gallery Grid in Admin ---------- */
       .gallery-admin-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -979,32 +976,6 @@
                 <label for="musicYear">Año</label>
                 <input type="text" id="musicYear" placeholder="ej. 2024" />
               </div>
-
-              <!-- <div class="form-group"> -->
-              <!-- <label for="musicImageFile">Imagen de portada (opcional)</label> -->
-              <!-- <input -->
-              <!-- type="file" -->
-              <!-- id="musicImageFile" -->
-              <!-- accept="image/jpeg,image/png,image/gif,image/webp" -->
-              <!-- /> -->
-              <!-- <div class="image-preview" id="musicImagePreview"> -->
-              <!-- <img id="musicPreviewImg" src="" alt="Vista previa" /> -->
-              <!-- <div class="preview-info"> -->
-              <!-- <span class="filename" id="musicPreviewFilename" -->
-              <!-- >imagen.jpg</span -->
-              <!-- > -->
-              <!-- <span class="filesize" id="musicPreviewFilesize">0 KB</span> -->
-              <!-- </div> -->
-              <!-- <button -->
-              <!-- type="button" -->
-              <!-- class="remove-image" -->
-              <!-- id="musicRemoveImage" -->
-              <!-- > -->
-              <!-- <i class="fas fa-times"></i> Eliminar -->
-              <!-- </button> -->
-              <!-- </div> -->
-              <!-- </div> -->
-
               <div class="form-group">
                 <label for="musicImageFile">Imagen de portada (opcional)</label>
                 <div class="file-input-wrapper">
@@ -1040,7 +1011,6 @@
                   </button>
                 </div>
               </div>
-
               <div class="form-group">
                 <label for="musicAudioFile">Archivo MP3</label>
                 <input
@@ -1132,7 +1102,6 @@
                   https://www.youtube.com/watch?v=<strong>c0xHaeUXakc</strong>
                 </div>
               </div>
-
               <div class="form-group">
                 <label for="videoThumbFile">Miniatura (opcional)</label>
                 <div class="file-input-wrapper">
@@ -1168,7 +1137,6 @@
                   </button>
                 </div>
               </div>
-
               <button
                 type="submit"
                 class="btn btn-primary"
@@ -1271,6 +1239,11 @@
         previewFilesize,
         removeBtn,
       ) {
+        if (!fileInput || !urlInput || !previewContainer || !previewImg) {
+          console.warn("Missing elements for image preview setup");
+          return;
+        }
+
         fileInput.addEventListener("change", function () {
           if (this.files && this.files[0]) {
             const file = this.files[0];
@@ -1362,10 +1335,10 @@
         }
       }
 
-      // ---------- Upload functions ----------
-      async function uploadImage(file) {
+      async function uploadImage(file, type = "concerts") {
         const formData = new FormData();
         formData.append("image", file);
+        formData.append("type", type);
         const response = await fetch(UPLOAD_API, {
           method: "POST",
           body: formData,
@@ -1438,6 +1411,7 @@
       // ---------- RENDER: Concerts ----------
       function renderAdminConcerts() {
         const container = document.getElementById("adminConcertsList");
+        if (!container) return;
         if (data.concerts.length === 0) {
           container.innerHTML =
             '<div class="empty-state"><i class="fas fa-calendar-plus"></i><p>No hay conciertos agregados.</p></div>';
@@ -1486,17 +1460,21 @@
 
       function editConcert(index) {
         const c = data.concerts[index];
-        document.getElementById("concertDay").value = c.day;
-        document.getElementById("concertMonth").value = c.month;
-        document.getElementById("concertTitle").value = c.title;
-        document.getElementById("concertVenue").value = c.venue;
-        document.getElementById("concertCity").value = c.city;
-        document.getElementById("concertTime").value = c.time;
+        document.getElementById("concertDay").value = c.day || "";
+        document.getElementById("concertMonth").value = c.month || "";
+        document.getElementById("concertTitle").value = c.title || "";
+        document.getElementById("concertVenue").value = c.venue || "";
+        document.getElementById("concertCity").value = c.city || "";
+        document.getElementById("concertTime").value = c.time || "";
         if (c.image) {
           document.getElementById("concertImageUrl").value = c.image;
-          // Trigger preview
           const evt = new Event("input");
           document.getElementById("concertImageUrl").dispatchEvent(evt);
+        } else {
+          document.getElementById("concertImageUrl").value = "";
+          document
+            .getElementById("concertImagePreview")
+            .classList.remove("show");
         }
         editing.concerts = index;
         document.getElementById("concertFormTitle").textContent =
@@ -1546,12 +1524,11 @@
             return;
           }
 
-          // Handle image upload if file selected
           let finalImage = imageUrl || "";
           const fileInput = document.getElementById("concertImageFile");
           if (fileInput.files && fileInput.files[0]) {
             showStatus(formStatus, "uploading", "⏳ Subiendo imagen...");
-            const result = await uploadImage(fileInput.files[0]);
+            const result = await uploadImage(fileInput.files[0], "concerts");
             if (result.success) {
               finalImage = result.url;
             } else {
@@ -1569,6 +1546,13 @@
             time,
             image: finalImage,
           };
+
+          if (editing.concerts !== null) {
+            newItem.id = data.concerts[editing.concerts].id;
+          } else {
+            newItem.id =
+              Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+          }
 
           if (editing.concerts !== null) {
             data.concerts[editing.concerts] = newItem;
@@ -1623,6 +1607,7 @@
       // ---------- RENDER: Gallery ----------
       function renderAdminGallery() {
         const container = document.getElementById("adminGalleryList");
+        if (!container) return;
         if (data.gallery.length === 0) {
           container.innerHTML =
             '<div class="empty-state"><i class="fas fa-images"></i><p>No hay imágenes en la galería.</p></div>';
@@ -1676,7 +1661,7 @@
               "uploading",
               `⏳ Subiendo ${uploaded + 1}/${files.length}...`,
             );
-            const result = await uploadImage(file);
+            const result = await uploadImage(file, "gallery");
             if (result.success) {
               data.gallery.push(result.url);
               uploaded++;
@@ -1695,6 +1680,7 @@
       // ---------- RENDER: Press ----------
       function renderAdminPress() {
         const container = document.getElementById("adminPressList");
+        if (!container) return;
         if (data.press.length === 0) {
           container.innerHTML =
             '<div class="empty-state"><i class="fas fa-newspaper"></i><p>No hay artículos de prensa.</p></div>';
@@ -1738,9 +1724,9 @@
 
       function editPress(index) {
         const p = data.press[index];
-        document.getElementById("pressTitle").value = p.title;
-        document.getElementById("pressMagazine").value = p.magazine;
-        document.getElementById("pressDate").value = p.date;
+        document.getElementById("pressTitle").value = p.title || "";
+        document.getElementById("pressMagazine").value = p.magazine || "";
+        document.getElementById("pressDate").value = p.date || "";
         document.getElementById("pressText").value = p.text || "";
         editing.press = index;
         document.getElementById("pressFormTitle").textContent =
@@ -1775,7 +1761,7 @@
           if (fileInput.files && fileInput.files.length > 0) {
             showStatus(formStatus, "uploading", "⏳ Subiendo imágenes...");
             for (const file of fileInput.files) {
-              const result = await uploadImage(file);
+              const result = await uploadImage(file, "press");
               if (result.success) images.push(result.url);
             }
           }
@@ -1783,7 +1769,7 @@
           const newItem = { title, magazine, date, text, images };
 
           if (editing.press !== null) {
-            // Keep existing images if no new ones uploaded
+            newItem.id = data.press[editing.press].id;
             if (images.length === 0) {
               newItem.images = data.press[editing.press].images || [];
             }
@@ -1792,6 +1778,8 @@
             showStatus(formStatus, "success", "✓ Artículo actualizado!");
             document.getElementById("pressCancelBtn").click();
           } else {
+            newItem.id =
+              Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
             data.press.push(newItem);
             await saveData("press", data.press);
             showStatus(formStatus, "success", "✓ Artículo agregado!");
@@ -1821,6 +1809,7 @@
       // ---------- RENDER: Music ----------
       function renderAdminMusic() {
         const container = document.getElementById("adminMusicList");
+        if (!container) return;
         if (data.music.length === 0) {
           container.innerHTML =
             '<div class="empty-state"><i class="fas fa-headphones"></i><p>No hay canciones agregadas.</p></div>';
@@ -1868,13 +1857,15 @@
 
       function editMusic(index) {
         const m = data.music[index];
-        document.getElementById("musicTitle").value = m.title;
+        document.getElementById("musicTitle").value = m.title || "";
         document.getElementById("musicYear").value = m.year || "";
         if (m.img) {
           document.getElementById("musicImageUrl").value = m.img;
-          // Trigger preview
           const evt = new Event("input");
           document.getElementById("musicImageUrl").dispatchEvent(evt);
+        } else {
+          document.getElementById("musicImageUrl").value = "";
+          document.getElementById("musicImagePreview").classList.remove("show");
         }
         editing.music = index;
         document.getElementById("musicFormTitle").textContent =
@@ -1887,7 +1878,6 @@
           .scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
-      // Music form submit
       document
         .getElementById("adminMusicForm")
         .addEventListener("submit", async function (e) {
@@ -1907,7 +1897,7 @@
           const imgFile = document.getElementById("musicImageFile").files[0];
           if (imgFile) {
             showStatus(formStatus, "uploading", "⏳ Subiendo imagen...");
-            const result = await uploadImage(imgFile);
+            const result = await uploadImage(imgFile, "music");
             if (result.success) img = result.url;
             else {
               showStatus(formStatus, "error", "❌ " + result.message);
@@ -1929,7 +1919,7 @@
           const newItem = { title, year, img, audio };
 
           if (editing.music !== null) {
-            // Preserve existing img/audio if not replaced
+            newItem.id = data.music[editing.music].id;
             if (!img) newItem.img = data.music[editing.music].img || "";
             if (!audio) newItem.audio = data.music[editing.music].audio || "";
             data.music[editing.music] = newItem;
@@ -1937,6 +1927,8 @@
             showStatus(formStatus, "success", "✓ Canción actualizada!");
             document.getElementById("musicCancelBtn").click();
           } else {
+            newItem.id =
+              Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
             data.music.push(newItem);
             await saveData("music", data.music);
             showStatus(formStatus, "success", "✓ Canción agregada!");
@@ -1968,50 +1960,20 @@
         });
 
       // Setup image preview for music
-      <!-- setupImagePreview( -->
-      <!-- document.getElementById("musicImageFile"), -->
-      <!-- document.getElementById("musicImageUrl"), -->
-      <!-- document.getElementById("musicImagePreview"), -->
-      <!-- document.getElementById("musicPreviewImg"), -->
-      <!-- document.getElementById("musicPreviewFilename"), -->
-      <!-- document.getElementById("musicPreviewFilesize"), -->
-      <!-- document.getElementById("musicRemoveImage"), -->
-      <!-- ); -->
-
-      // Setup image preview for music (with null checks)
-      const musicFile = document.getElementById("musicImageFile");
-      const musicUrl = document.getElementById("musicImageUrl");
-      const musicPreview = document.getElementById("musicImagePreview");
-      const musicImg = document.getElementById("musicPreviewImg");
-      const musicFilename = document.getElementById("musicPreviewFilename");
-      const musicFilesize = document.getElementById("musicPreviewFilesize");
-      const musicRemove = document.getElementById("musicRemoveImage");
-
-      if (
-        musicFile &&
-        musicUrl &&
-        musicPreview &&
-        musicImg &&
-        musicFilename &&
-        musicFilesize &&
-        musicRemove
-      ) {
-        setupImagePreview(
-          musicFile,
-          musicUrl,
-          musicPreview,
-          musicImg,
-          musicFilename,
-          musicFilesize,
-          musicRemove,
-        );
-      } else {
-        console.warn("Music preview elements not found, skipping setup");
-      }
+      setupImagePreview(
+        document.getElementById("musicImageFile"),
+        document.getElementById("musicImageUrl"),
+        document.getElementById("musicImagePreview"),
+        document.getElementById("musicPreviewImg"),
+        document.getElementById("musicPreviewFilename"),
+        document.getElementById("musicPreviewFilesize"),
+        document.getElementById("musicRemoveImage"),
+      );
 
       // ---------- RENDER: Videos ----------
       function renderAdminVideos() {
         const container = document.getElementById("adminVideosList");
+        if (!container) return;
         if (data.videos.length === 0) {
           container.innerHTML =
             '<div class="empty-state"><i class="fas fa-video"></i><p>No hay videos agregados.</p></div>';
@@ -2056,46 +2018,19 @@
         });
       }
 
-      <!-- function editVideo(index) { -->
-      <!-- const v = data.videos[index]; -->
-      <!-- document.getElementById("videoTitle").value = v.title; -->
-      <!-- document.getElementById("videoType").value = v.type || ""; -->
-      <!-- document.getElementById("videoYtId").value = v.ytId || ""; -->
-      <!-- if (v.thumb) { -->
-      <!-- document.getElementById("videoThumbUrl").value = v.thumb; -->
-      <!-- const evt = new Event("input"); -->
-      <!-- document.getElementById("videoThumbUrl").dispatchEvent(evt); -->
-      <!-- } -->
-      <!-- editing.videos = index; -->
-      <!-- document.getElementById("videoFormTitle").textContent = -->
-      <!-- "✏️ Editar video"; -->
-      <!-- document.getElementById("videoSubmitBtn").innerHTML = -->
-      <!-- '<i class="fas fa-save"></i> Actualizar video'; -->
-      <!-- document.getElementById("videoCancelBtn").style.display = "flex"; -->
-      <!-- document -->
-      <!-- .getElementById("tab-videos") -->
-      <!-- .scrollIntoView({ behavior: "smooth", block: "start" }); -->
-      <!-- } -->
-
       function editVideo(index) {
         const v = data.videos[index];
         document.getElementById("videoTitle").value = v.title || "";
         document.getElementById("videoType").value = v.type || "";
         document.getElementById("videoYtId").value = v.ytId || "";
-
-        // Handle thumbnail preview
         if (v.thumb) {
           document.getElementById("videoThumbUrl").value = v.thumb;
-          const preview = document.getElementById("videoThumbPreview");
-          const img = document.getElementById("videoPreviewImg");
-          const filename = document.getElementById("videoPreviewFilename");
-          img.src = v.thumb;
-          filename.textContent = v.thumb.split("/").pop();
-          preview.classList.add("show");
+          const evt = new Event("input");
+          document.getElementById("videoThumbUrl").dispatchEvent(evt);
         } else {
+          document.getElementById("videoThumbUrl").value = "";
           document.getElementById("videoThumbPreview").classList.remove("show");
         }
-
         editing.videos = index;
         document.getElementById("videoFormTitle").textContent =
           "✏️ Editar video";
@@ -2107,78 +2042,6 @@
           .scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
-      // Videos form submit
-      <!-- document -->
-      <!-- .getElementById("adminVideosForm") -->
-      <!-- .addEventListener("submit", async function (e) { -->
-      <!-- e.preventDefault(); -->
-      <!-- const formStatus = document.getElementById("videoFormStatus"); -->
-      <!-- const title = document.getElementById("videoTitle").value.trim(); -->
-      <!-- const type = document.getElementById("videoType").value.trim(); -->
-      <!-- const ytId = document.getElementById("videoYtId").value.trim(); -->
-
-      <!-- if (!title || !ytId) { -->
-      <!-- showStatus( -->
-      <!-- formStatus, -->
-      <!-- "error", -->
-      <!-- "❌ Complete título e ID de YouTube.", -->
-      <!-- ); -->
-      <!-- return; -->
-      <!-- } -->
-
-      <!-- let thumb = ""; -->
-
-      <!-- const thumbFile = document.getElementById("videoThumbFile").files[0]; -->
-      <!-- if (thumbFile) { -->
-      <!-- showStatus(formStatus, "uploading", "⏳ Subiendo miniatura..."); -->
-      <!-- const result = await uploadImage(thumbFile); -->
-      <!-- if (result.success) thumb = result.url; -->
-      <!-- else { -->
-      <!-- showStatus(formStatus, "error", "❌ " + result.message); -->
-      <!-- return; -->
-      <!-- } -->
-      <!-- } -->
-
-      <!-- const newItem = { title, type, ytId, thumb }; -->
-
-      <!-- if (editing.videos !== null) { -->
-      <!-- if (!thumb) newItem.thumb = data.videos[editing.videos].thumb || ""; -->
-      <!-- data.videos[editing.videos] = newItem; -->
-      <!-- await saveData("videos", data.videos); -->
-      <!-- showStatus(formStatus, "success", "✓ Video actualizado!"); -->
-      <!-- document.getElementById("videoCancelBtn").click(); -->
-      <!-- } else { -->
-      <!-- data.videos.push(newItem); -->
-      <!-- await saveData("videos", data.videos); -->
-      <!-- showStatus(formStatus, "success", "✓ Video agregado!"); -->
-      <!-- this.reset(); -->
-      <!-- document -->
-      <!-- .getElementById("videoThumbPreview") -->
-      <!-- .classList.remove("show"); -->
-      <!-- } -->
-      <!-- renderAdminVideos(); -->
-      <!-- setTimeout(() => { -->
-      <!-- formStatus.className = "form-status"; -->
-      <!-- formStatus.textContent = ""; -->
-      <!-- }, 3000); -->
-      <!-- }); -->
-
-      <!-- document -->
-      <!-- .getElementById("videoCancelBtn") -->
-      <!-- .addEventListener("click", function () { -->
-      <!-- editing.videos = null; -->
-      <!-- document.getElementById("adminVideosForm").reset(); -->
-      <!-- document.getElementById("videoThumbPreview").classList.remove("show"); -->
-      <!-- document.getElementById("videoFormTitle").textContent = -->
-      <!-- "➕ Agregar nuevo video"; -->
-      <!-- document.getElementById("videoSubmitBtn").innerHTML = -->
-      <!-- '<i class="fas fa-plus"></i> Agregar video'; -->
-      <!-- this.style.display = "none"; -->
-      <!-- document.getElementById("videoFormStatus").className = "form-status"; -->
-      <!-- document.getElementById("videoFormStatus").textContent = ""; -->
-      <!-- }); -->
-
-      // Videos form submit - FIXED VERSION
       document
         .getElementById("adminVideosForm")
         .addEventListener("submit", async function (e) {
@@ -2200,7 +2063,6 @@
             return;
           }
 
-          // Show loading
           submitBtn.innerHTML =
             '<i class="fas fa-spinner fa-spin"></i> Guardando...';
           submitBtn.disabled = true;
@@ -2237,70 +2099,43 @@
 
           const newItem = { title, type, ytId, thumb };
 
-          try {
-            if (editing.videos !== null) {
-              if (!thumb)
-                newItem.thumb = data.videos[editing.videos].thumb || "";
-              data.videos[editing.videos] = newItem;
-              await saveData("videos", data.videos);
-              showStatus(formStatus, "success", "✓ Video actualizado!");
-              document.getElementById("videoCancelBtn").click();
-            } else {
-              data.videos.push(newItem);
-              await saveData("videos", data.videos);
-              showStatus(formStatus, "success", "✓ Video agregado!");
-              this.reset();
-              document
-                .getElementById("videoThumbPreview")
-                .classList.remove("show");
-            }
-            renderAdminVideos();
-          } catch (error) {
-            showStatus(
-              formStatus,
-              "error",
-              "❌ Error al guardar: " + error.message,
-            );
-          } finally {
-            submitBtn.innerHTML = originalBtnText;
-            submitBtn.disabled = false;
-            setTimeout(() => {
-              formStatus.className = "form-status";
-              formStatus.textContent = "";
-            }, 3000);
+          if (editing.videos !== null) {
+            newItem.id = data.videos[editing.videos].id;
+            if (!thumb) newItem.thumb = data.videos[editing.videos].thumb || "";
+            data.videos[editing.videos] = newItem;
+            await saveData("videos", data.videos);
+            showStatus(formStatus, "success", "✓ Video actualizado!");
+            document.getElementById("videoCancelBtn").click();
+          } else {
+            newItem.id =
+              Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+            data.videos.push(newItem);
+            await saveData("videos", data.videos);
+            showStatus(formStatus, "success", "✓ Video agregado!");
+            this.reset();
+            document
+              .getElementById("videoThumbPreview")
+              .classList.remove("show");
           }
+          renderAdminVideos();
+          submitBtn.innerHTML = originalBtnText;
+          submitBtn.disabled = false;
+          setTimeout(() => {
+            formStatus.className = "form-status";
+            formStatus.textContent = "";
+          }, 3000);
         });
 
-      // Setup image preview for videos (with null checks)
-      const videoFile = document.getElementById("videoThumbFile");
-      const videoUrl = document.getElementById("videoThumbUrl");
-      const videoPreview = document.getElementById("videoThumbPreview");
-      const videoImg = document.getElementById("videoPreviewImg");
-      const videoFilename = document.getElementById("videoPreviewFilename");
-      const videoFilesize = document.getElementById("videoPreviewFilesize");
-      const videoRemove = document.getElementById("videoRemoveImage");
-
-      if (
-        videoFile &&
-        videoUrl &&
-        videoPreview &&
-        videoImg &&
-        videoFilename &&
-        videoFilesize &&
-        videoRemove
-      ) {
-        setupImagePreview(
-          videoFile,
-          videoUrl,
-          videoPreview,
-          videoImg,
-          videoFilename,
-          videoFilesize,
-          videoRemove,
-        );
-      } else {
-        console.warn("Video preview elements not found, skipping setup");
-      }
+      // Setup image preview for videos
+      setupImagePreview(
+        document.getElementById("videoThumbFile"),
+        document.getElementById("videoThumbUrl"),
+        document.getElementById("videoThumbPreview"),
+        document.getElementById("videoPreviewImg"),
+        document.getElementById("videoPreviewFilename"),
+        document.getElementById("videoPreviewFilesize"),
+        document.getElementById("videoRemoveImage"),
+      );
 
       // ---------- Auto-login check ----------
       if (sessionStorage.getItem("adminAuthenticated") === "true") {

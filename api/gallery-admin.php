@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gallery CRUD API
+ * Gallery CRUD API - With file deletion
  */
 
 header('Content-Type: application/json');
@@ -25,12 +25,25 @@ if (!file_exists($dataFile)) {
     file_put_contents($dataFile, json_encode([], JSON_PRETTY_PRINT));
 }
 
+// Helper function to delete files
+function deleteFile($filepath)
+{
+    if (empty($filepath)) return false;
+    $fullPath = __DIR__ . '/..' . $filepath;
+    if (file_exists($fullPath)) {
+        return unlink($fullPath);
+    }
+    return false;
+}
+
+// GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $data = file_get_contents($dataFile);
     echo json_encode(json_decode($data, true) ?: []);
     exit;
 }
 
+// POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
 
@@ -50,6 +63,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         http_response_code(400);
         echo json_encode(['error' => 'Invalid data format']);
         exit;
+    }
+
+    // Check for deleted items (file cleanup)
+    $oldData = json_decode(file_get_contents($dataFile), true) ?: [];
+
+    // Find items that were removed (by comparing arrays)
+    $deletedItems = array_diff($oldData, $input['items']);
+
+    // Delete files from deleted items
+    foreach ($deletedItems as $item) {
+        if (!empty($item) && is_string($item)) {
+            deleteFile($item);
+        }
     }
 
     $result = file_put_contents($dataFile, json_encode($input['items'], JSON_PRETTY_PRINT));

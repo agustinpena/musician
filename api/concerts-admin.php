@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Concerts CRUD API
+ * Concerts CRUD API - With file deletion
  */
 
 header('Content-Type: application/json');
@@ -21,10 +21,19 @@ if (!is_dir($dataDir)) {
     mkdir($dataDir, 0755, true);
 }
 
-$defaultData = [];
-
 if (!file_exists($dataFile)) {
-    file_put_contents($dataFile, json_encode($defaultData, JSON_PRETTY_PRINT));
+    file_put_contents($dataFile, json_encode([], JSON_PRETTY_PRINT));
+}
+
+// Helper function to delete files
+function deleteFile($filepath)
+{
+    if (empty($filepath)) return false;
+    $fullPath = __DIR__ . '/..' . $filepath;
+    if (file_exists($fullPath)) {
+        return unlink($fullPath);
+    }
+    return false;
 }
 
 // GET
@@ -60,6 +69,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         http_response_code(400);
         echo json_encode(['error' => 'Invalid data format']);
         exit;
+    }
+
+    // Check for deleted items (file cleanup)
+    $oldData = json_decode(file_get_contents($dataFile), true) ?: [];
+
+    // Find items that were removed
+    $oldIds = array_map(function ($item) {
+        return $item['id'] ?? null;
+    }, $oldData);
+
+    $newIds = array_map(function ($item) {
+        return $item['id'] ?? null;
+    }, $input['items']);
+
+    // Items that were deleted
+    $deletedItems = array_filter($oldData, function ($item) use ($newIds) {
+        return !in_array($item['id'] ?? null, $newIds);
+    });
+
+    // Delete files from deleted items
+    foreach ($deletedItems as $item) {
+        if (isset($item['image']) && !empty($item['image'])) {
+            deleteFile($item['image']);
+        }
     }
 
     $result = file_put_contents($dataFile, json_encode($input['items'], JSON_PRETTY_PRINT));
